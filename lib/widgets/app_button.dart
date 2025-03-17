@@ -10,6 +10,8 @@ class AppButton extends StatelessWidget {
     this.bgColor,
     this.borderColor,
     this.borderWidth,
+    this.borderRadius,
+    this.textColor,
     super.key,
   });
 
@@ -18,32 +20,34 @@ class AppButton extends StatelessWidget {
   final Color? bgColor;
   final Color? borderColor;
   final double? borderWidth;
+  final double? borderRadius;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).textTheme;
-    return Container(
+    final theme = Theme.of(context);
+    return DecoratedBox(
       decoration: BoxDecoration(
         border: Border.all(
           color: borderColor ?? Colors.transparent,
           width: borderWidth ?? 1,
         ),
-        borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
+        borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderRadiusSmall),
       ),
       child: Material(
         color: bgColor ?? AppColor.primaryColor,
-        borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
+        borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderRadiusSmall),
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
+          borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderRadiusSmall),
           child: SizedBox(
-            width: double.maxFinite,
             height: 40.h,
             child: Center(
               child: Text(
                 text,
-                style: theme.titleSmall!.copyWith(
+                style: theme.textTheme.titleSmall!.copyWith(
                   fontWeight: FontWeight.bold,
+                  color: textColor ?? theme.colorScheme.onPrimary,
                 ),
               ),
             ),

@@ -12,15 +12,17 @@ final darkTheme = ThemeData(
 
   // Color Scheme
   colorScheme: ColorScheme.dark(
-    primary: AppColor.primaryColor,
-    secondary: AppColor.secondaryColor,
     surfaceContainerHighest: AppColor.backgroundColor,
     surface: AppColor.surfaceColor,
+    primary: AppColor.primaryColor,
+    secondary: AppColor.secondaryColor,
+    tertiary: AppColor.accentColor,
     error: AppColor.errorColor,
+
     onPrimary: AppColor.textPrimaryColor,
-    onSecondary: AppColor.textPrimaryColor,
-    onSurface: AppColor.textPrimaryColor,
-    onError: AppColor.textPrimaryColor,
+    onSecondary: AppColor.textSecondary1Color,
+    outline: AppColor.textSecondary2Color,
+    outlineVariant: AppColor.disabledColor,
   ),
 
   // Card Theme
@@ -31,6 +33,10 @@ final darkTheme = ThemeData(
 
   // Icon Theme
   iconTheme: IconThemeData(
+    color: AppColor.textSecondary1Color,
+  ),
+
+  primaryIconTheme: IconThemeData(
     color: AppColor.textPrimaryColor,
   ),
 

@@ -14,7 +14,7 @@ enum ValidationType {
 
 /// A custom TextFormField widget that provides various styling and validation options
 /// ignore: must_be_immutable - because we need to modify obscureText state
-class AppTextFormField extends StatefulWidget {
+class AppTextFormField extends StatelessWidget {
   AppTextFormField({
     super.key,
     required this.controller, // Text editing controller
@@ -32,7 +32,7 @@ class AppTextFormField extends StatefulWidget {
     this.obscureText = false, // Whether to hide the text (for passwords)
     this.textAlign, // Text alignment
     this.style, // Text style
-    this.validationType = ValidationType.notEmpty, // Type of validation to apply
+    this.validationType, // Type of validation to apply
     this.validator, // Custom validator function
     this.enableCounter = false, // Whether to show character counter
     this.buildCounter, // Custom counter builder
@@ -53,6 +53,52 @@ class AppTextFormField extends StatefulWidget {
     this.hintStyle, // Hint text style
     this.labelStyle, // Label text style
     this.errorText, // Custom error message
+    this.title, // title for textformfield
+    this.focusNode,
+    this.onChanged,
+  });
+
+  AppTextFormField.withTitle({
+    super.key,
+    required this.title, // title for textformfield
+    required this.controller, // Text editing controller
+    this.autovalidateMode, // When to validate the input
+    this.enabled = true, // Whether the field is enabled
+    this.canRequestFocus = true, // Whether the field can receive focus
+    this.expands = false, // Whether the field expands to fill its parent
+    this.obscuringCharacter = '•', // Character to show for obscured text
+    this.textInputAction, // Keyboard action button type
+    this.keyboardType, // Type of keyboard to show
+    this.minLength, // Minimum length for validation
+    this.maxLength, // Maximum length for input
+    this.maxLines = 1, // Maximum number of lines
+    this.minLines, // Minimum number of lines
+    this.obscureText = false, // Whether to hide the text (for passwords)
+    this.textAlign, // Text alignment
+    this.style, // Text style
+    this.validationType, // Type of validation to apply
+    this.validator, // Custom validator function
+    this.enableCounter = false, // Whether to show character counter
+    this.buildCounter, // Custom counter builder
+    this.contentPaddingVertical, // Vertical padding
+    this.contentPaddingHorizontal, // Horizontal padding
+    this.fillColor, // Background color
+    this.borderRadius, // Border corner radius
+    this.disabledBorderColor, // Border color when disabled
+    this.enabledBorderColor, // Border color when enabled
+    this.errorBorderColor, // Border color when error
+    this.focusedBorderColor, // Border color when focused
+    this.focusedErrorBorderColor, // Border color when focused with error
+    this.labelText, // Label text
+    this.hintText, // Hint text
+    this.suffixIcon, // Custom suffix icon
+    this.suffixIconColor, // Suffix icon color
+    this.floatingLabelBehavior, // How the label should behave
+    this.hintStyle, // Hint text style
+    this.labelStyle, // Label text style
+    this.errorText, // Custom error message
+    this.focusNode,
+    this.onChanged,
   });
 
   final TextEditingController controller;
@@ -72,7 +118,7 @@ class AppTextFormField extends StatefulWidget {
   bool obscureText;
   final TextAlign? textAlign;
   final TextStyle? style;
-  final ValidationType validationType;
+  final ValidationType? validationType;
   final FormFieldValidator<String>? validator;
   final Widget? suffixIcon;
   final Color? suffixIconColor;
@@ -92,14 +138,9 @@ class AppTextFormField extends StatefulWidget {
   final TextStyle? labelStyle;
   final TextStyle? hintStyle;
   final String? errorText;
-
-  @override
-  State<AppTextFormField> createState() => _AppTextFormFieldState();
-}
-
-class _AppTextFormFieldState extends State<AppTextFormField> {
-  /// Focus node for handling focus states
-  late FocusNode _focusNode;
+  final String? title;
+  final FocusNode? focusNode;
+  final Function(String value)? onChanged;
 
   /// Validates email format
   String? validateEmail(String? value) {
@@ -132,15 +173,15 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
   /// - Special characters
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      if (widget.validationType == ValidationType.password) {
+      if (validationType == ValidationType.password) {
         return AppString.enterPassword;
       } else {
         return AppString.enterRepeatPassword;
       }
     }
 
-    if (widget.minLength != null && value.length < widget.minLength!) {
-      return AppString.minimumCharacterPassword(widget.minLength!);
+    if (minLength != null && value.length < minLength!) {
+      return AppString.minimumCharacterPassword(minLength!);
     }
 
     RegExp upperCaseRegex = RegExp(r'[A-Z]');
@@ -161,14 +202,14 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
   /// Basic validation for required fields
   String? validateNotEmpty(String? value) {
     if (value == null || value.isEmpty) {
-      return widget.errorText ?? AppString.thisFieldMustNotBeEmpty;
+      return errorText ?? AppString.thisFieldMustNotBeEmpty;
     }
     return null;
   }
 
   /// Selects appropriate validation based on ValidationType
   String? selectValidatorType(String? value) {
-    switch (widget.validationType) {
+    switch (validationType) {
       case ValidationType.notEmpty:
         return validateNotEmpty(value);
 
@@ -183,86 +224,81 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
 
       case ValidationType.phoneNumber:
         return validatePhoneNumber(value);
+      default:
+        return null;
     }
   }
 
   @override
-  void initState() {
-    super.initState();
-    _focusNode = FocusNode();
-  }
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      // Basic configuration
-      focusNode: _focusNode,
-      controller: widget.controller,
-      autovalidateMode: widget.autovalidateMode ?? AutovalidateMode.onUserInteraction,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (title != null)
+          Text(
+            title!,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+        AppDimens.vSpaceVeryVerySmall,
+        TextFormField(
+          // Basic configuration
+          focusNode: focusNode,
+          controller: controller,
+          autovalidateMode: autovalidateMode ?? AutovalidateMode.onUserInteraction,
+          onChanged: onChanged,
 
-      // Input behavior
-      enabled: widget.enabled,
-      canRequestFocus: widget.canRequestFocus,
-      expands: widget.expands,
-      obscuringCharacter: widget.obscuringCharacter,
+          // Input behavior
+          enabled: enabled,
+          canRequestFocus: canRequestFocus,
+          expands: expands,
+          obscuringCharacter: obscuringCharacter,
 
-      // Keyboard configuration
-      textInputAction: widget.textInputAction ?? TextInputAction.done,
-      keyboardType: widget.keyboardType ?? TextInputType.text,
+          // Keyboard configuration
+          textInputAction: textInputAction ?? TextInputAction.done,
+          keyboardType: keyboardType ?? TextInputType.text,
 
-      // Text layout
-      maxLength: widget.maxLength,
-      maxLines: widget.maxLines,
-      minLines: widget.minLines,
-      obscureText: widget.obscureText,
-      textAlignVertical: TextAlignVertical.center,
-      textAlign: widget.textAlign ?? TextAlign.start,
+          // Text layout
+          maxLength: maxLength,
+          maxLines: maxLines,
+          minLines: minLines,
+          obscureText: obscureText,
+          textAlignVertical: TextAlignVertical.center,
+          textAlign: textAlign ?? TextAlign.start,
 
-      // Styling
-      style: widget.style ?? Theme.of(context).textTheme.bodyMedium,
+          // Styling
+          style: style ?? Theme.of(context).textTheme.bodyMedium,
 
-      // Validation
-      validator: widget.validator ?? selectValidatorType,
+          // Validation
+          validator: validator ?? selectValidatorType,
 
-      // Focus handling
-      onTapOutside: (event) {
-        if (_focusNode.hasFocus) {
-          _focusNode.unfocus();
-        }
-      },
+          // Counter
+          buildCounter: buildCounter,
 
-      // Counter
-      buildCounter: widget.buildCounter,
-
-      // Decoration (uses theme with custom overrides)
-      decoration: InputDecoration(
-        counter: widget.enableCounter ? null : const SizedBox.shrink(),
-        contentPadding: EdgeInsets.symmetric(
-          vertical: widget.contentPaddingVertical ?? AppDimens.paddingSmall,
-          horizontal: widget.contentPaddingHorizontal ?? AppDimens.paddingLarge,
+          // Decoration (uses theme with custom overrides)
+          decoration: InputDecoration(
+            counter: enableCounter ? null : const SizedBox.shrink(),
+            contentPadding: EdgeInsets.symmetric(
+              vertical: contentPaddingVertical ?? AppDimens.paddingSmall,
+              horizontal: contentPaddingHorizontal ?? AppDimens.paddingLarge,
+            ),
+            labelText: labelText,
+            hintText: hintText,
+            labelStyle: labelStyle ?? Theme.of(context).inputDecorationTheme.labelStyle,
+            hintStyle: hintStyle ?? Theme.of(context).inputDecorationTheme.hintStyle,
+            errorMaxLines: 2,
+            filled: Theme.of(context).inputDecorationTheme.filled,
+            fillColor: fillColor ?? Theme.of(context).inputDecorationTheme.fillColor,
+            border: Theme.of(context).inputDecorationTheme.border,
+            enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+            focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+            errorBorder: Theme.of(context).inputDecorationTheme.errorBorder,
+            focusedErrorBorder: Theme.of(context).inputDecorationTheme.focusedErrorBorder,
+            suffixIcon: suffixIcon,
+            suffixIconColor:
+                suffixIconColor ?? Theme.of(context).inputDecorationTheme.suffixIconColor,
+          ),
         ),
-        labelText: widget.labelText,
-        hintText: widget.hintText,
-        labelStyle: widget.labelStyle ?? Theme.of(context).inputDecorationTheme.labelStyle,
-        hintStyle: widget.hintStyle ?? Theme.of(context).inputDecorationTheme.hintStyle,
-        errorMaxLines: 2,
-        filled: Theme.of(context).inputDecorationTheme.filled,
-        fillColor: widget.fillColor ?? Theme.of(context).inputDecorationTheme.fillColor,
-        border: Theme.of(context).inputDecorationTheme.border,
-        enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-        focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-        errorBorder: Theme.of(context).inputDecorationTheme.errorBorder,
-        focusedErrorBorder: Theme.of(context).inputDecorationTheme.focusedErrorBorder,
-        suffixIcon: widget.suffixIcon,
-        suffixIconColor:
-            widget.suffixIconColor ?? Theme.of(context).inputDecorationTheme.suffixIconColor,
-      ),
+      ],
     );
   }
 }

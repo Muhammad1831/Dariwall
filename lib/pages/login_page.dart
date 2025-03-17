@@ -56,21 +56,13 @@ class _LoginPageState extends State<LoginPage> {
                   // enter user account text
                   Text(
                     AppString.enterUserAccount,
-                    style: theme.headlineSmall,
+                    style: theme.headlineSmall!.copyWith(fontWeight: FontWeight.bold),
                   ),
                   AppDimens.vSpaceExtraLarge,
-                  // phone number title
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      AppString.phoneNumber,
-                      style: theme.titleSmall,
-                    ),
-                  ),
-                  AppDimens.vSpaceVerySmall,
                   // phone number input field
-                  AppTextFormField(
+                  AppTextFormField.withTitle(
                     controller: phoneNumber,
+                    title: AppString.phoneNumber,
                     hintText: AppString.phoneHint,
                     keyboardType: TextInputType.phone,
                     textInputAction: TextInputAction.next,
@@ -78,18 +70,10 @@ class _LoginPageState extends State<LoginPage> {
                     suffixIcon: Icon(Icons.person_outline_rounded),
                   ),
                   AppDimens.vSpaceMedium,
-                  // password title
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      AppString.password,
-                      style: theme.titleSmall,
-                    ),
-                  ),
-                  AppDimens.vSpaceVerySmall,
                   // password input field
-                  AppTextFormField(
+                  AppTextFormField.withTitle(
                     controller: password,
+                    title: AppString.password,
                     hintText: AppString.passHint,
                     validationType: ValidationType.password,
                     obscureText: obscureText,
@@ -118,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: () {},
                     text: AppString.enterInAccount,
                   ),
-                  SizedBox(height: 100.h),
+                  SizedBox(height: 100.r),
                   // dont have account text and create account button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
