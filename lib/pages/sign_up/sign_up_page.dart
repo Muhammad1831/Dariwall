@@ -773,7 +773,10 @@ class _UploadStepState extends State<UploadStep> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Image.asset(AppImages.card),
+                      Image.asset(
+                        AppImages.card,
+                        fit: BoxFit.scaleDown,
+                      ),
                       AppDimens.vSpaceLarge,
                       Text(
                         AppString.noDocumentUploaded,

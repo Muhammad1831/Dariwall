@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:ostad/pages/login_page.dart';
-import 'package:ostad/pages/sign_up_page.dart';
+import 'package:ostad/pages/forget_password/forget_password_page.dart';
+import 'package:ostad/pages/login/login_page.dart';
+import 'package:ostad/pages/sign_up/sign_up_page.dart';
 import 'package:ostad/style/app_theme.dart';
 
 Future<void> main() async {
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
             Locale('fa', 'IR'),
           ],
           theme: darkTheme,
-          home: SignUpPage(),
+          home: ForgetPasswordPage(),
         );
       },
     );
