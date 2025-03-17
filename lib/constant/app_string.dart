@@ -6,6 +6,8 @@ abstract class AppString {
   static const String phoneNumber = 'شماره تلفن همراه';
   static const String password = 'رمز عبور';
   static const String repeatPassword = 'تکرار رمز عبور';
+  static const String newPassword = 'رمز عبور جدید';
+  static const String newRepeatPassword = 'تکرار رمز عبور جدید';
   static const String enterInAccount = 'ورود به حساب';
   static const String forgotPassword = 'فراموشی رمز عبور';
   static const String dontHaveAccount = 'حساب کاربری ندارید؟';
