@@ -13,12 +13,14 @@ abstract class AppTextStyle {
     fontFamily: iranSansWeb,
     fontSize: 32.sp,
     fontWeight: FontWeight.w500,
+    color: AppColor.textPrimaryColor,
   );
   // display medium
   static TextStyle displayMediumDark = TextStyle(
     fontFamily: timesNewRoman,
     fontSize: 24.sp,
     fontWeight: FontWeight.w500,
+    color: AppColor.textPrimaryColor,
   );
   // display small
   static TextStyle displaySmallDark = TextStyle(
@@ -33,18 +35,20 @@ abstract class AppTextStyle {
     fontFamily: iranSansWeb,
     fontSize: 28.sp,
     fontWeight: FontWeight.w500,
+    color: AppColor.textSecondary1Color,
   );
   // headline medium
   static TextStyle headlineMediumDark = TextStyle(
     fontFamily: iranSansWeb,
     fontSize: 24.sp,
     fontWeight: FontWeight.w500,
+    color: AppColor.textSecondary1Color,
   );
   // headline small
   static TextStyle headlineSmallDark = TextStyle(
     fontFamily: iranSansWeb,
     fontSize: 18.sp,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w500,
     color: AppColor.textSecondary1Color,
   );
 
@@ -53,6 +57,7 @@ abstract class AppTextStyle {
     fontFamily: iranSansWeb,
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
+    color: AppColor.textSecondary2Color,
   );
   // label medium
   static TextStyle labelMediumDark = TextStyle(
@@ -66,6 +71,7 @@ abstract class AppTextStyle {
     fontFamily: iranSansWeb,
     fontSize: 12.sp,
     fontWeight: FontWeight.w500,
+    color: AppColor.textSecondary2Color,
   );
 
   // title small
@@ -80,12 +86,14 @@ abstract class AppTextStyle {
     fontFamily: iranSansWeb,
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
+    color: AppColor.textPrimaryColor,
   );
   // title large
   static TextStyle titleLargeDark = TextStyle(
     fontFamily: iranSansWeb,
     fontSize: 20.sp,
     fontWeight: FontWeight.w500,
+    color: AppColor.textPrimaryColor,
   );
 
   // body large
@@ -93,6 +101,7 @@ abstract class AppTextStyle {
     fontFamily: iranSansWeb,
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
+    color: AppColor.textPrimaryColor,
   );
   // body medium
   static TextStyle bodyMediumDark = TextStyle(

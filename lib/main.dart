@@ -2,10 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ostad/pages/login_page.dart';
+import 'package:ostad/pages/sign_up_page.dart';
 import 'package:ostad/style/app_theme.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(
+      // DevicePreview(
+      //   enabled: !kReleaseMode,
+      //   builder: (context) => MyApp(), // Wrap your app
+      // ),
+      MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,7 +38,7 @@ class MyApp extends StatelessWidget {
             Locale('fa', 'IR'),
           ],
           theme: darkTheme,
-          home: LoginPage(),
+          home: SignUpPage(),
         );
       },
     );
