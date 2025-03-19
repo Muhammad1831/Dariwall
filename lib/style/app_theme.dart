@@ -10,6 +10,31 @@ final darkTheme = ThemeData(
   // Scaffold Background Color
   scaffoldBackgroundColor: AppColor.backgroundColor,
 
+  snackBarTheme: SnackBarThemeData(
+    backgroundColor: AppColor.surfaceColor,
+    contentTextStyle: AppTextStyle.titleSmallDark,
+  ),
+
+  navigationBarTheme: NavigationBarThemeData(
+    backgroundColor: AppColor.surfaceColor,
+    iconTheme: WidgetStatePropertyAll(
+      IconThemeData(
+        color: AppColor.textPrimaryColor,
+      ),
+    ),
+    labelTextStyle: WidgetStatePropertyAll(AppTextStyle.bodySmallDark),
+  ),
+
+  drawerTheme: DrawerThemeData(
+    backgroundColor: AppColor.backgroundColor,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topRight: Radius.circular(AppDimens.borderRadiusSmall),
+        bottomRight: Radius.circular(AppDimens.borderRadiusSmall),
+      ),
+    ),
+  ),
+
   // Color Scheme
   colorScheme: ColorScheme.dark(
     surfaceContainerHighest: AppColor.backgroundColor,
@@ -18,7 +43,6 @@ final darkTheme = ThemeData(
     secondary: AppColor.secondaryColor,
     tertiary: AppColor.accentColor,
     error: AppColor.errorColor,
-
     onPrimary: AppColor.textPrimaryColor,
     onSecondary: AppColor.textSecondary1Color,
     outline: AppColor.textSecondary2Color,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ostad/constant/app_dimens.dart';
 import 'package:ostad/constant/app_string.dart';
-import 'package:ostad/extensions/string_extension.dart';
+import 'package:ostad/utils/extensions.dart';
 
 /// Defines the types of validation that can be applied to the text field
 enum ValidationType {

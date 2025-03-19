@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ostad/constant/app_dimens.dart';
 import 'package:ostad/constant/app_string.dart';
 import 'package:ostad/pages/forget_password/widget/enter_email.dart';
@@ -57,10 +58,15 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
               AppHeader(
                 headerText: AppString.forgotPassword,
                 onTap: () {
-                  previousStep();
+                  if (Step.information == currentStep) {
+                    GoRouter.of(context).pop();
+                  } else {
+                    previousStep();
+                  }
                 },
               ),
               AppDimens.vSpaceVeryLarge,
+
               // progress bar
               Row(
                 children: [
@@ -144,7 +150,9 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                   ),
                 ],
               ),
+
               AppDimens.vSpaceMedium,
+
               if (currentStep == Step.information)
                 EnterEmailStep(
                   onTapContinue: (email) {

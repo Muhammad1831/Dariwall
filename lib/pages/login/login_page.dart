@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ostad/constant/app_color.dart';
 import 'package:ostad/constant/app_dimens.dart';
 import 'package:ostad/constant/app_images.dart';
 import 'package:ostad/constant/app_string.dart';
+import 'package:ostad/route/app_route_name.dart';
 import 'package:ostad/widgets/app_button.dart';
 import 'package:ostad/widgets/app_text_field.dart';
 
@@ -87,8 +89,9 @@ class _LoginPageState extends State<LoginPage> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: GestureDetector(
-                      //TODO: add forgot password page
-                      onTap: () {},
+                      onTap: () {
+                        GoRouter.of(context).push(AppRouteName.forgetPassword);
+                      },
                       child: Text(
                         AppString.forgotPassword,
                         style: theme.bodySmall!.copyWith(decoration: TextDecoration.underline),
@@ -98,8 +101,9 @@ class _LoginPageState extends State<LoginPage> {
                   AppDimens.vSpaceVeryLarge,
                   // login button
                   AppButton(
-                    //TODO: add login page
-                    onTap: () {},
+                    onTap: () {
+                      GoRouter.of(context).go(AppRouteName.home);
+                    },
                     text: AppString.enterInAccount,
                   ),
                   SizedBox(height: 100.r),
@@ -113,8 +117,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       AppDimens.hSpaceVerySmall,
                       GestureDetector(
-                        //TODO: create account
-                        onTap: () {},
+                        onTap: () {
+                          GoRouter.of(context).push(AppRouteName.signUp);
+                        },
                         child: Text(
                           AppString.createAccount,
                           style: theme.bodyMedium!.copyWith(color: AppColor.primaryColor),
