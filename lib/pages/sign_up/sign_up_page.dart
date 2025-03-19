@@ -1,12 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:ostad/constant/app_color.dart';
 import 'package:ostad/constant/app_dimens.dart';
 import 'package:ostad/constant/app_images.dart';
 import 'package:ostad/constant/app_string.dart';
+import 'package:ostad/providers/image_picker_provider.dart';
 import 'package:ostad/widgets/app_button.dart';
 import 'package:ostad/widgets/app_header.dart';
 import 'package:ostad/widgets/app_text_field.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:provider/provider.dart';
 
 enum Sex { none, male, female }
 
@@ -59,12 +66,15 @@ class _SignUpPageState extends State<SignUpPage> {
             vertical: AppDimens.paddingVeryLarge,
           ),
           child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppHeader(
                 headerText: AppString.createUserAccount,
                 onTap: () {
-                  previousStep();
+                  if (Step.information == currentStep) {
+                    GoRouter.of(context).pop();
+                  } else {
+                    previousStep();
+                  }
                 },
               ),
               AppDimens.vSpaceVeryLarge,
@@ -237,8 +247,11 @@ class _SignUpPageState extends State<SignUpPage> {
                   onTapContinue: nextStep,
                 ),
               if (currentStep == Step.upload)
-                UploadStep(
-                  onTapConfirm: () {},
+                ChangeNotifierProvider(
+                  create: (context) => ImagePickerProvider(),
+                  child: UploadStep(
+                    onTapConfirm: () {},
+                  ),
                 ),
             ],
           ),
@@ -745,64 +758,104 @@ class UploadStep extends StatefulWidget {
 }
 
 class _UploadStepState extends State<UploadStep> {
-  bool imageUploaded = false;
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          AppDimens.vSpaceExtraLarge,
-          DottedBorder(
-            borderType: BorderType.RRect,
-            radius: Radius.circular(AppDimens.borderRadiusMedium),
-            color: theme.colorScheme.outline,
-            strokeWidth: 0.5,
-            dashPattern: const [4, 4],
-            child: InkWell(
-              //TODO: Add image picker
-              onTap: () {},
-              borderRadius: BorderRadius.circular(AppDimens.borderRadiusMedium),
-              child: SizedBox(
-                width: double.maxFinite,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: AppDimens.veryLarge),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Image.asset(
-                        AppImages.card,
-                        fit: BoxFit.scaleDown,
-                      ),
-                      AppDimens.vSpaceLarge,
-                      Text(
-                        AppString.noDocumentUploaded,
-                        style: theme.textTheme.titleMedium,
-                      ),
-                      AppDimens.vSpaceMedium,
-                      Text(
-                        AppString.uploadImage,
-                        style: theme.textTheme.bodySmall!.copyWith(
-                          color: theme.colorScheme.tertiary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+      child: Consumer<ImagePickerProvider>(
+        builder: (context, provider, child) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              AppDimens.vSpaceExtraLarge,
+              InkWell(
+                onTap: () {
+                  context.read<ImagePickerProvider>().pickImage(
+                        source: ImageSource.gallery,
+                      );
+                },
+                borderRadius: BorderRadius.circular(AppDimens.borderRadiusMedium),
+                child: DottedBorder(
+                  borderType: BorderType.RRect,
+                  radius: Radius.circular(AppDimens.borderRadiusMedium),
+                  color: theme.colorScheme.outline,
+                  strokeWidth: 0.5,
+                  dashPattern: const [4, 4],
+                  padding: EdgeInsets.symmetric(
+                    vertical: AppDimens.veryLarge,
+                    horizontal: AppDimens.large,
+                  ),
+                  child: SizedBox(
+                    width: double.maxFinite,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        provider.image != null
+                            ? SizedBox(
+                                height: 160.r,
+                                child: Image.file(
+                                  File(
+                                    provider.image!.path,
+                                  ),
+                                  fit: BoxFit.scaleDown,
+                                ),
+                              )
+                            : Image.asset(
+                                AppImages.card,
+                                fit: BoxFit.scaleDown,
+                              ),
+                        AppDimens.vSpaceLarge,
+                        provider.image == null
+                            ? Text(
+                                AppString.noDocumentUploaded,
+                                style: theme.textTheme.titleMedium,
+                              )
+                            : Row(
+                                spacing: AppDimens.veryVerySmall,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.check,
+                                    color: AppColor.successColor,
+                                  ),
+                                  Text(
+                                    AppString.imageUploadedSuccessfuly,
+                                    style: theme.textTheme.bodyMedium!
+                                        .copyWith(color: AppColor.successColor),
+                                  )
+                                ],
+                              ),
+                        AppDimens.vSpaceMedium,
+                        provider.image == null
+                            ? Text(
+                                AppString.uploadImage,
+                                style: theme.textTheme.bodySmall!.copyWith(
+                                  color: theme.colorScheme.tertiary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            : Text(
+                                AppString.uploadNewImage,
+                                style: theme.textTheme.bodySmall!.copyWith(
+                                  color: theme.colorScheme.tertiary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-          const Spacer(),
-          AppButton(
-            text: AppString.confirm,
-            onTap: widget.onTapConfirm,
-            bgColor: imageUploaded ? null : theme.cardTheme.color,
-          ),
-        ],
+              const Spacer(),
+              AppButton(
+                text: AppString.confirm,
+                onTap: widget.onTapConfirm,
+                bgColor: provider.image != null ? null : theme.cardTheme.color,
+              ),
+            ],
+          );
+        },
       ),
     );
   }

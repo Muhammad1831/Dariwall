@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ostad/constant/app_color.dart';
 import 'package:ostad/constant/app_dimens.dart';
 
@@ -12,6 +13,8 @@ class AppButton extends StatelessWidget {
     this.borderWidth,
     this.borderRadius,
     this.textColor,
+    this.icon,
+    this.iconColor,
     super.key,
   });
 
@@ -22,6 +25,8 @@ class AppButton extends StatelessWidget {
   final double? borderWidth;
   final double? borderRadius;
   final Color? textColor;
+  final String? icon;
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -42,14 +47,29 @@ class AppButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderRadiusSmall),
           child: SizedBox(
             height: 40.h,
-            child: Center(
-              child: Text(
-                text,
-                style: theme.textTheme.titleSmall!.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: textColor ?? theme.colorScheme.onPrimary,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: icon != null ? AppDimens.verySmall : 0,
+              children: [
+                if (icon != null)
+                  SvgPicture.asset(
+                    icon!,
+                    height: AppDimens.iconMedium,
+                    width: AppDimens.iconMedium,
+                    fit: BoxFit.scaleDown,
+                    colorFilter: ColorFilter.mode(
+                      iconColor ?? theme.colorScheme.onPrimary,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                Text(
+                  text,
+                  style: theme.textTheme.titleSmall!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: textColor ?? theme.colorScheme.onPrimary,
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         ),

@@ -79,4 +79,17 @@ abstract class AppString {
   static const String uploadNewImage = 'بارگزاری تصویر جدید';
   static const String imageUploadedSuccessfuly = 'تصویر با موفقیت بارگزاری شد.';
   static const String confirm = 'تایید';
+  static const String home = 'خانه';
+  static const String account = 'حساب کاربری';
+  static const String priceInfo = 'اطلاع قیمت';
+  static const String wallet = 'کیف پول';
+  static const String learnAndGuide = 'آموزش و راهنما';
+  static const String logout = 'خروج از حساب کاربری';
+  static const String totalBalance = 'موجودی کل';
+  static const String toman = 'تومان';
+  static const String buy = 'خرید';
+  static const String sell = 'فروش';
+  static const String sharePurchase = 'سهم خریداری شده';
+  static const String giftAndReward = 'پاداش و جوایز';
+  static const String reward = 'پاداش';
 }
