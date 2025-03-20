@@ -10,6 +10,8 @@ import 'package:ostad/pages/user_account/user_account_page.dart';
 import 'package:ostad/pages/wallet/wallet_page.dart';
 import 'package:ostad/pages/scaffold_with_nav_bar.dart';
 import 'package:ostad/route/app_route_name.dart';
+import 'package:provider/provider.dart';
+import 'package:ostad/providers/auth_provider.dart';
 
 class AppRouter {
   static final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -18,6 +20,34 @@ class AppRouter {
     navigatorKey: _rootNavigatorKey,
     initialLocation: AppRouteName.splash,
     debugLogDiagnostics: true,
+    
+    redirect: (context, state) {
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      final isLoggedIn = authProvider.isAuthenticated;
+
+      final isPublicRoute = state.matchedLocation == AppRouteName.login ||
+          state.matchedLocation == AppRouteName.signUp ||
+          state.matchedLocation == AppRouteName.forgetPassword ||
+          state.matchedLocation == AppRouteName.splash;
+
+      if (state.matchedLocation == AppRouteName.splash) {
+        return null;
+      }
+
+      if (!isLoggedIn && !isPublicRoute) {
+        return AppRouteName.login;
+      }
+
+      if (isLoggedIn &&
+          (state.matchedLocation == AppRouteName.login ||
+              state.matchedLocation == AppRouteName.signUp ||
+              state.matchedLocation == AppRouteName.forgetPassword)) {
+        return AppRouteName.home;
+      }
+
+      return null;
+    },
+
     routes: [
       GoRoute(
         path: AppRouteName.splash,
@@ -79,27 +109,5 @@ class AppRouter {
     ],
 
     // errorBuilder: (context, state) => ErrorPage(error: state.error),
-
-    // redirect: (context, state) {
-    //   final bool isLoggedIn = false;
-
-    //   final isGoingToLogin = state.matchedLocation == AppRouteName.login;
-    //   final isGoingToSignUp = state.matchedLocation == AppRouteName.signUp;
-    //   final isGoingToForgetPassword = state.matchedLocation == AppRouteName.forgetPassword;
-
-    //   if (!isLoggedIn &&
-    //       !isGoingToLogin &&
-    //       !isGoingToSignUp &&
-    //       !isGoingToForgetPassword &&
-    //       state.matchedLocation != AppRouteName.splash) {
-    //     return AppRouteName.login;
-    //   }
-
-    //   if (isLoggedIn && (isGoingToLogin || isGoingToSignUp)) {
-    //     return AppRouteName.home;
-    //   }
-
-    //   return null;
-    // },
   );
 }

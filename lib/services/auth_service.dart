@@ -1,0 +1,45 @@
+import 'package:dio/dio.dart';
+import 'package:ostad/constant/app_api.dart';
+import 'package:ostad/constant/app_shared_preferences_key.dart';
+import 'package:ostad/services/api_client.dart';
+import 'package:ostad/services/error_handler.dart';
+import 'package:ostad/utils/app_shared_preferences.dart';
+
+class AuthService {
+  final ApiClient _apiClient;
+  final AppSharedPreferences _preferences;
+
+  AuthService(this._apiClient, this._preferences);
+
+  Future<Response> login({required String phoneNumber, required String password}) async {
+    try {
+      final response = await _apiClient.post(
+        AppApi.login,
+        data: {
+          'phoneNumber': phoneNumber,
+          'password': password,
+        },
+      );
+      await _preferences.saveAccessToken(response.data[AppSharedPreferencesKey.keyToken]);
+      await _preferences.saveRefreshToken(response.data[AppSharedPreferencesKey.keyRefreshToken]);
+
+      return response;
+    } on AppException {
+      rethrow;
+    }
+  }
+
+  Future<bool> logout() async {
+    try {
+      await _preferences.clear();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> isLoggedIn() async {
+    final token = await _preferences.getAccessToken();
+    return token != null;
+  }
+}
