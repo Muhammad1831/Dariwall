@@ -72,7 +72,7 @@ class HomePage extends StatelessWidget {
                   width: double.maxFinite,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      gradient: AppColor.priceCardGradient,
+                      gradient: AppColor.cardGradient,
                       borderRadius: BorderRadius.circular(
                         AppDimens.borderRadiusSmall,
                       ),

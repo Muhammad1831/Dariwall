@@ -92,4 +92,34 @@ abstract class AppString {
   static const String sharePurchase = 'سهم خریداری شده';
   static const String giftAndReward = 'پاداش و جوایز';
   static const String reward = 'پاداش';
+  static const String downloadAndCreatePhantomWallet = 'دانلود و ایجاد کیف پول فانتوم';
+  static const String downloadPhantomWallet = 'آدرس دانلود از گوگل پلی(بدون نیاز به فیلترشکن)';
+  static const String firstDownloadAndCreatePhantomWallet =
+      'ابتدا کیف پول فانتوم (Phantom Wallet) را دانلود و نصب کنید.';
+  static const String afterDownloadAndCreatePhantomWallet =
+      'پس از نصب، یک کیف پول جدید ایجاد کنید یا اگر از قبل حساب دارید، وارد کیف پول خود شوید.';
+  static const String confirmYourAccount = 'مطمئن شوید که اطلاعات حساب کاربری شما تایید شده باشد.';
+  static const String doneMission = 'انجام ماموریت‌ها(پاداش و جوایز)';
+  static const String goToMission = 'به بخش ماموریت‌ها مراجعه کنید.';
+  static const String doTheTasks = 'کارهای خواسته شده در ماموریت‌ها را انجام دهید.';
+  static const String uploadTheImage =
+      'پس از انجام هر ماموریت، تصویر مربوط به آن را بارگذاری کنید.';
+  static const String viewAndDoMission = 'مشاهده و انجام مأموریت‌ها';
+  static const String waitingForConfirmation = 'انتظار برای تایید';
+  static const String afterUploadingTheImages =
+      'پس از بارگذاری تصاویر، منتظر بمانید تا ماموریت‌ها و احراز هویت شما توسط تیم ما تایید شود.';
+  static const String thisProcessCanTakeUpTo48Hours = 'این فرآیند ممکن است تا ۴۸ ساعت زمان ببرد.';
+  static const String receiveReward = 'دریافت جایزه';
+  static const String afterConfirmation =
+      'پس از تایید، حساب سولانای کیف پول شما به مبلغ ۱۰ دلار شارژ خواهد شد.';
+  static const String convertToOstadToken =
+      'این سولانا را می‌توانید به توکن استاد شجریان تبدیل کنید.';
+  static const String buyTokenAndGetLicense = 'خرید توکن و دریافت مجوز';
+  static const String afterConvertSolanaToOstadToken =
+      'پس از تبدیل سولانا به توکن استاد شجریان، تصویر خرید خود را بارگذاری کنید.';
+  static const String afterUploadingTheImage =
+      'با انجام این کار، مجوز شرکت در رویدادهای بعدی را دریافت خواهید کرد.';
+  static const String participateInEvents = 'شرکت در رویدادها';
+  static const String participateInEventsDescription =
+      'برای اطلاع از رویدادهای جدید، به صفحه اطلاعیه‌ها در اپلیکیشن یا کانال تلگرامی هواداران استاد شجریان مراجعه کنید.';
 }
