@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ostad/pages/forget_password/forget_password_page.dart';
 import 'package:ostad/pages/home/home_page.dart';
+import 'package:ostad/pages/learn_and_guide/learn_and_guide_page.dart';
 import 'package:ostad/pages/login/login_page.dart';
 import 'package:ostad/pages/price_info/price_info_page.dart';
 import 'package:ostad/pages/sign_up/sign_up_page.dart';
@@ -20,7 +21,7 @@ class AppRouter {
     navigatorKey: _rootNavigatorKey,
     initialLocation: AppRouteName.splash,
     debugLogDiagnostics: true,
-    
+
     redirect: (context, state) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       final isLoggedIn = authProvider.isAuthenticated;
@@ -64,6 +65,10 @@ class AppRouter {
       GoRoute(
         path: AppRouteName.forgetPassword,
         builder: (context, state) => const ForgetPasswordPage(),
+      ),
+      GoRoute(
+        path: AppRouteName.learnAndGuide,
+        builder: (context, state) => const LearnAndGuidePage(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {

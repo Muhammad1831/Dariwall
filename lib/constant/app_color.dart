@@ -22,6 +22,7 @@ abstract class AppColor {
 
   static const Color priceIncreaseColor = Color(0xFF55AD9B);
   static const Color priceDecreaseColor = Color(0xFFFF8A8A);
+  static const Color blueColor = Color(0xFF3183FF);
 
   static final LinearGradient splashGradient = LinearGradient(
     colors: [
@@ -32,7 +33,7 @@ abstract class AppColor {
     end: Alignment.bottomCenter,
   );
 
-  static final LinearGradient priceCardGradient = LinearGradient(
+  static final LinearGradient cardGradient = LinearGradient(
     colors: [
       Color(0xff2E3338),
       Color(0xff23272A),

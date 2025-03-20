@@ -378,6 +378,7 @@ class _InformationStepState extends State<InformationStep> {
             AppDimens.vSpaceVerySmall,
             BulletText(
               text: AppString.mustUsePhantomWallet,
+              textStyle: theme.textTheme.labelSmall!.copyWith(color: theme.colorScheme.secondary),
             ),
             AppDimens.vSpaceVeryLarge,
             AppButton(
@@ -454,7 +455,7 @@ class BulletText extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(
           height: 4.r,

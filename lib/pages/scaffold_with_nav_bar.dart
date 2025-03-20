@@ -100,7 +100,9 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
               ),
               AppDimens.vSpaceExtraLarge,
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  GoRouter.of(context).push(AppRouteName.learnAndGuide);
+                },
                 leading: SvgPicture.asset(AppIcons.lightBulb),
                 title: Text(
                   AppString.learnAndGuide,

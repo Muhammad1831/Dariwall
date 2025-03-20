@@ -9,4 +9,5 @@ abstract class AppRouteName {
   static const String wallet = '/wallet';
   static const String priceInfo = '/priceInfo';
   static const String userAccount = '/userAccount';
+  static const String learnAndGuide = '/learnAndGuide';
 }
