@@ -7,12 +7,15 @@ import 'package:ostad/constant/app_dimens.dart';
 import 'package:ostad/constant/app_icons.dart';
 import 'package:ostad/constant/app_images.dart';
 import 'package:ostad/constant/app_string.dart';
+import 'package:ostad/providers/auth_provider.dart';
+import 'package:ostad/route/app_route_name.dart';
+import 'package:provider/provider.dart';
 
 enum NavBarItem {
-  account,
+  wallet,
   home,
   priceInfo,
-  wallet,
+  account,
 }
 
 class ScaffoldWithNavBar extends StatefulWidget {
@@ -106,7 +109,13 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
               ),
               Spacer(),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  final authProvider = Provider.of<AuthProvider>(context, listen: false);
+                  authProvider.logout();
+                  if (!authProvider.isAuthenticated) {
+                    GoRouter.of(context).go(AppRouteName.login);
+                  }
+                },
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: AppDimens.medium),
                   child: Center(
@@ -230,7 +239,6 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
   void goBranch(int index) {
     widget.navigationShell.goBranch(
       index,
-      initialLocation: index == widget.navigationShell.currentIndex,
     );
   }
 }

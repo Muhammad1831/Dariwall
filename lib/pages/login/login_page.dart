@@ -5,9 +5,12 @@ import 'package:ostad/constant/app_color.dart';
 import 'package:ostad/constant/app_dimens.dart';
 import 'package:ostad/constant/app_images.dart';
 import 'package:ostad/constant/app_string.dart';
+import 'package:ostad/providers/auth_provider.dart';
 import 'package:ostad/route/app_route_name.dart';
 import 'package:ostad/widgets/app_button.dart';
 import 'package:ostad/widgets/app_text_field.dart';
+import 'package:provider/provider.dart';
+import 'package:ostad/widgets/app_snack_bar.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -100,11 +103,28 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   AppDimens.vSpaceVeryLarge,
                   // login button
-                  AppButton(
-                    onTap: () {
-                      GoRouter.of(context).go(AppRouteName.home);
+                  Consumer<AuthProvider>(
+                    builder: (context, provider, child) {
+                      return provider.status == AuthStatus.loading
+                          ? const Center(child: CircularProgressIndicator())
+                          : AppButton(
+                              onTap: () async {
+                                await provider.login(
+                                  phoneNumber: phoneNumber.text,
+                                  password: password.text,
+                                );
+                                if (provider.status == AuthStatus.authenticated) {
+                                  context.go(AppRouteName.home);
+                                } else {
+                                  AppSnackBar.showError(
+                                    context,
+                                    message: provider.errorMessage!,
+                                  );
+                                }
+                              },
+                              text: AppString.enterInAccount,
+                            );
                     },
-                    text: AppString.enterInAccount,
                   ),
                   SizedBox(height: 100.r),
                   // dont have account text and create account button

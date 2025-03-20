@@ -22,11 +22,13 @@ class HomePage extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: AppDimens.paddingMedium),
         child: Column(
           children: [
+            // total balance text
             Text(
               AppString.totalBalance,
               style: theme.textTheme.titleMedium,
             ),
             AppDimens.vSpaceSmall,
+            // add balance button and total balance
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -63,57 +65,81 @@ class HomePage extends StatelessWidget {
               ],
             ),
             AppDimens.vSpaceMedium,
-            SizedBox(
-              width: double.maxFinite,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: AppColor.priceCardGradient,
-                  borderRadius: BorderRadius.circular(
-                    AppDimens.borderRadiusSmall,
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: AppDimens.medium),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        AppImages.logo,
-                        height: 64.r,
-                        width: 64.r,
-                        fit: BoxFit.scaleDown,
+            // price card
+            Stack(
+              children: [
+                SizedBox(
+                  width: double.maxFinite,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: AppColor.priceCardGradient,
+                      borderRadius: BorderRadius.circular(
+                        AppDimens.borderRadiusSmall,
                       ),
-                      AppDimens.vSpaceMedium,
-                      Text(
-                        '\$0.00023066',
-                        style: theme.textTheme.displayLarge!.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      AppDimens.vSpaceMedium,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: AppDimens.medium),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Image.asset(
+                            AppImages.logo,
+                            height: 64.r,
+                            width: 64.r,
+                            fit: BoxFit.scaleDown,
+                          ),
+                          AppDimens.vSpaceMedium,
                           Text(
-                            '+4.36%',
-                            style: theme.textTheme.bodyLarge!.copyWith(
-                              color: AppColor.successColor,
+                            '\$0.00023066',
+                            style: theme.textTheme.displayLarge!.copyWith(
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text(
-                            '+\$0.44',
-                            style: theme.textTheme.bodyLarge!.copyWith(
-                              color: AppColor.successColor,
-                            ),
-                          ),
+                          AppDimens.vSpaceMedium,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(
+                                '+4.36%',
+                                style: theme.textTheme.bodyLarge!.copyWith(
+                                  color: AppColor.priceIncreaseColor,
+                                ),
+                              ),
+                              Text(
+                                '+\$0.44',
+                                style: theme.textTheme.bodyLarge!.copyWith(
+                                  color: AppColor.priceIncreaseColor,
+                                ),
+                              ),
+                            ],
+                          )
                         ],
-                      )
-                    ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                Positioned(
+                  right: -50.w,
+                  bottom: 0,
+                  top: 0,
+                  child: SvgPicture.asset(
+                    AppImages.priceCardPattern,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned(
+                  left: -50.w,
+                  bottom: 0,
+                  top: 0,
+                  child: SvgPicture.asset(
+                    AppImages.priceCardPattern,
+                    fit: BoxFit.cover,
+                  ),
+                )
+              ],
             ),
             AppDimens.vSpaceSmall,
+            // buy and sell button
             Row(
               spacing: AppDimens.verySmall,
               children: [
@@ -138,6 +164,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
             AppDimens.vSpaceMedium,
+            // share purchase ostad
             DecoratedBox(
               decoration: BoxDecoration(
                 color: theme.colorScheme.surface,
@@ -173,6 +200,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             AppDimens.vSpaceLarge,
+            // gift and reward text
             Row(
               children: [
                 SvgPicture.asset(
@@ -189,6 +217,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
             AppDimens.vSpaceMedium,
+            // task list
             ListView.builder(
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),

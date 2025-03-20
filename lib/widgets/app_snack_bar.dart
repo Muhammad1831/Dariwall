@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ostad/constant/app_color.dart';
 import 'package:ostad/constant/app_dimens.dart';
 
+enum SnackBarType { success, error, warning, info }
+
 class AppSnackBar extends StatelessWidget {
   final String message;
 
@@ -33,7 +35,6 @@ class AppSnackBar extends StatelessWidget {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              spacing: AppDimens.verySmall,
               children: [
                 SizedBox(
                   width: 40.r,
@@ -52,9 +53,14 @@ class AppSnackBar extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: Text(
-                    message,
-                    style: Theme.of(context).snackBarTheme.contentTextStyle,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: AppDimens.paddingSmall),
+                    child: Text(
+                      message,
+                      style: Theme.of(context).snackBarTheme.contentTextStyle,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
                   ),
                 ),
               ],

@@ -5,8 +5,10 @@ import 'package:ostad/constant/app_color.dart';
 import 'package:ostad/constant/app_dimens.dart';
 import 'package:ostad/constant/app_images.dart';
 import 'package:ostad/constant/app_string.dart';
+import 'package:ostad/providers/auth_provider.dart';
 import 'package:ostad/route/app_route_name.dart';
 import 'package:ostad/style/app_text_style.dart';
+import 'package:provider/provider.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -19,14 +21,18 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-      const Duration(seconds: 3),
-      () {
-        if (mounted) {
-          GoRouter.of(context).go(AppRouteName.login);
-        }
-      },
-    );
+    _checkLoginStatus();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    if (authProvider.isAuthenticated) {
+      context.go(AppRouteName.home);
+    } else {
+      context.go(AppRouteName.login);
+    }
   }
 
   @override
