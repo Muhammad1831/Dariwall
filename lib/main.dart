@@ -29,7 +29,11 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider(authService)),
       ],
-      child: MyApp(),
+      child: DevicePreview(
+        enabled: !kReleaseMode,
+        builder: (context) => MyApp(),
+      ),
+      // child: MyApp(),
     ),
   );
 }
