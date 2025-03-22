@@ -7,6 +7,8 @@ import 'package:ostad/pages/login/login_page.dart';
 import 'package:ostad/pages/price_info/price_info_page.dart';
 import 'package:ostad/pages/sign_up/sign_up_page.dart';
 import 'package:ostad/pages/splash/splash_page.dart';
+import 'package:ostad/pages/tasks/follow_x_page.dart';
+import 'package:ostad/pages/tasks/like_coinmarketcap_page.dart';
 import 'package:ostad/pages/user_account/user_account_page.dart';
 import 'package:ostad/pages/wallet/wallet_page.dart';
 import 'package:ostad/pages/scaffold_with_nav_bar.dart';
@@ -70,6 +72,15 @@ class AppRouter {
         path: AppRouteName.learnAndGuide,
         builder: (context, state) => const LearnAndGuidePage(),
       ),
+      GoRoute(
+        path: AppRouteName.followX,
+        builder: (context, state) => const FollowXPage(),
+      ),
+      GoRoute(
+        path: AppRouteName.likeCoinmarketcap,
+        builder: (context, state) => const LikeCoinmarketcapPage(),
+      ),
+      
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return ScaffoldWithNavBar(

@@ -13,4 +13,13 @@ abstract class AppIcons {
   static const String gift = 'assets/icons/gift.svg';
   static const String taskIcon = 'assets/icons/task-icon.svg';
   static const String send = 'assets/icons/send.svg';
+  static const String alertCircle = 'assets/icons/alert-circle.svg';
+  static const String layer = 'assets/icons/layer.svg';
+  static const String heart = 'assets/icons/heart.svg';
+  static const String retweet = 'assets/icons/retweet.svg';
+  static const String comment = 'assets/icons/comment.svg';
+  static const String eye = 'assets/icons/eye.svg';
+  static const String upload = 'assets/icons/upload.svg';
+  static const String arrowLeft = 'assets/icons/arrow-left.svg';
+  static const String arrow = 'assets/icons/arrow.svg';
 }

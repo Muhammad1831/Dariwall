@@ -9,7 +9,7 @@ class ImagePickerProvider extends ChangeNotifier {
   XFile? _image;
   String? _pickImageError;
 
-  List<XFile>? get mediaFileList => _imagesList;
+  List<XFile>? get imageList => _imagesList;
   XFile? get image => _image;
   String? get pickImageError => _pickImageError;
 
@@ -27,6 +27,7 @@ class ImagePickerProvider extends ChangeNotifier {
           maxHeight: maxHeight,
           imageQuality: quality,
         );
+        debugPrint('selectedImages: $selectedImages');
         _imagesList = selectedImages;
       } else {
         final XFile? selectedImage = await _picker.pickImage(
