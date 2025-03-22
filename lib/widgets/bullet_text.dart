@@ -19,23 +19,21 @@ class BulletText extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,  // Align to top
+      crossAxisAlignment: CrossAxisAlignment.center, // Align to top
       children: [
-        Padding(
-          padding: EdgeInsets.only(top: 6.h),  // Adjust bullet position
-          child: SizedBox(
-            height: 4.r,
-            width: 4.r,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: bulletColor ?? theme.colorScheme.outline,
-                shape: BoxShape.circle,
-              ),
+        SizedBox(
+          height: 4.r,
+          width: 4.r,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: bulletColor ?? theme.colorScheme.outline,
+              shape: BoxShape.circle,
             ),
           ),
         ),
         AppDimens.hSpaceVerySmall,
-        Expanded(  // Allow text to wrap
+        Expanded(
+          // Allow text to wrap
           child: Text(
             text,
             style: textStyle ?? theme.textTheme.labelSmall,
@@ -45,4 +43,4 @@ class BulletText extends StatelessWidget {
       ],
     );
   }
-} 
+}

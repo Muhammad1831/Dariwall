@@ -76,6 +76,7 @@ abstract class AppString {
       'از حروف کوچک و بزرگ و علائم نشانه گذاری(%#\$*&) استفاده شود.';
   static const String noDocumentUploaded = 'در حال حاضر مدرکی بارگزاری نشده است.';
   static const String uploadImage = 'بارگزاری تصویر';
+  static const String uploadImages = 'بارگزاری تصاویر';
   static const String uploadNewImage = 'بارگزاری تصویر جدید';
   static const String imageUploadedSuccessfuly = 'تصویر با موفقیت بارگزاری شد.';
   static const String confirm = 'تایید';
@@ -122,4 +123,29 @@ abstract class AppString {
   static const String participateInEvents = 'شرکت در رویدادها';
   static const String participateInEventsDescription =
       'برای اطلاع از رویدادهای جدید، به صفحه اطلاعیه‌ها در اپلیکیشن یا کانال تلگرامی هواداران استاد شجریان مراجعه کنید.';
+  static const String beforeStarting =
+      'قبل از شروع، تمام مراحل را با دقت مطالعه کنید و سپس اقدامات را به درستی انجام دهید.';
+  static const String followOstadInX = 'دنبال کردن OSTAD در  X';
+  static const String steps = 'مراحل';
+  static const String followOstadInXDescription = '۱. OSTAD رو در X دنبال کنید:';
+  static const String likeAndRepostPost = '2. پست مربوط به آدرس CA رو لایک، ریپلای و ریتوییت کنید:';
+  static const String uploadImagesFromEachStep = '3. بارگزاری تصاویر از هر مرحله';
+  static const String uploadImagesFromEachStepDescription =
+      'لطفاً از تمامی کارهایی که انجام می‌دهید، اسکرین‌شات بگیرید و برای ما ارسال کنید. این اسکرین‌شات‌ها به عنوان مدرک انجام ماموریت‌ها استفاده خواهند شد.';
+  static const String clickOnFollowButton =
+      'بعد از ورود به صفحه توییتر، روی دکمه "Follow" (دنبال کردن) کلیک کنید.';
+  static const String afterEnterPost = ' بعد از ورود به پست:';
+  static const String onLikeButton = 'روی دکمه لایک';
+  static const String click = 'بزنید';
+  static const String aComment = 'یک کامنت';
+  static const String write = 'بنویسید';
+  static const String onRetweetButton = 'روی دکمه ریتوییت';
+  static const String clickAndChooseRetweet = 'کلیک کنید و گزینه Retweet را انتخاب کنید';
+  static const String startParantse = ' (';
+  static const String endParantse = ') ';
+  static const String seeImagesUploaded = 'مشاهده تصاویر بارگزاری شده';
+  static const String send = 'ارسال';
+  static const String likeCoinmarketcapDescription = '1. وارد لینک زیر شوید و رای خود را مشابه تصویر زیر ثبت کنید:';
+  static const String voteForOstadInCoinMarketCap = 'رای دادن به استاد در CoinMarketCap';
+  static const String vote = 'رای دادن';
 }

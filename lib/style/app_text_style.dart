@@ -117,4 +117,14 @@ abstract class AppTextStyle {
     fontWeight: FontWeight.w500,
     color: AppColor.textPrimaryColor,
   );
+
+  // link style
+  static TextStyle linkStyle = TextStyle(
+    fontFamily: iranSansWeb,
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w500,
+    decoration: TextDecoration.underline,
+    color: AppColor.infoColor,
+    decorationColor: AppColor.infoColor,
+  );
 }

@@ -36,7 +36,7 @@ class UserModel {
       telegramId: json['telegram_id'] ?? '',
       studentNumber: json['student_number'] ?? '',
       university: json['university'] ?? '',
-      gender: json['gender'] ?? false,
+      gender: json['gender'],
       province: json['province'] ?? '',
     );
   }

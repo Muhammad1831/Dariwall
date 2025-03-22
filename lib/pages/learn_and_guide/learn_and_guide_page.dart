@@ -5,7 +5,8 @@ import 'package:ostad/constant/app_color.dart';
 import 'package:ostad/constant/app_dimens.dart';
 import 'package:ostad/constant/app_images.dart';
 import 'package:ostad/constant/app_string.dart';
-import 'package:ostad/pages/sign_up/sign_up_page.dart';
+import 'package:ostad/widgets/bullet_text.dart';
+import 'package:ostad/style/app_text_style.dart';
 import 'package:ostad/widgets/app_header.dart';
 
 List<String> taskNumbers = [
@@ -39,7 +40,10 @@ class LearnAndGuidePage extends StatelessWidget {
             ),
             child: Column(
               children: [
-                AppHeader(headerText: AppString.learnAndGuide),
+                AppHeader(
+                  headerText: AppString.learnAndGuide,
+                  justIcon: true,
+                ),
                 AppDimens.vSpaceExtraLarge,
 
                 //------------------------------Task 1-------------------------------------
@@ -62,11 +66,7 @@ class LearnAndGuidePage extends StatelessWidget {
                 AppDimens.vSpaceSmall,
                 Text(
                   AppString.downloadPhantomWallet,
-                  style: theme.textTheme.bodyMedium!.copyWith(
-                    color: AppColor.infoColor,
-                    decoration: TextDecoration.underline,
-                    decorationColor: AppColor.infoColor,
-                  ),
+                  style: AppTextStyle.linkStyle,
                 ),
                 AppDimens.vSpaceSmall,
                 BulletText(

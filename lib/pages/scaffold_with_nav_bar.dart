@@ -57,8 +57,8 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
                       padding: EdgeInsets.all(AppDimens.verySmall),
                       child: SvgPicture.asset(
                         AppIcons.drawer,
-                        height: AppDimens.iconMedium,
-                        width: AppDimens.iconMedium,
+                        height: AppDimens.iconLarge,
+                        width: AppDimens.iconLarge,
                       ),
                     ),
                   ),
@@ -69,8 +69,8 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
                       padding: EdgeInsets.all(AppDimens.verySmall),
                       child: SvgPicture.asset(
                         AppIcons.notification,
-                        height: AppDimens.iconMedium,
-                        width: AppDimens.iconMedium,
+                        height: AppDimens.iconLarge,
+                        width: AppDimens.iconLarge,
                       ),
                     ),
                   ),
@@ -184,8 +184,8 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
         children: [
           SvgPicture.asset(
             icon,
-            height: AppDimens.iconMedium,
-            width: AppDimens.iconMedium,
+            height: AppDimens.iconLarge,
+            width: AppDimens.iconLarge,
             colorFilter: currentIndex == index
                 ? ColorFilter.mode(
                     AppColor.infoColor,

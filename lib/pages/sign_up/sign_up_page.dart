@@ -14,6 +14,7 @@ import 'package:ostad/widgets/app_header.dart';
 import 'package:ostad/widgets/app_text_field.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:provider/provider.dart';
+import 'package:ostad/widgets/bullet_text.dart';
 
 enum Sex { none, male, female }
 
@@ -379,6 +380,7 @@ class _InformationStepState extends State<InformationStep> {
             BulletText(
               text: AppString.mustUsePhantomWallet,
               textStyle: theme.textTheme.labelSmall!.copyWith(color: theme.colorScheme.secondary),
+              bulletColor: theme.colorScheme.secondary,
             ),
             AppDimens.vSpaceVeryLarge,
             AppButton(
@@ -431,48 +433,6 @@ class CustomTitle extends StatelessWidget {
               color: theme.colorScheme.onPrimary,
               shape: BoxShape.circle,
             ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class BulletText extends StatelessWidget {
-  const BulletText({
-    super.key,
-    required this.text,
-    this.bulletColor,
-    this.textStyle,
-  });
-
-  final String text;
-  final Color? bulletColor;
-  final TextStyle? textStyle;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 4.r,
-          width: 4.r,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: bulletColor ?? theme.colorScheme.outline,
-              shape: BoxShape.circle,
-            ),
-          ),
-        ),
-        AppDimens.hSpaceVerySmall,
-        Expanded(
-          child: Text(
-            text,
-            style: textStyle ?? theme.textTheme.labelSmall,
-            textAlign: TextAlign.justify,
           ),
         ),
       ],

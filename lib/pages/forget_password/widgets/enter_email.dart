@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ostad/constant/app_dimens.dart';
 import 'package:ostad/constant/app_string.dart';
-import 'package:ostad/pages/sign_up/sign_up_page.dart';
+import 'package:ostad/widgets/bullet_text.dart';
 import 'package:ostad/widgets/app_button.dart';
 import 'package:ostad/widgets/app_text_field.dart';
 
