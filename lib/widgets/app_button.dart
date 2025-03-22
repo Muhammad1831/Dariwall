@@ -15,6 +15,7 @@ class AppButton extends StatelessWidget {
     this.textColor,
     this.icon,
     this.iconColor,
+    this.iconSize,
     super.key,
   });
 
@@ -27,6 +28,7 @@ class AppButton extends StatelessWidget {
   final Color? textColor;
   final String? icon;
   final Color? iconColor;
+  final double? iconSize;
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +56,9 @@ class AppButton extends StatelessWidget {
                 if (icon != null)
                   SvgPicture.asset(
                     icon!,
-                    height: AppDimens.iconMedium,
-                    width: AppDimens.iconMedium,
-                    fit: BoxFit.scaleDown,
+                    height: iconSize ?? AppDimens.iconLarge,
+                    width: iconSize ?? AppDimens.iconLarge,
+                    fit: BoxFit.contain,
                     colorFilter: ColorFilter.mode(
                       iconColor ?? theme.colorScheme.onPrimary,
                       BlendMode.srcIn,

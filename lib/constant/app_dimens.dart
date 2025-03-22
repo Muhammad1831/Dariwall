@@ -52,8 +52,9 @@ abstract class AppDimens {
 
   // Icon Sizes
   static double get iconSmall => 16.r;
-  static double get iconMedium => 24.r;
-  static double get iconLarge => 32.r;
+  static double get iconMedium => 20.r;
+  static double get iconLarge => 24.r;
+  static double get iconVeryLarge => 32.r;
 
   // Button Heights
   static double get buttonHeight => 48.h;

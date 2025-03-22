@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ostad/constant/app_dimens.dart';
 import 'package:ostad/constant/app_string.dart';
-import 'package:ostad/pages/forget_password/widget/enter_email.dart';
-import 'package:ostad/pages/forget_password/widget/new_password.dart';
+import 'package:ostad/pages/forget_password/widgets/enter_email.dart';
+import 'package:ostad/pages/forget_password/widgets/new_password.dart';
 import 'package:ostad/pages/sign_up/sign_up_page.dart';
 import 'package:ostad/widgets/app_header.dart';
 

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ostad/constant/app_color.dart';
 import 'package:ostad/constant/app_dimens.dart';
 import 'package:ostad/constant/app_icons.dart';
 import 'package:ostad/constant/app_images.dart';
 import 'package:ostad/constant/app_string.dart';
+import 'package:ostad/route/app_route_name.dart';
 import 'package:ostad/style/app_text_style.dart';
 import 'package:ostad/utils/extensions.dart';
 import 'package:ostad/widgets/app_button.dart';
@@ -40,7 +42,7 @@ class HomePage extends StatelessWidget {
                     padding: EdgeInsets.all(AppDimens.veryVerySmall),
                     child: Icon(
                       Icons.add_circle_outline_outlined,
-                      size: AppDimens.iconMedium,
+                      size: AppDimens.iconLarge,
                       color: theme.colorScheme.tertiary,
                     ),
                   ),
@@ -205,8 +207,8 @@ class HomePage extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   AppIcons.gift,
-                  height: AppDimens.iconMedium,
-                  width: AppDimens.iconMedium,
+                  height: AppDimens.iconLarge,
+                  width: AppDimens.iconLarge,
                   fit: BoxFit.scaleDown,
                 ),
                 AppDimens.hSpaceVerySmall,
@@ -221,48 +223,58 @@ class HomePage extends StatelessWidget {
             ListView.builder(
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
-              itemCount: 10,
+              itemCount: 2,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.only(bottom: AppDimens.verySmall),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.surface,
-                      borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
-                      border: Border.all(
-                        color: theme.colorScheme.secondary,
+                  child: InkWell(
+                    onTap: () {
+                      if (index == 0) {
+                        GoRouter.of(context).push(AppRouteName.followX);
+                      } else {
+                        GoRouter.of(context).push(AppRouteName.likeCoinmarketcap);
+                      }
+                    },
+                    borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.surface,
+                        borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
+                        border: Border.all(
+                          color: theme.colorScheme.secondary,
+                        ),
                       ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        AppDimens.medium,
-                        AppDimens.small,
-                        AppDimens.small,
-                        AppDimens.small,
-                      ),
-                      child: Row(
-                        spacing: AppDimens.verySmall,
-                        children: [
-                          SvgPicture.asset(
-                            AppIcons.taskIcon,
-                            height: AppDimens.iconMedium,
-                            width: AppDimens.iconMedium,
-                            fit: BoxFit.scaleDown,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'دنبال کردن OSTAD در توئیتر',
-                                style: theme.textTheme.bodyMedium,
-                              ),
-                              Text(
-                                '${AppString.reward} : ',
-                                style: theme.textTheme.bodySmall,
-                              )
-                            ],
-                          ),
-                        ],
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(
+                          AppDimens.medium,
+                          AppDimens.small,
+                          AppDimens.small,
+                          AppDimens.small,
+                        ),
+                        child: Row(
+                          spacing: AppDimens.verySmall,
+                          children: [
+                            SvgPicture.asset(
+                              AppIcons.taskIcon,
+                              height: AppDimens.iconLarge,
+                              width: AppDimens.iconLarge,
+                              fit: BoxFit.scaleDown,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'دنبال کردن OSTAD در توئیتر',
+                                  style: theme.textTheme.bodyMedium,
+                                ),
+                                Text(
+                                  '${AppString.reward} : ',
+                                  style: theme.textTheme.bodySmall,
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
