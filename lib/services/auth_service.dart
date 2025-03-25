@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:ostad/constant/app_api.dart';
+import 'package:ostad/constant/app_keys.dart';
 import 'package:ostad/constant/app_shared_preferences_key.dart';
-import 'package:ostad/services/api_client.dart';
-import 'package:ostad/services/error_handler.dart';
+import 'package:ostad/services/api_client_service.dart';
+import 'package:ostad/services/error_handler_service.dart';
 import 'package:ostad/utils/app_shared_preferences.dart';
 
 class AuthService {
-  final ApiClient _apiClient;
+  final ApiClientService _apiClient;
   final AppSharedPreferences _preferences;
 
   AuthService(this._apiClient, this._preferences);
@@ -16,8 +17,8 @@ class AuthService {
       final response = await _apiClient.post(
         AppApi.login,
         data: {
-          'phoneNumber': phoneNumber,
-          'password': password,
+          AppKeys.keyPhoneNumber: phoneNumber,
+          AppKeys.keyPassword: password,
         },
       );
       await _preferences.saveAccessToken(response.data[AppSharedPreferencesKey.keyToken]);

@@ -15,7 +15,7 @@ class AppException implements Exception {
   String toString() => message;
 }
 
-class ErrorHandler {
+class ErrorHandlerService {
   static AppException handleDioError(DioException error) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
