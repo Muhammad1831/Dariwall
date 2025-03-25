@@ -3,18 +3,18 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:ostad/constant/app_api.dart';
 import 'package:ostad/constant/app_error_message.dart';
-import 'package:ostad/constant/app_shared_preferences_key.dart';
-import 'package:ostad/services/error_handler.dart';
+import 'package:ostad/constant/app_keys.dart';
+import 'package:ostad/services/error_handler_service.dart';
 import 'package:ostad/utils/app_shared_preferences.dart';
 
-class ApiClient {
+class ApiClientService {
   late Dio _dio;
   final int _timeout = 10;
 
   final AppSharedPreferences _preferences;
   final Dio _authDio = Dio();
 
-  ApiClient(this._preferences) {
+  ApiClientService(this._preferences) {
     _initDio();
   }
 
@@ -33,7 +33,7 @@ class ApiClient {
         onRequest: (options, handler) async {
           final token = await _preferences.getAccessToken();
           if (token != null) {
-            options.headers['Authorization'] = 'Bearer $token';
+            options.headers[AppKeys.keyAuthorization] = '${AppKeys.keyBearer} $token';
           }
           return handler.next(options);
         },
@@ -43,7 +43,7 @@ class ApiClient {
               final newToken = await _refreshToken();
               if (newToken != null) {
                 final opts = error.requestOptions;
-                opts.headers['Authorization'] = 'Bearer $newToken';
+                opts.headers[AppKeys.keyAuthorization] = '${AppKeys.keyBearer} $newToken';
                 final response = await _dio.fetch(opts);
                 return handler.resolve(response);
               }
@@ -73,12 +73,12 @@ class ApiClient {
 
       final response = await _authDio.post(
         '${AppApi.baseUrl}${AppApi.loginRenew}',
-        data: {AppSharedPreferencesKey.keyRefreshToken: refreshToken},
+        data: {AppKeys.keyRefreshToken: refreshToken},
       );
 
       if (response.statusCode == 200) {
-        final accessToken = response.data[AppSharedPreferencesKey.keyToken];
-        final newRefreshToken = response.data[AppSharedPreferencesKey.keyRefreshToken];
+        final accessToken = response.data[AppKeys.keyToken];
+        final newRefreshToken = response.data[AppKeys.keyRefreshToken];
 
         await _preferences.saveAccessToken(accessToken);
         await _preferences.saveRefreshToken(newRefreshToken);
@@ -95,7 +95,7 @@ class ApiClient {
     try {
       return await _dio.get(path, queryParameters: queryParameters);
     } on DioException catch (e) {
-      throw ErrorHandler.handleDioError(e);
+      throw ErrorHandlerService.handleDioError(e);
     } catch (e) {
       throw AppException(
         message: AppErrorMessage.unknownError,
@@ -107,7 +107,7 @@ class ApiClient {
     try {
       return await _dio.post(path, data: data);
     } on DioException catch (e) {
-      throw ErrorHandler.handleDioError(e);
+      throw ErrorHandlerService.handleDioError(e);
     } catch (e) {
       throw AppException(
         message: AppErrorMessage.unknownError,
@@ -119,7 +119,7 @@ class ApiClient {
     try {
       return await _dio.put(path, data: data);
     } on DioException catch (e) {
-      throw ErrorHandler.handleDioError(e);
+      throw ErrorHandlerService.handleDioError(e);
     } catch (e) {
       throw AppException(
         message: AppErrorMessage.unknownError,
@@ -131,7 +131,7 @@ class ApiClient {
     try {
       return await _dio.delete(path);
     } on DioException catch (e) {
-      throw ErrorHandler.handleDioError(e);
+      throw ErrorHandlerService.handleDioError(e);
     } catch (e) {
       throw AppException(
         message: AppErrorMessage.unknownError,
