@@ -3,17 +3,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:ostad/providers/auth_provider.dart';
-import 'package:ostad/route/app_routeing.dart';
-import 'package:ostad/services/auth_service.dart';
-import 'package:ostad/services/locator_service.dart';
-import 'package:ostad/style/app_theme.dart';
-import 'package:ostad/utils/app_shared_preferences.dart';
+import 'package:ostad/features/login/presentation/provider/auth_provider.dart';
+import 'package:ostad/core/route/app_routeing.dart';
+import 'package:ostad/features/login/data/datasource/auth_service.dart';
+import 'package:ostad/core/di/locator_service.dart';
+import 'package:ostad/core/style/app_theme_style.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await AppSharedPreferences.init();
+  await LocatorService.init();
 
   runApp(
     MultiProvider(
