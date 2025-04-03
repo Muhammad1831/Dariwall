@@ -10,7 +10,7 @@ import 'package:ostad/features/tasks/presentation/widgets/border_box.dart';
 import 'package:ostad/features/tasks/presentation/widgets/icon_between_text.dart';
 import 'package:ostad/features/tasks/presentation/widgets/steps_title.dart';
 import 'package:ostad/features/tasks/presentation/widgets/upload_image.dart';
-import 'package:ostad/core/utils/image_picker_provider.dart';
+import 'package:ostad/core/utils/utils_image_picker_provider.dart';
 import 'package:ostad/core/style/app_text_style.dart';
 import 'package:ostad/core/widgets/app_header.dart';
 import 'package:ostad/core/widgets/app_warning_tip.dart';
@@ -23,7 +23,7 @@ class FollowXPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ChangeNotifierProvider(
-      create: (context) => ImagePickerProvider(),
+      create: (context) => UtilsImagePickerProvider(),
       child: SafeArea(
         child: Scaffold(
           body: SingleChildScrollView(

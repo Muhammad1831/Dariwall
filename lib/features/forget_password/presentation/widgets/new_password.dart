@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
 import 'package:ostad/core/constant/app_string.dart';
-import 'package:ostad/core/widgets/bullet_text.dart';
 import 'package:ostad/core/widgets/app_button.dart';
 import 'package:ostad/core/widgets/app_text_field.dart';
 
@@ -27,7 +26,6 @@ class _NewPasswordStepState extends State<NewPasswordStep> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AppDimens.vSpaceExtraLarge,
           AppTextFormField(
             controller: _password,
             hintText: AppString.enterPassword,
@@ -44,11 +42,6 @@ class _NewPasswordStepState extends State<NewPasswordStep> {
             validationType: ValidationType.repeatPassword,
           ),
           AppDimens.vSpaceMedium,
-          BulletText(text: AppString.minimumPasswordCharacter),
-          AppDimens.vSpaceVerySmall,
-          BulletText(text: AppString.dontUseSimplePassword),
-          AppDimens.vSpaceVerySmall,
-          BulletText(text: AppString.useUperLowerSpecialSign),
           const Spacer(),
           AppButton(
             text: AppString.continueText,

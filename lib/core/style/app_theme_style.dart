@@ -9,6 +9,85 @@ final darkTheme = ThemeData(
 
   // Scaffold Background Color
   scaffoldBackgroundColor: AppColor.backgroundColor,
+  primaryColor: AppColor.primaryColor,
+  disabledColor: AppColor.disabledColor,
+
+  // Color Scheme
+  colorScheme: ColorScheme.dark(
+    surfaceContainerHighest: AppColor.backgroundColor,
+    primary: AppColor.primaryColor,
+    surface: AppColor.surfaceColor,
+    secondary: AppColor.secondaryColor,
+    tertiary: AppColor.accentColor,
+    error: AppColor.errorColor,
+    onPrimary: AppColor.onPrimary,
+    onSecondary: AppColor.onSecondary,
+    onSurface: AppColor.onSurface,
+    onTertiary: AppColor.onTertiary,
+    outline: AppColor.border,
+    onError: AppColor.onError,
+  ),
+
+  // checkbox
+  checkboxTheme: CheckboxThemeData(
+    fillColor: WidgetStateColor.resolveWith(
+      (states) {
+        if (states.contains(WidgetState.selected)) {
+          return AppColor.infoColor;
+        } else {
+          return AppColor.backgroundColor;
+        }
+      },
+    ),
+    checkColor: WidgetStatePropertyAll(
+      AppColor.backgroundColor,
+    ),
+    side: BorderSide(
+      color: WidgetStateColor.resolveWith(
+        (states) {
+          if (states.contains(WidgetState.selected)) {
+            return Colors.transparent;
+          } else {
+            return AppColor.onPrimary;
+          }
+        },
+      ),
+    ),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(
+        AppDimens.borderRadiusVerySmall,
+      ),
+    ),
+  ),
+
+  // switch
+  switchTheme: SwitchThemeData(
+    thumbColor: WidgetStateColor.resolveWith(
+      (states) {
+        if (states.contains(WidgetState.selected)) {
+          return AppColor.surfaceColor;
+        } else {
+          return AppColor.onSurface;
+        }
+      },
+    ),
+    trackColor: WidgetStateColor.resolveWith(
+      (states) {
+        if (states.contains(WidgetState.selected)) {
+          return AppColor.accentColor;
+        } else {
+          return AppColor.cardColor;
+        }
+      },
+    ),
+    trackOutlineColor: WidgetStatePropertyAll(Colors.transparent),
+  ),
+
+  // divider
+  dividerTheme: DividerThemeData(
+    color: AppColor.divider,
+    thickness: 1,
+  ),
 
   snackBarTheme: SnackBarThemeData(
     backgroundColor: AppColor.surfaceColor,
@@ -24,9 +103,6 @@ final darkTheme = ThemeData(
     ),
     labelTextStyle: WidgetStatePropertyAll(AppTextStyle.bodySmallDark),
   ),
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: AppColor.cardColor,
-  ),
 
   drawerTheme: DrawerThemeData(
     backgroundColor: AppColor.backgroundColor,
@@ -37,19 +113,12 @@ final darkTheme = ThemeData(
       ),
     ),
   ),
-
-  // Color Scheme
-  colorScheme: ColorScheme.dark(
-    surfaceContainerHighest: AppColor.backgroundColor,
-    surface: AppColor.surfaceColor,
-    primary: AppColor.primaryColor,
-    secondary: AppColor.secondaryColor,
-    tertiary: AppColor.accentColor,
-    error: AppColor.errorColor,
-    onPrimary: AppColor.textPrimaryColor,
-    onSecondary: AppColor.textSecondary1Color,
-    outline: AppColor.textSecondary2Color,
-    outlineVariant: AppColor.disabledColor,
+  buttonTheme: ButtonThemeData(
+    colorScheme: ColorScheme.dark(
+      primary: AppColor.primaryColor,
+      secondary: AppColor.backgroundColor,
+      outline: AppColor.border,
+    ),
   ),
 
   // Card Theme
@@ -62,7 +131,6 @@ final darkTheme = ThemeData(
   iconTheme: IconThemeData(
     color: AppColor.textSecondary1Color,
   ),
-
   primaryIconTheme: IconThemeData(
     color: AppColor.textPrimaryColor,
   ),

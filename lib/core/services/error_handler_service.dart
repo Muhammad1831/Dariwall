@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:ostad/core/constant/app_error_message.dart';
+import 'package:ostad/core/constant/app_message.dart';
 
 class AppException implements Exception {
   final String message;
@@ -22,14 +22,14 @@ class ErrorHandlerService {
       case DioExceptionType.receiveTimeout:
       case DioExceptionType.sendTimeout:
         return const AppException(
-          message: AppErrorMessage.tryAgain,
+          message: AppMessage.tryAgain,
         );
 
       case DioExceptionType.badCertificate:
       case DioExceptionType.connectionError:
       case DioExceptionType.cancel:
         return const AppException(
-          message: AppErrorMessage.networkError,
+          message: AppMessage.networkError,
         );
 
       case DioExceptionType.badResponse:
@@ -41,11 +41,11 @@ class ErrorHandlerService {
       case DioExceptionType.unknown:
         if (error.error is SocketException) {
           return const AppException(
-            message: AppErrorMessage.networkError,
+            message: AppMessage.networkError,
           );
         }
         return AppException(
-          message: AppErrorMessage.unknownError,
+          message: AppMessage.unknownError,
         );
     }
   }
@@ -78,7 +78,7 @@ class ErrorHandlerService {
               return AppException(
                 message: errorMessages.isNotEmpty
                     ? errorMessages.join('\n')
-                    : AppErrorMessage.invalidInput,
+                    : AppMessage.invalidInput,
                 statusCode: statusCode,
               );
             } else if (errors is List && errors.isNotEmpty) {
@@ -90,28 +90,28 @@ class ErrorHandlerService {
           }
         }
         return AppException(
-          message: AppErrorMessage.invalidInput,
+          message: AppMessage.invalidInput,
           statusCode: 400,
         );
 
       case 401:
         return const AppException(
-          message: AppErrorMessage.authError,
+          message: AppMessage.authError,
         );
 
       case 403:
         return const AppException(
-          message: AppErrorMessage.unknownError,
+          message: AppMessage.unknownError,
         );
 
       case 404:
         return const AppException(
-          message: AppErrorMessage.unknownError,
+          message: AppMessage.unknownError,
         );
 
       case 429:
         return const AppException(
-          message: AppErrorMessage.tooManyRequests,
+          message: AppMessage.tooManyRequests,
         );
 
       case 500:
@@ -119,12 +119,12 @@ class ErrorHandlerService {
       case 502:
       case 503:
         return const AppException(
-          message: AppErrorMessage.serverError,
+          message: AppMessage.serverError,
         );
 
       default:
         return AppException(
-          message: AppErrorMessage.unknownError,
+          message: AppMessage.unknownError,
         );
     }
   }

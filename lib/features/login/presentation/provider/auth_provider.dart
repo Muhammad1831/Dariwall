@@ -1,6 +1,6 @@
 // lib/providers/auth_provider.dart
 import 'package:flutter/foundation.dart';
-import 'package:ostad/core/constant/app_error_message.dart';
+import 'package:ostad/core/constant/app_message.dart';
 import 'package:ostad/features/login/data/datasource/auth_service.dart';
 import 'package:dio/dio.dart';
 
@@ -13,16 +13,14 @@ class AuthProvider with ChangeNotifier {
   String? _errorMessage;
   Response? _response;
 
-  AuthProvider(this._authService) {
-    _checkAuthStatus();
-  }
+  AuthProvider(this._authService) {}
 
   AuthStatus get status => _status;
   String? get errorMessage => _errorMessage;
   bool get isAuthenticated => _status == AuthStatus.authenticated;
   Response? get response => _response;
 
-  Future<void> _checkAuthStatus() async {
+  Future<void> checkAuthStatus() async {
     try {
       final isLoggedIn = await _authService.isLoggedIn();
       _status = isLoggedIn ? AuthStatus.authenticated : AuthStatus.unauthenticated;
@@ -43,7 +41,7 @@ class AuthProvider with ChangeNotifier {
         notifyListeners();
       } else {
         _status = AuthStatus.unauthenticated;
-        _errorMessage = AppErrorMessage.unauthorizedError;
+        _errorMessage = AppMessage.unauthorizedError;
         notifyListeners();
       }
     } catch (e) {
@@ -66,7 +64,7 @@ class AuthProvider with ChangeNotifier {
         notifyListeners();
       } else {
         _status = AuthStatus.error;
-        _errorMessage = AppErrorMessage.logoutError;
+        _errorMessage = AppMessage.logoutError;
         notifyListeners();
       }
     } catch (e) {

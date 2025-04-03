@@ -45,6 +45,7 @@ abstract class AppDimens {
   static double get marginVeryLarge => 24.w;
 
   // Border Radius
+  static double get borderRadiusVerySmall => 4.r;
   static double get borderRadiusSmall => 8.r;
   static double get borderRadiusMedium => 12.r;
   static double get borderRadiusLarge => 16.r;
@@ -55,12 +56,17 @@ abstract class AppDimens {
   static double get iconMedium => 20.r;
   static double get iconLarge => 24.r;
   static double get iconVeryLarge => 32.r;
+  static double get iconExtraLarge => 48.r;
 
   // Button Heights
-  static double get buttonHeight => 48.h;
-  static double get buttonSmallHeight => 36.h;
-
+  static double get buttonLargeHeight => 48.h;
+  static double get buttonMediumHeight => 36.h;
+  static double get buttonSmallHeight => 32.h;
   // Input Heights
-  static double get inputHeight => 48.h;
+  static double get inputLargeHeight => 48.h;
   static double get inputSmallHeight => 36.h;
+
+  // card Heights
+  static double get cardMediumHeight => 40.h;
+  static double get cardLargeHeight => 64.h;
 }

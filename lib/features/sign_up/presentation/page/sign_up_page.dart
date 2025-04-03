@@ -8,7 +8,7 @@ import 'package:ostad/core/constant/app_color.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
 import 'package:ostad/core/constant/app_images.dart';
 import 'package:ostad/core/constant/app_string.dart';
-import 'package:ostad/core/utils/image_picker_provider.dart';
+import 'package:ostad/core/utils/utils_image_picker_provider.dart';
 import 'package:ostad/core/widgets/app_button.dart';
 import 'package:ostad/core/widgets/app_header.dart';
 import 'package:ostad/core/widgets/app_text_field.dart';
@@ -249,7 +249,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               if (currentStep == Step.upload)
                 ChangeNotifierProvider(
-                  create: (context) => ImagePickerProvider(),
+                  create: (context) => UtilsImagePickerProvider(),
                   child: UploadStep(
                     onTapConfirm: () {},
                   ),
@@ -642,7 +642,7 @@ class _OtpStepState extends State<OtpStep> {
           Align(
             alignment: Alignment.center,
             child: Text(
-              AppString.codeSentToEmail(widget.email),
+              AppString.codeSentTo(widget.email),
               style: theme.textTheme.bodySmall,
             ),
           ),
@@ -724,7 +724,7 @@ class _UploadStepState extends State<UploadStep> {
     final theme = Theme.of(context);
 
     return Expanded(
-      child: Consumer<ImagePickerProvider>(
+      child: Consumer<UtilsImagePickerProvider>(
         builder: (context, provider, child) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -732,7 +732,7 @@ class _UploadStepState extends State<UploadStep> {
               AppDimens.vSpaceExtraLarge,
               InkWell(
                 onTap: () {
-                  context.read<ImagePickerProvider>().pickImage(
+                  context.read<UtilsImagePickerProvider>().pickImage(
                         source: ImageSource.gallery,
                       );
                 },

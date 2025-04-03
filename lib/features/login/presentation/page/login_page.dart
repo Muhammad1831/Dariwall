@@ -5,6 +5,7 @@ import 'package:ostad/core/constant/app_color.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
 import 'package:ostad/core/constant/app_images.dart';
 import 'package:ostad/core/constant/app_string.dart';
+import 'package:ostad/core/widgets/app_loading.dart';
 import 'package:ostad/features/login/presentation/provider/auth_provider.dart';
 import 'package:ostad/core/route/app_route_name.dart';
 import 'package:ostad/core/widgets/app_button.dart';
@@ -31,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -54,14 +55,14 @@ class _LoginPageState extends State<LoginPage> {
                   AppDimens.vSpaceVerySmall,
                   // ostad text
                   Text(
-                    AppString.ostad,
-                    style: theme.displayMedium,
+                    AppString.dariWall,
+                    style: theme.textTheme.displayMedium,
                   ),
                   AppDimens.vSpaceLarge,
                   // enter user account text
                   Text(
-                    AppString.enterUserAccount,
-                    style: theme.headlineSmall!.copyWith(fontWeight: FontWeight.bold),
+                    AppString.enterToWallet,
+                    style: theme.textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.bold),
                   ),
                   AppDimens.vSpaceExtraLarge,
                   // phone number input field
@@ -97,7 +98,8 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       child: Text(
                         AppString.forgotPassword,
-                        style: theme.bodySmall!.copyWith(decoration: TextDecoration.underline),
+                        style: theme.textTheme.bodySmall!
+                            .copyWith(decoration: TextDecoration.underline),
                       ),
                     ),
                   ),
@@ -106,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                   Consumer<AuthProvider>(
                     builder: (context, provider, child) {
                       return provider.status == AuthStatus.loading
-                          ? const Center(child: CircularProgressIndicator())
+                          ? AppLoading()
                           : AppButton(
                               onTap: () async {
                                 await provider.login(
@@ -122,27 +124,36 @@ class _LoginPageState extends State<LoginPage> {
                                   );
                                 }
                               },
-                              text: AppString.enterInAccount,
+                              text: AppString.enterToWallet,
                             );
                     },
                   ),
+                  AppDimens.vSpaceSmall,
+                  AppButton(
+                    text: AppString.enterWithRecoveryPharse,
+                    onTap: () {},
+                    bgColor: theme.scaffoldBackgroundColor,
+                    borderColor: theme.colorScheme.onSurface,
+                    textColor: theme.colorScheme.onSurface,
+                  ),
                   SizedBox(height: 100.r),
-                  // dont have account text and create account button
+                  // dont have wallet text and create wallet button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        AppString.dontHaveAccount,
-                        style: theme.bodySmall!.copyWith(color: AppColor.textSecondary1Color),
+                        AppString.dontHaveWallet,
+                        style: theme.textTheme.bodySmall!
+                            .copyWith(color: AppColor.textSecondary1Color),
                       ),
                       AppDimens.hSpaceVerySmall,
                       GestureDetector(
                         onTap: () {
-                          GoRouter.of(context).push(AppRouteName.signUp);
+                          GoRouter.of(context).push(AppRouteName.createWallet);
                         },
                         child: Text(
-                          AppString.createAccount,
-                          style: theme.bodyMedium!.copyWith(color: AppColor.primaryColor),
+                          AppString.createNewWallet,
+                          style: theme.textTheme.bodyMedium!.copyWith(color: AppColor.primaryColor),
                         ),
                       ),
                     ],

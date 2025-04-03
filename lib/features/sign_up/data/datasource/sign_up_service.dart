@@ -7,11 +7,11 @@ import 'package:ostad/features/sign_up/data/model/sign_up_model.dart';
 import 'package:ostad/features/sign_up/data/model/university_model.dart';
 import 'package:ostad/core/services/api_client_service.dart';
 import 'package:ostad/core/services/error_handler_service.dart';
-import 'package:ostad/core/utils/app_shared_preferences.dart';
+import 'package:ostad/core/utils/utils_shared_preferences.dart';
 
 class SignUpService {
   final ApiClientService _apiClient;
-  final AppSharedPreferences _preferences;
+  final UtilsSharedPreferences _preferences;
 
   SignUpService(this._apiClient, this._preferences);
 
@@ -21,8 +21,8 @@ class SignUpService {
         AppApi.register,
         data: signUpModel.toJson(),
       );
-      await _preferences.saveAccessToken(response.data[AppSharedPreferencesKey.keyToken]);
-      await _preferences.saveRefreshToken(response.data[AppSharedPreferencesKey.keyRefreshToken]);
+      await _preferences.saveAccessToken(response.data[AppSharedPreferencesKey.keyAccess]);
+      await _preferences.saveRefreshToken(response.data[AppSharedPreferencesKey.keyRefresh]);
 
       return response;
     } on AppException {

@@ -4,13 +4,21 @@ abstract class AppColor {
   AppColor._();
 
   static const Color primaryColor = Color(0xFF4B89A6);
-  static const Color secondaryColor = Color(0xFFF0A04B);
+  static const Color secondaryColor = Color(0xFFD4B483);
   static const Color backgroundColor = Color(0xFF0F1419);
   static const Color surfaceColor = Color(0xFF2F3B47);
   static const Color cardColor = Color(0xFF1E252B);
   static const Color accentColor = Color(0xFF7BD3EA);
+  static const Color border = Color(0xFFF5F5F5);
+  static const Color divider = Color(0xFF1E252B);
 
-  static const Color successColor = Color(0xFF81C784);
+  static const Color onPrimary = Color(0xFFF5F5F5);
+  static const Color onTertiary = Color(0xFFF5F5F5);
+  static const Color onSurface = Color(0xFFB0BEC5);
+  static const Color onSecondary = Color(0xFFB0BEC5);
+  static const Color onError = Color(0xFFB0BEC5);
+
+  static const Color successColor = Color(0xFF55AD9B);
   static const Color errorColor = Color(0xFFE57373);
   static const Color warningColor = Color(0xFFFFB74D);
   static const Color infoColor = Color(0xFF64B5F6);
@@ -37,6 +45,24 @@ abstract class AppColor {
     colors: [
       Color(0xff2E3338),
       Color(0xff23272A),
+    ],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
+
+  static final LinearGradient priceDecreaseGradient = LinearGradient(
+    colors: [
+      Color(0xffB46464).withAlpha(90),
+      Color(0xff0F1419).withAlpha(150),
+    ],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
+
+  static final LinearGradient priceIncreaseGradient = LinearGradient(
+    colors: [
+      Color(0xff55AD9B).withAlpha(90),
+      Color(0xff0F1419).withAlpha(150),
     ],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
 import 'package:ostad/core/constant/app_icons.dart';
 import 'package:ostad/core/constant/app_string.dart';
-import 'package:ostad/core/utils/image_picker_provider.dart';
+import 'package:ostad/core/utils/utils_image_picker_provider.dart';
 import 'package:ostad/core/widgets/app_button.dart';
 import 'package:ostad/core/widgets/app_snack_bar.dart';
 import 'package:provider/provider.dart';
@@ -14,12 +14,12 @@ class UploadImage extends StatelessWidget {
     this.isMultiImage = false,
   });
 
-  final Function(ImagePickerProvider, bool) onTap;
+  final Function(UtilsImagePickerProvider, bool) onTap;
   final bool isMultiImage;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Consumer<ImagePickerProvider>(
+    return Consumer<UtilsImagePickerProvider>(
       builder: (context, imagePickerProvider, child) {
         final hasImages = isMultiImage
             ? imagePickerProvider.imageList != null && imagePickerProvider.imageList!.isNotEmpty

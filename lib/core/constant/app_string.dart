@@ -1,7 +1,57 @@
 abstract class AppString {
   AppString._();
 
-  static const String ostad = 'OSTAD';
+  // welcome page
+  static const String welcome = 'خوش آمدید';
+  static const String toTheWallet = 'به کیف پول';
+  static const String welcomeDescription =
+      'برای شروع استفاده از کیف پول داریوال، کیف پول جدید بسازید (اگر اولین بار است که از دارویال استفاده می‌کنید) یا با کدهای بازیابی وارد شوید (اگر قبلاً کیف پول داریوال داشته‌اید).';
+  static const String createNewWallet = 'ایجاد کیف پول جدید';
+  static const String haveWallet = 'کیف پول دارم';
+
+  // create wallet page
+  static const String referrerCode = 'کد معرف';
+  static const String optional = 'اختیاری';
+  static const String enterReferrerCode = 'کد معرف را وارد کنید...';
+  static const String roleOfUseDariwall = 'قوانین و شرایط استفاده از داریوال';
+  static const String accept = 'را می‌پذیرم.';
+  static const String enterYourPhoneNumberForValidation =
+      'لطفاً شماره تلفن همراه خود را بررسی کنید و کد ارسال شده را در کادر زیر وارد کنید تا فرایند اعتبارسنجی شما تکمیل شود.';
+  static const String editPhoneNumber = 'ویرایش شماره تلفن';
+  static const String enterWithFingerPrint = 'ورود با اثرانگشت';
+
+  // recovery phrase
+  static const String securityRecoveryCodes = 'رمزهای بازیابی امنیتی';
+  static const String thisPasswordsIsYourKey = 'این رمزها مانند کلید حساب شما هستند!';
+  static const String warningRecoveryPhrase =
+      'این ۱۲ رمز یکتا، دسترسی ویژه به حساب کاربری شما را فراهم میکنند. در صورت فراموشی رمز عبور یا قفل شدن حساب، تنها با استفاده از این کدها میتوانید حساب خود را بازیابی کنید.';
+  static const String dontSendThisPasswordsToAnyOne = ' این رمزها را برای هیچکس ارسال نکنید.';
+  static const String maintainProperly = 'به درستی از آن‌ها نگه‌داری کنید.';
+  static const String saveInClipboard = 'ذخیره در کلیپبورد';
+  static const String enterToApp = 'ورود به برنامه';
+  static const String wrotePasswords = 'رمزها را یادداشت کردم.';
+
+  // home
+  static const String receive = 'دریافت';
+  static const String swap = 'تبادل';
+
+  // user account
+  static const String userAccount = 'حساب کاربری';
+  static const String addEmailForMoreSecurity =
+      'برای افزایش امنیت حساب کاربری، لطفاً ایمیل خود را اضافه کنید!';
+  static const String towStepVerification = 'تایید دومرحله‌ای';
+  static const String userAccountInfo = 'اطلاعات حساب کاربری';
+  static const String security = 'امنیت';
+  static const String phantomWalletAddress = 'آدرس کیف پول فانتوم(Phantom)';
+  static const String giftCode = 'کد هدیه';
+  static const String inviteFriends = 'دعوت دوستان';
+  static const String aboutUs = 'درباره ما';
+
+  // login
+  static const String enterToWallet = 'ورود به کیف پول';
+  static const String enterWithRecoveryPharse = 'ورود با استفاده از کدهای بازیابی';
+
+  static const String dariWall = 'داریوال';
   static const String enterUserAccount = 'ورود به حساب کاربری';
   static const String phoneNumber = 'شماره تلفن همراه';
   static const String password = 'رمز عبور';
@@ -10,8 +60,7 @@ abstract class AppString {
   static const String newRepeatPassword = 'تکرار رمز عبور جدید';
   static const String enterInAccount = 'ورود به حساب';
   static const String forgotPassword = 'فراموشی رمز عبور';
-  static const String dontHaveAccount = 'حساب کاربری ندارید؟';
-  static const String createAccount = 'ایجاد حساب';
+  static const String dontHaveWallet = 'کیف پول ندارید؟';
   static const String passHint = '********';
   static const String phoneHint = '1122***0918';
   static const String emailHint = 'example@gmail.com';
@@ -66,7 +115,7 @@ abstract class AppString {
   static const String completValidationProcess = 'تکمیل فرآیند اعتبارسنجی';
   static const String checkYourEmail =
       'لطفاً ایمیل خود را بررسی کنید و کد ارسال شده را در کادر زیر وارد کنید تا فرایند اعتبارسنجی شما تکمیل شود.';
-  static String codeSentToEmail(String email) => 'کد به $email ارسال شد.';
+  static String codeSentTo(String value) => 'کد به $value ارسال شد.';
   static const String codeNotSent = 'کد ارسال نشده است؟';
   static const String sentCodeAgain = 'ارسال مجدد کد';
   static const String minimumPasswordCharacter = 'رمز عبور باید حداقل ۸ کاراکتر داشته باشد.';
@@ -82,8 +131,8 @@ abstract class AppString {
   static const String confirm = 'تایید';
   static const String home = 'خانه';
   static const String account = 'حساب کاربری';
-  static const String priceInfo = 'اطلاع قیمت';
-  static const String wallet = 'کیف پول';
+  static const String missions = 'ماموریت‌ها';
+  static const String transactions = 'تراکنش‌ها';
   static const String learnAndGuide = 'آموزش و راهنما';
   static const String logout = 'خروج از حساب کاربری';
   static const String totalBalance = 'موجودی کل';
@@ -145,7 +194,8 @@ abstract class AppString {
   static const String endParantse = ') ';
   static const String seeImagesUploaded = 'مشاهده تصاویر بارگزاری شده';
   static const String send = 'ارسال';
-  static const String likeCoinmarketcapDescription = '1. وارد لینک زیر شوید و رای خود را مشابه تصویر زیر ثبت کنید:';
+  static const String likeCoinmarketcapDescription =
+      '1. وارد لینک زیر شوید و رای خود را مشابه تصویر زیر ثبت کنید:';
   static const String voteForOstadInCoinMarketCap = 'رای دادن به استاد در CoinMarketCap';
   static const String vote = 'رای دادن';
 }

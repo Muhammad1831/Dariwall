@@ -25,14 +25,18 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   Future<void> _checkLoginStatus() async {
-    await Future.delayed(const Duration(seconds: 2));
-
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    if (authProvider.isAuthenticated) {
-      context.go(AppRouteName.home);
-    } else {
-      context.go(AppRouteName.login);
-    }
+    await Future.delayed(
+      const Duration(seconds: 2),
+      () async {
+        final authProvider = Provider.of<AuthProvider>(context, listen: false);
+        await authProvider.checkAuthStatus();
+        if (authProvider.isAuthenticated) {
+          context.go(AppRouteName.home);
+        } else {
+          context.go(AppRouteName.login);
+        }
+      },
+    );
   }
 
   @override
@@ -58,7 +62,7 @@ class _SplashPageState extends State<SplashPage> {
                       height: 120.r,
                     ),
                     Text(
-                      AppString.ostad,
+                      AppString.dariWall,
                       style: Theme.of(context).textTheme.displayLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             fontFamily: AppTextStyle.timesNewRoman,

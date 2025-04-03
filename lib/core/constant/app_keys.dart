@@ -3,6 +3,8 @@ abstract class AppKeys {
 
   static const String keyBearer = 'Bearer';
   static const String keyAuthorization = 'Authorization';
+  static const String keyAccess = 'access';
+  static const String keyRefresh = 'refresh';
 
   static const String keyFirstName = 'firstName';
   static const String keyLastName = 'lastName';
@@ -14,8 +16,12 @@ abstract class AppKeys {
   static const String keyUniversityCode = 'universityCode';
   static const String keyGender = 'gender';
   static const String keyPassword = 'password';
+  static const String keyUserId = 'userId';
+  static const String keyUsername = 'username';
+  static const String keyMnemonic = 'mnemonic';
 
   static const String keyProvince = 'province';
   static const String keyCode = 'code';
   static const String keyName = 'name';
+  static const String referralCode = 'referralCode';
 }
