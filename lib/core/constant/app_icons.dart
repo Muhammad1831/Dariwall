@@ -22,4 +22,17 @@ abstract class AppIcons {
   static const String upload = 'assets/icons/upload.svg';
   static const String arrowLeft = 'assets/icons/arrow-left.svg';
   static const String arrow = 'assets/icons/arrow.svg';
+  static const String crown = 'assets/icons/crown.svg';
+  static const String editSquare = 'assets/icons/edit-square.svg';
+  static const String copy = 'assets/icons/copy.svg';
+  static const String scanQrCode = 'assets/icons/scan-qr-code.svg';
+  static const String swap = 'assets/icons/swap.svg';
+  static const String receiveTransaction = 'assets/icons/receive-transaction.svg';
+  static const String sendTransaction = 'assets/icons/send-transaction.svg';
+  static const String coinAlt = 'assets/icons/coin-alt.svg';
+  static const String lockClose = 'assets/icons/lock-close.svg';
+  static const String friends = 'assets/icons/friends.svg';
+  static const String smile = 'assets/icons/smile.svg';
+  //TODO: must be delete
+  static const String solana = 'assets/icons/solana.svg';
 }

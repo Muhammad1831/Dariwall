@@ -17,14 +17,14 @@ abstract class AppTextStyle {
   );
   // display medium
   static TextStyle displayMediumDark = TextStyle(
-    fontFamily: timesNewRoman,
+    fontFamily: iranSansWeb,
     fontSize: 24.sp,
     fontWeight: FontWeight.w500,
     color: AppColor.textPrimaryColor,
   );
   // display small
   static TextStyle displaySmallDark = TextStyle(
-    fontFamily: timesNewRoman,
+    fontFamily: iranSansWeb,
     fontSize: 20.sp,
     fontWeight: FontWeight.bold,
     color: AppColor.textPrimaryColor,

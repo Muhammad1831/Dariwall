@@ -1,4 +1,4 @@
-abstract class AppErrorMessage {
+abstract class AppMessage {
   static const String networkError = 'اتصال اینترنت خود را بررسی کنید';
   static const String serverError = 'خطای سرور لطفاً بعداً دوباره تلاش کنید';
   static const String authError = 'اطلاعات ورودی نادرست است';
@@ -9,4 +9,8 @@ abstract class AppErrorMessage {
   static const String invalidInput = 'اطلاعات ورودی نامعتبر است';
   static const String unauthorizedError = 'ورود ناموفق بود';
   static const String logoutError = 'خروج از حساب کاربری با خطا مواجه شد';
+
+  static const String copiedPasswords = 'رمز‌های بازیابی کپی شد';
+  static const String passwordNotMatch = 'رمز‌ها مطابقت ندارند';
+  
 }

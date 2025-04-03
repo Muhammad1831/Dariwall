@@ -4,11 +4,11 @@ import 'package:ostad/core/constant/app_keys.dart';
 import 'package:ostad/core/constant/app_shared_preferences_key.dart';
 import 'package:ostad/core/services/api_client_service.dart';
 import 'package:ostad/core/services/error_handler_service.dart';
-import 'package:ostad/core/utils/app_shared_preferences.dart';
+import 'package:ostad/core/utils/utils_shared_preferences.dart';
 
 class AuthService {
   final ApiClientService _apiClient;
-  final AppSharedPreferences _preferences;
+  final UtilsSharedPreferences _preferences;
 
   AuthService(this._apiClient, this._preferences);
 
@@ -21,8 +21,8 @@ class AuthService {
           AppKeys.keyPassword: password,
         },
       );
-      await _preferences.saveAccessToken(response.data[AppSharedPreferencesKey.keyToken]);
-      await _preferences.saveRefreshToken(response.data[AppSharedPreferencesKey.keyRefreshToken]);
+      await _preferences.saveAccessToken(response.data[AppSharedPreferencesKey.keyAccess]);
+      await _preferences.saveRefreshToken(response.data[AppSharedPreferencesKey.keyRefresh]);
 
       return response;
     } on AppException {

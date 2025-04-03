@@ -2,17 +2,17 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:ostad/core/constant/app_api.dart';
-import 'package:ostad/core/constant/app_error_message.dart';
+import 'package:ostad/core/constant/app_message.dart';
 import 'package:ostad/core/constant/app_keys.dart';
 import 'package:ostad/core/constant/app_shared_preferences_key.dart';
 import 'package:ostad/core/services/error_handler_service.dart';
-import 'package:ostad/core/utils/app_shared_preferences.dart';
+import 'package:ostad/core/utils/utils_shared_preferences.dart';
 
 class ApiClientService {
   late Dio _dio;
   final int _timeout = 10;
 
-  final AppSharedPreferences _preferences;
+  final UtilsSharedPreferences _preferences;
   final Dio _authDio = Dio();
 
   ApiClientService(this._preferences) {
@@ -74,12 +74,12 @@ class ApiClientService {
 
       final response = await _authDio.post(
         '${AppApi.baseUrl}${AppApi.loginRenew}',
-        data: {AppSharedPreferencesKey.keyRefreshToken: refreshToken},
+        data: {AppSharedPreferencesKey.keyRefresh: refreshToken},
       );
 
       if (response.statusCode == 200) {
-        final accessToken = response.data[AppSharedPreferencesKey.keyToken];
-        final newRefreshToken = response.data[AppSharedPreferencesKey.keyRefreshToken];
+        final accessToken = response.data[AppSharedPreferencesKey.keyAccess];
+        final newRefreshToken = response.data[AppSharedPreferencesKey.keyRefresh];
 
         await _preferences.saveAccessToken(accessToken);
         await _preferences.saveRefreshToken(newRefreshToken);
@@ -99,7 +99,7 @@ class ApiClientService {
       throw ErrorHandlerService.handleDioError(e);
     } catch (e) {
       throw AppException(
-        message: AppErrorMessage.unknownError,
+        message: AppMessage.unknownError,
       );
     }
   }
@@ -111,7 +111,7 @@ class ApiClientService {
       throw ErrorHandlerService.handleDioError(e);
     } catch (e) {
       throw AppException(
-        message: AppErrorMessage.unknownError,
+        message: AppMessage.unknownError,
       );
     }
   }
@@ -123,7 +123,7 @@ class ApiClientService {
       throw ErrorHandlerService.handleDioError(e);
     } catch (e) {
       throw AppException(
-        message: AppErrorMessage.unknownError,
+        message: AppMessage.unknownError,
       );
     }
   }
@@ -135,7 +135,7 @@ class ApiClientService {
       throw ErrorHandlerService.handleDioError(e);
     } catch (e) {
       throw AppException(
-        message: AppErrorMessage.unknownError,
+        message: AppMessage.unknownError,
       );
     }
   }

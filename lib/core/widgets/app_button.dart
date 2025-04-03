@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ostad/core/constant/app_color.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
+import 'package:ostad/core/widgets/app_loading.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({
@@ -16,6 +16,7 @@ class AppButton extends StatelessWidget {
     this.icon,
     this.iconColor,
     this.iconSize,
+    this.isLoading,
     super.key,
   });
 
@@ -29,26 +30,27 @@ class AppButton extends StatelessWidget {
   final String? icon;
   final Color? iconColor;
   final double? iconSize;
+  final bool? isLoading;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: borderColor ?? Colors.transparent,
-          width: borderWidth ?? 1,
+    return Material(
+      color: bgColor ?? theme.buttonTheme.colorScheme!.primary,
+      borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderRadiusSmall),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: borderColor ?? Colors.transparent,
+            width: borderWidth ?? 1,
+          ),
+          borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderRadiusSmall),
         ),
-        borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderRadiusSmall),
-      ),
-      child: Material(
-        color: bgColor ?? AppColor.primaryColor,
-        borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderRadiusSmall),
         child: InkWell(
           onTap: onTap,
           borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderRadiusSmall),
           child: SizedBox(
-            height: 40.h,
+            height: 40.r,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: icon != null ? AppDimens.verySmall : 0,
@@ -64,13 +66,16 @@ class AppButton extends StatelessWidget {
                       BlendMode.srcIn,
                     ),
                   ),
-                Text(
-                  text,
-                  style: theme.textTheme.titleSmall!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: textColor ?? theme.colorScheme.onPrimary,
+                if (isLoading == true)
+                  const AppLoading()
+                else
+                  Text(
+                    text,
+                    style: theme.textTheme.titleSmall!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: textColor ?? theme.colorScheme.onPrimary,
+                    ),
                   ),
-                ),
               ],
             ),
           ),

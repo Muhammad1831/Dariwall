@@ -1,137 +1,88 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:ostad/core/constant/app_color.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
+import 'package:ostad/core/constant/app_icons.dart';
 import 'package:ostad/core/constant/app_string.dart';
+import 'package:ostad/core/widgets/app_otp.dart';
 import 'package:ostad/core/widgets/bullet_text.dart';
 import 'package:ostad/core/widgets/app_button.dart';
-import 'package:ostad/core/widgets/app_text_field.dart';
 
-class OtpStep extends StatefulWidget {
-  const OtpStep({
-    super.key,
-    required this.onTapContinue,
-    required this.onTapResend,
-    required this.email,
-  });
-
-  final VoidCallback onTapContinue;
-  final VoidCallback onTapResend;
-  final String email;
-
-  @override
-  State<OtpStep> createState() => _OtpStepState();
-}
-
-class _OtpStepState extends State<OtpStep> {
-  late final List<TextEditingController> _controllers;
-  late final List<FocusNode> _focusNodes;
-
-  @override
-  void initState() {
-    super.initState();
-    _controllers = List.generate(6, (_) => TextEditingController());
-    _focusNodes = List.generate(6, (_) => FocusNode());
-  }
-
-  @override
-  void dispose() {
-    for (var controller in _controllers) {
-      controller.dispose();
-    }
-    for (var node in _focusNodes) {
-      node.dispose();
-    }
-    super.dispose();
-  }
-
-  void _onChanged(String value, int index) {
-    if (value.length == 1) {
-      if (index > 0) {
-        _focusNodes[index - 1].requestFocus();
-      }
-    } else if (value.isEmpty && index < _focusNodes.length - 1) {
-      _focusNodes[index + 1].requestFocus();
-    }
-  }
+// ignore: must_be_immutable
+class OtpStep extends StatelessWidget {
+  OtpStep({super.key, required this.onTapContinue});
+  final Function(String) onTapContinue;
+  String _otp = '';
+  int numberOfField = 6;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return Expanded(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          AppDimens.vSpaceExtraLarge,
-          Text(
-            AppString.completValidationProcess,
-            style: theme.textTheme.titleMedium,
-          ),
-          AppDimens.vSpaceSmall,
+          // description
           BulletText(
-            text: AppString.checkYourEmail,
+            text: AppString.enterYourPhoneNumberForValidation,
           ),
-          AppDimens.vSpaceSmall,
-          Align(
-            alignment: Alignment.center,
-            child: Text(
-              AppString.codeSentToEmail(widget.email),
-              style: theme.textTheme.bodySmall,
+          AppDimens.vSpaceVerySmall,
+          // code sent to
+          Text(
+            AppString.codeSentTo('09181112233'),
+          ),
+          AppDimens.vSpaceVerySmall,
+          // edit phone number
+          InkWell(
+            onTap: () {},
+            child: Row(
+              spacing: AppDimens.veryVerySmall,
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(AppIcons.editSquare),
+                Text(
+                  AppString.editPhoneNumber,
+                  style: theme.textTheme.bodyMedium!.copyWith(
+                    color: AppColor.infoColor,
+                  ),
+                )
+              ],
             ),
           ),
           AppDimens.vSpaceLarge,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(
-              6,
-              (index) => Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: AppTextFormField(
-                    controller: _controllers[5 - index],
-                    focusNode: _focusNodes[5 - index],
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.center,
-                    maxLength: 1,
-                    style: theme.textTheme.headlineMedium,
-                    onChanged: (value) {
-                      _onChanged(value, 5 - index);
-                    },
-                  ),
-                ),
-              ),
-            ).toList().reversed.toList(),
+          AppOtp(
+            onChanged: (otp) {
+              _otp = otp;
+            },
           ),
           AppDimens.vSpaceLarge,
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            spacing: AppDimens.verySmall,
             children: [
               Text(
                 AppString.codeNotSent,
-                style: theme.textTheme.bodySmall,
               ),
-              AppDimens.hSpaceVerySmall,
-              GestureDetector(
-                onTap: widget.onTapResend,
-                child: Text(
-                  AppString.sentCodeAgain,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.tertiary,
-                    fontWeight: FontWeight.bold,
-                  ),
+              Text(
+                AppString.sentCodeAgain,
+                style: theme.textTheme.bodyMedium!.copyWith(
+                  color: AppColor.infoColor,
                 ),
               ),
             ],
           ),
-          const Spacer(),
+          AppDimens.vSpaceMedium,
+          Spacer(),
+          // continu button
           AppButton(
             text: AppString.continueText,
             onTap: () {
-              final otp = _controllers.map((c) => c.text).join();
-              if (otp.length == 6) {
-                widget.onTapContinue();
+              if (_otp.length == numberOfField) {
+                onTapContinue(_otp);
               }
             },
-          ),
+          )
         ],
       ),
     );

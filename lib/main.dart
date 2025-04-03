@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:ostad/features/create_wallet/domain/usecase/create_wallet_usecase.dart';
+import 'package:ostad/features/create_wallet/presentation/provider/create_wallet_provider.dart';
 import 'package:ostad/features/login/presentation/provider/auth_provider.dart';
 import 'package:ostad/core/route/app_routeing.dart';
 import 'package:ostad/features/login/data/datasource/auth_service.dart';
@@ -18,12 +20,14 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider(getIt<AuthService>())),
+        ChangeNotifierProvider(
+            create: (_) => CreateWalletProvider(createWalletUsecase: getIt<CreateWalletUsecase>())),
       ],
-      child: DevicePreview(
-        enabled: !kReleaseMode,
-        builder: (context) => MyApp(),
-      ),
-      // child: MyApp(),
+      // child: DevicePreview(
+      //   enabled: !kReleaseMode,
+      //   builder: (context) => MyApp(),
+      // ),
+      child: MyApp(),
     ),
   );
 }
@@ -34,7 +38,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 640),
+      designSize: const Size(360, 800),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) {

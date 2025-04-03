@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
+import 'package:ostad/core/constant/app_images.dart';
 import 'package:ostad/core/constant/app_string.dart';
-import 'package:ostad/features/forget_password/presentation/widgets/enter_email.dart';
 import 'package:ostad/features/forget_password/presentation/widgets/new_password.dart';
-import 'package:ostad/features/sign_up/presentation/page/sign_up_page.dart';
 import 'package:ostad/core/widgets/app_header.dart';
+import 'package:ostad/features/forget_password/presentation/widgets/otp.dart';
 
-enum Step {
-  information,
+enum ForgetPassSteps {
   otp,
   newPassword,
 }
@@ -21,13 +22,12 @@ class ForgetPasswordPage extends StatefulWidget {
 }
 
 class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
-  Step currentStep = Step.information;
-  String _email = '';
+  ForgetPassSteps currentStep = ForgetPassSteps.otp;
 
   void nextStep() {
     setState(() {
-      if (currentStep.index < Step.values.length - 1) {
-        currentStep = Step.values[currentStep.index + 1];
+      if (currentStep.index < ForgetPassSteps.values.length - 1) {
+        currentStep = ForgetPassSteps.values[currentStep.index + 1];
       }
     });
   }
@@ -35,147 +35,64 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   void previousStep() {
     setState(() {
       if (currentStep.index > 0) {
-        currentStep = Step.values[currentStep.index - 1];
+        currentStep = ForgetPassSteps.values[currentStep.index - 1];
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    // final theme = Theme.of(context);
 
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: AppDimens.paddingLarge,
-            vertical: AppDimens.paddingVeryLarge,
-          ),
-          child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppHeader(
-                headerText: AppString.forgotPassword,
-                onTap: () {
-                  if (Step.information == currentStep) {
-                    GoRouter.of(context).pop();
-                  } else {
-                    previousStep();
-                  }
-                },
-              ),
-              AppDimens.vSpaceVeryLarge,
-
-              // progress bar
-              Row(
-                children: [
-                  SizedBox(
-                    width: 12,
-                    height: 12,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: currentStep.index >= Step.values[Step.information.index].index
-                            ? theme.colorScheme.tertiary
-                            : theme.colorScheme.surface,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: SizedBox(
-                      height: 2,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: currentStep.index >= Step.values[Step.otp.index].index
-                              ? theme.colorScheme.tertiary
-                              : theme.colorScheme.surface,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 12,
-                    height: 12,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: currentStep.index >= Step.values[Step.otp.index].index
-                            ? theme.colorScheme.tertiary
-                            : theme.colorScheme.surface,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: SizedBox(
-                      height: 2,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: currentStep.index >= Step.values[Step.newPassword.index].index
-                              ? theme.colorScheme.tertiary
-                              : theme.colorScheme.surface,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 12,
-                    height: 12,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: currentStep.index >= Step.values[Step.newPassword.index].index
-                            ? theme.colorScheme.tertiary
-                            : theme.colorScheme.surface,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              AppDimens.vSpaceSmall,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    AppString.info,
-                    style: theme.textTheme.bodySmall,
-                  ),
-                  Text(
-                    AppString.validation,
-                    style: theme.textTheme.bodySmall,
-                  ),
-                  Text(
-                    AppString.newPassword,
-                    style: theme.textTheme.bodySmall,
-                  ),
-                ],
-              ),
-
-              AppDimens.vSpaceMedium,
-
-              if (currentStep == Step.information)
-                EnterEmailStep(
-                  onTapContinue: (email) {
-                    _email = email;
-                    nextStep();
-                  },
+        body: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppDimens.paddingLarge,
+                  vertical: AppDimens.paddingVeryLarge,
                 ),
-
-              if (currentStep == Step.otp)
-                OtpStep(
-                  email: _email,
-                  onTapContinue: nextStep,
-                  onTapResend: () {
-                    // handle resend logic
-                  },
+                child: Column(
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppHeader(
+                      headerText: AppString.forgotPassword,
+                      onTap: () {
+                        if (ForgetPassSteps.otp == currentStep) {
+                          GoRouter.of(context).pop();
+                        } else {
+                          previousStep();
+                        }
+                      },
+                    ),
+                    AppDimens.vSpaceMedium,
+                    // image
+                    SvgPicture.asset(
+                      AppImages.forgetPass,
+                      height: 200.r,
+                      width: 200.r,
+                      fit: BoxFit.contain,
+                    ),
+                    AppDimens.vSpaceMedium,
+                    if (currentStep == ForgetPassSteps.otp)
+                      OtpStep(
+                        onTapContinue: (otp) {
+                          nextStep();
+                        },
+                      ),
+                    if (currentStep == ForgetPassSteps.newPassword)
+                      NewPasswordStep(
+                        onTapContinue: nextStep,
+                      ),
+                  ],
                 ),
-
-              if (currentStep == Step.newPassword)
-                NewPasswordStep(
-                  onTapContinue: nextStep,
-                ),
-            ],
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );

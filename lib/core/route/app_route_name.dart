@@ -12,4 +12,7 @@ abstract class AppRouteName {
   static const String learnAndGuide = '/learnAndGuide';
   static const String followX = '/followX';
   static const String likeCoinmarketcap = '/likeCoinmarketcap';
+  static const String welcomePage = '/welcomePage';
+  static const String createWallet = '/createWallet';
+  static const String recoveryphrase = '/recoveryphrase';
 }
