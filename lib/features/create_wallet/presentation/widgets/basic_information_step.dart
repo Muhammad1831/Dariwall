@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ostad/core/constant/app_color.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
@@ -33,11 +33,11 @@ class BasicInformationStep extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // image
+                  // image    
                   SvgPicture.asset(
                     AppImages.createWalletBasicInfo,
-                    height: 200.r,
-                    width: 200.r,
+                    height: 200,
+                    width: 200,
                     fit: BoxFit.contain,
                   ),
                   AppDimens.vSpaceMedium,

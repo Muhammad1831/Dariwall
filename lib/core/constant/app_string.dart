@@ -34,6 +34,7 @@ abstract class AppString {
   // home
   static const String receive = 'دریافت';
   static const String swap = 'تبادل';
+  static const String swapToken = 'تبادل توکن';
 
   // user account
   static const String userAccount = 'حساب کاربری';
@@ -51,6 +52,26 @@ abstract class AppString {
   static const String enterToWallet = 'ورود به کیف پول';
   static const String enterWithRecoveryPharse = 'ورود با استفاده از کدهای بازیابی';
 
+  // buy
+  static const String search = 'جستجو کنید...';
+  static const String popularTokens = 'توکن‌های پرطرفدار';
+
+  // receive
+  static const String copy = 'کپی';
+  static const String barcode = 'بارکد';
+
+  // invite friends
+  static const String successfulInvite = 'دعوت موفق';
+  static const String rewardReceived = 'جایزه دریافتی';
+  static const String nextGift = 'هدیه دعوت بعدی';
+  static const String yourReferralCode = 'کد معرف شما';
+  static const String referralLink = 'لینک دعوت اختصاصی';
+  static const String inviteYourFriends = 'دوستانتان را دعوت کنید و پاداش بگیرید!';
+  static const String howToInviteFriends = 'چگونه دوستان را دعوت کنیم؟';
+  static const String copyReferralCode = 'کد معرف خود را کپی کنید (یا لینک دعوت را اشتراک‌ گذاری کنید).';
+  static const String sendToFriends = 'برای دوستانتان بفرستید (واتساپ، تلگرام، ایمیل و...)';
+  static const String afterRegisterAndFirstTransaction = 'پس از تکمیل ثبت‌نام و اولین تراکنش دوستتان، پاداش شما خودکار واریز می‌شود!';
+  
   static const String dariWall = 'داریوال';
   static const String enterUserAccount = 'ورود به حساب کاربری';
   static const String phoneNumber = 'شماره تلفن همراه';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ostad/core/constant/app_color.dart';
@@ -39,7 +39,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
         key: _scaffoldKey,
         body: widget.navigationShell,
         bottomNavigationBar: BottomAppBar(
-          height: 64.r,
+          height: 64,
           color: theme.cardTheme.color,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,7 +109,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
             child: Text(
               title,
               style: theme.textTheme.bodySmall!.copyWith(
-                fontSize: 10.sp,
+                fontSize: 10,
                 color: currentIndex == index ? AppColor.infoColor : theme.iconTheme.color!,
               ),
             ),

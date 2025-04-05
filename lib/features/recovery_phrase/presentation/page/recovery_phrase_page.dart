@@ -170,7 +170,7 @@ class _RecoveryPhrasePageState extends State<RecoveryPhrasePage> {
                 text: AppString.enterToApp,
                 onTap: () {
                   if (isWrotePasswords) {
-                    GoRouter.of(context).go(AppRouteName.home);
+                    context.goNamed(AppRouteName.home);
                   }
                 },
                 bgColor: isWrotePasswords ? null : theme.disabledColor,

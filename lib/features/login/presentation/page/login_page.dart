@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ostad/core/constant/app_color.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
@@ -49,8 +49,8 @@ class _LoginPageState extends State<LoginPage> {
                   // logo image
                   Image.asset(
                     AppImages.logo,
-                    width: 80.h,
-                    height: 80.h,
+                    width: 80,
+                    height: 80,
                   ),
                   AppDimens.vSpaceVerySmall,
                   // ostad text
@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                     alignment: Alignment.centerRight,
                     child: GestureDetector(
                       onTap: () {
-                        GoRouter.of(context).push(AppRouteName.forgetPassword);
+                        context.pushNamed(AppRouteName.forgetPassword);
                       },
                       child: Text(
                         AppString.forgotPassword,
@@ -116,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                                   password: password.text,
                                 );
                                 if (provider.status == AuthStatus.authenticated) {
-                                  context.go(AppRouteName.home);
+                                  context.goNamed(AppRouteName.home);
                                 } else {
                                   AppSnackBar.showError(
                                     context,
@@ -136,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                     borderColor: theme.colorScheme.onSurface,
                     textColor: theme.colorScheme.onSurface,
                   ),
-                  SizedBox(height: 100.r),
+                  SizedBox(height: 100),
                   // dont have wallet text and create wallet button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -149,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                       AppDimens.hSpaceVerySmall,
                       GestureDetector(
                         onTap: () {
-                          GoRouter.of(context).push(AppRouteName.createWallet);
+                          context.pushNamed(AppRouteName.createWallet);
                         },
                         child: Text(
                           AppString.createNewWallet,

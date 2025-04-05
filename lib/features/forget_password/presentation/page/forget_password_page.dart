@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
@@ -40,9 +40,9 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
     });
   }
 
-  @override
+  @override     
   Widget build(BuildContext context) {
-    // final theme = Theme.of(context);
+    // final theme = Theme.of(context);   
 
     return SafeArea(
       child: Scaffold(
@@ -73,8 +73,8 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                     // image
                     SvgPicture.asset(
                       AppImages.forgetPass,
-                      height: 200.r,
-                      width: 200.r,
+                      height: 200,
+                      width: 200,
                       fit: BoxFit.contain,
                     ),
                     AppDimens.vSpaceMedium,

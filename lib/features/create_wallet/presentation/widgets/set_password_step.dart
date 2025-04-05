@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
@@ -41,8 +41,8 @@ class _SetPasswordStepState extends State<SetPasswordStep> {
                   // image
                   SvgPicture.asset(
                     AppImages.createWalletSetPassword,
-                    height: 200.r,
-                    width: 200.r,
+                    height: 200,
+                    width: 200,
                     fit: BoxFit.contain,
                   ),
                   AppDimens.vSpaceMedium,
@@ -112,7 +112,7 @@ class _SetPasswordStepState extends State<SetPasswordStep> {
                             createWalletProvider.setPassword().then(
                               (value) {
                                 if (createWalletProvider.state == CreateWalletState.success) {
-                                  GoRouter.of(context).go(AppRouteName.recoveryphrase);
+                                  context.goNamed(AppRouteName.recoveryphrase);
                                 }
                               },
                             );

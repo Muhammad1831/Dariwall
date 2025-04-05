@@ -33,6 +33,7 @@ abstract class AppIcons {
   static const String lockClose = 'assets/icons/lock-close.svg';
   static const String friends = 'assets/icons/friends.svg';
   static const String smile = 'assets/icons/smile.svg';
+  static const String barcode = 'assets/icons/barcode.svg';
   //TODO: must be delete
   static const String solana = 'assets/icons/solana.svg';
 }

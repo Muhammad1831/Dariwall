@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
 import 'package:ostad/core/constant/app_string.dart';
@@ -25,8 +25,8 @@ class IconBetweenText extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          height: 4.r,
-          width: 4.r,
+          height: 4,
+          width: 4,
           child: DecoratedBox(
             decoration: BoxDecoration(
               color: bulletColor ?? theme.colorScheme.outline,

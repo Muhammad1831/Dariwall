@@ -60,7 +60,7 @@ class WelcomePage extends StatelessWidget {
               AppButton(
                 text: AppString.createNewWallet,
                 onTap: () {
-                  GoRouter.of(context).push(AppRouteName.createWallet);
+                  context.pushNamed(AppRouteName.createWallet);
                 },
               ),
               AppDimens.vSpaceSmall,
@@ -69,7 +69,7 @@ class WelcomePage extends StatelessWidget {
                 bgColor: theme.buttonTheme.colorScheme!.secondary,
                 borderColor: theme.buttonTheme.colorScheme!.outline,
                 onTap: () {
-                  GoRouter.of(context).go(AppRouteName.login);
+                  context.goNamed(AppRouteName.login);
                 },
               ),
               AppDimens.vSpaceMedium,

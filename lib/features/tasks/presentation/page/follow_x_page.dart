@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
 import 'package:ostad/core/constant/app_icons.dart';
@@ -64,8 +64,8 @@ class FollowXPage extends StatelessWidget {
                         Center(
                           child: Image.asset(
                             AppImages.followX,
-                            height: 300.h,
-                            width: 150.w,
+                            height: 300,
+                            width: 150,
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -89,8 +89,8 @@ class FollowXPage extends StatelessWidget {
                         Center(
                           child: Image.asset(
                             AppImages.caPost,
-                            height: 100.h,
-                            width: 150.w,
+                            height: 100,
+                            width: 150,
                             fit: BoxFit.contain,
                           ),
                         ),

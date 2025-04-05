@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ostad/core/constant/app_color.dart';
@@ -410,8 +410,8 @@ class CustomTitle extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          width: 4.r,
-          height: 4.r,
+          width: 4,
+          height: 4,
           child: DecoratedBox(
             decoration: BoxDecoration(
               color: theme.colorScheme.onPrimary,
@@ -426,8 +426,8 @@ class CustomTitle extends StatelessWidget {
         ),
         AppDimens.hSpaceSmall,
         SizedBox(
-          width: 4.r,
-          height: 4.r,
+          width: 4,
+            height: 4,
           child: DecoratedBox(
             decoration: BoxDecoration(
               color: theme.colorScheme.onPrimary,
@@ -754,7 +754,7 @@ class _UploadStepState extends State<UploadStep> {
                       children: [
                         provider.image != null
                             ? SizedBox(
-                                height: 160.r,
+                                height: 160,
                                 child: Image.file(
                                   File(
                                     provider.image!.path,
