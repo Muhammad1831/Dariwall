@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
 
 class BulletText extends StatelessWidget {
@@ -13,7 +13,7 @@ class BulletText extends StatelessWidget {
 
   final String text;
   final Color? bulletColor;
-  final TextStyle? textStyle;
+  final TextStyle? textStyle; 
   final CrossAxisAlignment? bulletAlignment;
 
   @override
@@ -24,8 +24,8 @@ class BulletText extends StatelessWidget {
       crossAxisAlignment: bulletAlignment ?? CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: 4.r,
-          width: 4.r,
+          height: 4,
+          width: 4,
           child: DecoratedBox(
             decoration: BoxDecoration(
               color: bulletColor ?? theme.colorScheme.onSecondary,

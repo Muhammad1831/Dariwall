@@ -113,14 +113,16 @@ class UserAccountPage extends StatelessWidget {
                   icon: AppIcons.lightBulb,
                   title: AppString.learnAndGuide,
                   onTap: () {
-                    GoRouter.of(context).push(AppRouteName.learnAndGuide);
+                    context.pushNamed(AppRouteName.learnAndGuide);
                   },
                 ),
                 // invite friends
                 UserAccountItem(
                   icon: AppIcons.friends,
                   title: AppString.inviteFriends,
-                  onTap: () {},
+                  onTap: () {
+                    context.pushNamed(AppRouteName.inviteFriends);
+                  },
                 ),
                 // about us
                 UserAccountItem(
@@ -134,7 +136,7 @@ class UserAccountPage extends StatelessWidget {
                     final authProvider = Provider.of<AuthProvider>(context, listen: false);
                     authProvider.logout();
                     if (!authProvider.isAuthenticated) {
-                      GoRouter.of(context).go(AppRouteName.login);
+                      context.goNamed(AppRouteName.login);
                     }
                   },
                   child: Padding(

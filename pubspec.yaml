@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_screenutil: ^5.9.0
+  # flutter_screenutil: ^5.9.0
   flutter_localizations:
     sdk: flutter
 
@@ -76,6 +76,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -89,12 +90,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: TimesNewRoman
-      fonts:
-        - asset: assets/fonts/Times-New-Roman.ttf
     - family: IRANSansWeb
       fonts:  
-        - asset: assets/fonts/IRANSansWeb(FaNum).ttf
+        - asset: assets/fonts/IRANSANSWEB.ttf
         # - asset: fonts/Schyler-Italic.ttf
         #   style: italic
   #   - family: Trajan Pro

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ostad/core/constant/app_color.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
 
@@ -28,7 +28,7 @@ class AppSnackBar extends StatelessWidget {
         child: Material(
           color: Colors.transparent,
           child: Container(
-            height: 40.r,
+            height: 40,
             decoration: BoxDecoration(
               color: Theme.of(context).snackBarTheme.backgroundColor,
               borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
@@ -37,8 +37,8 @@ class AppSnackBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  width: 40.r,
-                  height: 40.r,
+                  width: 40,
+                  height: 40,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       color: iconBackgroundColor,

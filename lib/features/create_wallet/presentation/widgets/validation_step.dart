@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ostad/core/constant/app_color.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
@@ -54,8 +54,8 @@ class _ValidationStepState extends State<ValidationStep> {
                 // image
                 SvgPicture.asset(
                   AppImages.createWalletValidation,
-                  height: 200.r,
-                  width: 200.r,
+                  height: 200,
+                  width: 200,
                   fit: BoxFit.contain,
                 ),
                 AppDimens.vSpaceMedium,
@@ -106,7 +106,7 @@ class _ValidationStepState extends State<ValidationStep> {
                     return Text(
                       createWalletProvider.remainingSeconds.formattedTime,
                       style: theme.textTheme.displaySmall!.copyWith(
-                        fontSize: 18.sp,
+                        fontSize: 18,
                       ),
                     );
                   },

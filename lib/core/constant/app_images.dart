@@ -13,4 +13,6 @@ abstract class AppImages {
   static const String createWalletValidation = 'assets/images/create-wallet-validation.svg';
   static const String createWalletSetPassword = 'assets/images/create-wallet-set-password.svg';
   static const String forgetPass = 'assets/images/forget-pass.svg';
+  static const String receive = 'assets/images/receive.svg';
+  static const String inviteFriends = 'assets/images/invite-friends.svg';
 }

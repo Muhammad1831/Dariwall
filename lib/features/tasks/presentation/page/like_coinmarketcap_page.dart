@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
 import 'package:ostad/core/constant/app_images.dart';
@@ -9,7 +9,7 @@ import 'package:ostad/features/tasks/presentation/widgets/border_box.dart';
 import 'package:ostad/features/tasks/presentation/widgets/steps_title.dart';
 import 'package:ostad/features/tasks/presentation/widgets/upload_image.dart';
 import 'package:ostad/core/utils/utils_image_picker_provider.dart';
-import 'package:ostad/core/style/app_text_style.dart';
+import 'package:ostad/core/style/app_text_style.dart';  
 import 'package:ostad/core/widgets/app_header.dart';
 import 'package:ostad/core/widgets/app_warning_tip.dart';
 import 'package:provider/provider.dart';
@@ -58,7 +58,7 @@ class LikeCoinmarketcapPage extends StatelessWidget {
                         ),
                         Image.asset(
                           AppImages.coinMarketCap,
-                          height: 300.h,
+                          height: 300,
                           fit: BoxFit.contain,
                         ),
                         AppDimens.vSpaceExtraLarge,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
 import 'package:ostad/core/widgets/app_loading.dart';
@@ -50,7 +50,7 @@ class AppButton extends StatelessWidget {
           onTap: onTap,
           borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderRadiusSmall),
           child: SizedBox(
-            height: 40.r,
+            height: 40,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: icon != null ? AppDimens.verySmall : 0,

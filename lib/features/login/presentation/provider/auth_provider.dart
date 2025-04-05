@@ -13,14 +13,16 @@ class AuthProvider with ChangeNotifier {
   String? _errorMessage;
   Response? _response;
 
-  AuthProvider(this._authService) {}
+  AuthProvider(this._authService) {
+    _checkAuthStatus();
+  }
 
   AuthStatus get status => _status;
   String? get errorMessage => _errorMessage;
   bool get isAuthenticated => _status == AuthStatus.authenticated;
   Response? get response => _response;
 
-  Future<void> checkAuthStatus() async {
+  Future<void> _checkAuthStatus() async {
     try {
       final isLoggedIn = await _authService.isLoggedIn();
       _status = isLoggedIn ? AuthStatus.authenticated : AuthStatus.unauthenticated;

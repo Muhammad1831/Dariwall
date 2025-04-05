@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ostad/core/constant/app_color.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
@@ -59,8 +59,8 @@ class LearnAndGuidePage extends StatelessWidget {
                 AppDimens.vSpaceSmall,
                 SvgPicture.asset(
                   AppImages.phantomLogo,
-                  width: 200.w,
-                  height: 40.h,
+                  width: 200,
+                  height: 40,
                   fit: BoxFit.fitWidth,
                 ),
                 AppDimens.vSpaceSmall,

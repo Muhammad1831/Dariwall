@@ -6,7 +6,8 @@ import 'package:ostad/core/style/app_text_style.dart';
 final darkTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.dark,
-
+  fontFamily: AppTextStyle.iranSansWeb,
+  
   // Scaffold Background Color
   scaffoldBackgroundColor: AppColor.backgroundColor,
   primaryColor: AppColor.primaryColor,
