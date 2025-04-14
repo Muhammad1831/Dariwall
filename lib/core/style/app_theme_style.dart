@@ -7,7 +7,7 @@ final darkTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.dark,
   fontFamily: AppTextStyle.iranSansWeb,
-  
+
   // Scaffold Background Color
   scaffoldBackgroundColor: AppColor.backgroundColor,
   primaryColor: AppColor.primaryColor,
@@ -19,13 +19,10 @@ final darkTheme = ThemeData(
     primary: AppColor.primaryColor,
     surface: AppColor.surfaceColor,
     secondary: AppColor.secondaryColor,
-    tertiary: AppColor.accentColor,
     error: AppColor.errorColor,
     onPrimary: AppColor.onPrimary,
     onSecondary: AppColor.onSecondary,
     onSurface: AppColor.onSurface,
-    onTertiary: AppColor.onTertiary,
-    outline: AppColor.border,
     onError: AppColor.onError,
   ),
 
@@ -75,7 +72,7 @@ final darkTheme = ThemeData(
     trackColor: WidgetStateColor.resolveWith(
       (states) {
         if (states.contains(WidgetState.selected)) {
-          return AppColor.accentColor;
+          return AppColor.primaryColor;
         } else {
           return AppColor.cardColor;
         }
@@ -117,23 +114,25 @@ final darkTheme = ThemeData(
   buttonTheme: ButtonThemeData(
     colorScheme: ColorScheme.dark(
       primary: AppColor.primaryColor,
+      onPrimary: AppColor.onPrimary,
       secondary: AppColor.backgroundColor,
-      outline: AppColor.border,
+      onSecondary: AppColor.onPrimary,
     ),
   ),
 
   // Card Theme
   cardTheme: CardTheme(
-    color: AppColor.cardColor,
+    color: AppColor.surfaceColor,
     elevation: 0,
   ),
 
   // Icon Theme
   iconTheme: IconThemeData(
-    color: AppColor.textSecondary1Color,
+    color: AppColor.onPrimary,
   ),
+  
   primaryIconTheme: IconThemeData(
-    color: AppColor.textPrimaryColor,
+    color: AppColor.primaryColor,
   ),
 
   // App Bar Theme
@@ -154,14 +153,14 @@ final darkTheme = ThemeData(
 
   // Floating Action Button Theme
   floatingActionButtonTheme: FloatingActionButtonThemeData(
-    backgroundColor: AppColor.accentColor,
+    backgroundColor: AppColor.primaryColor,
     foregroundColor: AppColor.backgroundColor,
   ),
 
   // Input Decoration Theme
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: AppColor.surfaceColor,
+    fillColor: AppColor.cardColor,
     hintStyle: AppTextStyle.labelMediumDark,
     labelStyle: AppTextStyle.labelMediumDark,
     errorStyle: AppTextStyle.labelSmallDark.copyWith(color: AppColor.errorColor),
@@ -179,7 +178,7 @@ final darkTheme = ThemeData(
       borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
     ),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColor.primaryColor),
+      borderSide: BorderSide(color: AppColor.selectedBorderColor),
       borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
     ),
     errorBorder: OutlineInputBorder(

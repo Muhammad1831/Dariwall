@@ -1,6 +1,6 @@
 import 'package:ostad/core/services/error_handler_service.dart';
-import 'package:ostad/features/create_wallet/domain/entity/new_wallet_entity.dart';
-import 'package:ostad/features/create_wallet/domain/repository/create_wallet_repository.dart';
+import 'package:ostad/features/create_new_wallet/domain/entity/new_wallet_entity.dart';
+import 'package:ostad/features/create_new_wallet/domain/repository/create_wallet_repository.dart';
 
 class CreateWalletUsecase {
   final CreateWalletRepository createWalletRepository;

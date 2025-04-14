@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +7,7 @@ import 'package:ostad/core/constant/app_color.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
 import 'package:ostad/core/constant/app_icons.dart';
 import 'package:ostad/core/constant/app_string.dart';
+import 'package:ostad/core/widgets/app_glow_dot.dart';
 
 enum NavBarItem {
   home,
@@ -32,47 +34,69 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey,
-        body: widget.navigationShell,
-        bottomNavigationBar: BottomAppBar(
-          height: 64,
-          color: theme.cardTheme.color,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: _buildNavItem(
-                  NavBarItem.home.index,
-                  AppIcons.home,
-                  AppString.home,
+        body: Stack(
+          children: [
+            AppGlowDot(
+              shadow: AppColor.pinkGlowShadow,
+              bottom: 0,
+              left: 0,
+            ),
+            AppGlowDot(shadow: AppColor.blueGlowShadow),
+            widget.navigationShell,
+          ],
+        ),
+        bottomNavigationBar: ClipRRect(
+          borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: AppDimens.paddingMedium),
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(100),
+                borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
+                gradient: AppColor.glassGradia,
+                border: Border.all(
+                  color: Colors.white.withAlpha(15),
+                  width: 1,
                 ),
               ),
-              Expanded(
-                child: _buildNavItem(
-                  NavBarItem.transactions.index,
-                  AppIcons.buy,
-                  AppString.transactions,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: _buildNavItem(
+                      NavBarItem.home.index,
+                      AppIcons.home,
+                      AppString.home,
+                    ),
+                  ),
+                  Expanded(
+                    child: _buildNavItem(
+                      NavBarItem.transactions.index,
+                      AppIcons.buy,
+                      AppString.transactions,
+                    ),
+                  ),
+                  Expanded(
+                    child: _buildNavItem(
+                      NavBarItem.missions.index,
+                      AppIcons.crown,
+                      AppString.missions,
+                    ),
+                  ),
+                  Expanded(
+                    child: _buildNavItem(
+                      NavBarItem.account.index,
+                      AppIcons.account,
+                      AppString.account,
+                    ),
+                  ),
+                ],
               ),
-              Expanded(
-                child: _buildNavItem(
-                  NavBarItem.missions.index,
-                  AppIcons.crown,
-                  AppString.missions,
-                ),
-              ),
-              Expanded(
-                child: _buildNavItem(
-                  NavBarItem.account.index,
-                  AppIcons.account,
-                  AppString.account,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -96,7 +120,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
             width: AppDimens.iconMedium,
             colorFilter: currentIndex == index
                 ? ColorFilter.mode(
-                    AppColor.infoColor,
+                    theme.primaryIconTheme.color!,
                     BlendMode.srcIn,
                   )
                 : ColorFilter.mode(
@@ -110,19 +134,21 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
               title,
               style: theme.textTheme.bodySmall!.copyWith(
                 fontSize: 10,
-                color: currentIndex == index ? AppColor.infoColor : theme.iconTheme.color!,
+                fontWeight: FontWeight.bold,
+                color:
+                    currentIndex == index ? theme.primaryIconTheme.color : theme.iconTheme.color!,
               ),
             ),
           ),
-          // if (currentIndex == index)
-          //   Container(
-          //     height: AppDimens.veryVerySmall,
-          //     width: AppDimens.veryVerySmall,
-          //     decoration: BoxDecoration(
-          //       color: AppColor.infoColor,
-          //       shape: BoxShape.circle,
-          //     ),
-          //   ),
+          if (currentIndex == index)
+            Container(
+              height: AppDimens.veryVerySmall,
+              width: AppDimens.medium,
+              decoration: BoxDecoration(
+                color: theme.primaryColor,
+                shape: BoxShape.circle,
+              ),
+            ),
         ],
       ),
     );

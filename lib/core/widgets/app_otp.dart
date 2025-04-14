@@ -49,13 +49,15 @@ class _AppOtpState extends State<AppOtp> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.min,
       children: List.generate(
         widget.numberOfField!,
         (index) => Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(4),
+            padding: EdgeInsets.symmetric(horizontal: AppDimens.paddingVerySmall),
             child: AppTextFormField(
               contentPaddingHorizontal: AppDimens.paddingVerySmall,
+              contentPaddingVertical: AppDimens.paddingVerySmall,
               controller: _controllers[index],
               focusNode: _focusNodes[index],
               keyboardType: TextInputType.number,

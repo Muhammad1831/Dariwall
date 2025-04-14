@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ostad/core/constant/app_color.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
 import 'package:ostad/core/constant/app_images.dart';
 import 'package:ostad/core/constant/app_string.dart';
-import 'package:ostad/core/widgets/app_loading.dart';
 import 'package:ostad/features/login/presentation/provider/auth_provider.dart';
 import 'package:ostad/core/route/app_route_name.dart';
 import 'package:ostad/core/widgets/app_button.dart';
@@ -107,25 +105,24 @@ class _LoginPageState extends State<LoginPage> {
                   // login button
                   Consumer<AuthProvider>(
                     builder: (context, provider, child) {
-                      return provider.status == AuthStatus.loading
-                          ? AppLoading()
-                          : AppButton(
-                              onTap: () async {
-                                await provider.login(
-                                  phoneNumber: phoneNumber.text,
-                                  password: password.text,
-                                );
-                                if (provider.status == AuthStatus.authenticated) {
-                                  context.goNamed(AppRouteName.home);
-                                } else {
-                                  AppSnackBar.showError(
-                                    context,
-                                    message: provider.errorMessage!,
-                                  );
-                                }
-                              },
-                              text: AppString.enterToWallet,
+                      return AppButton(
+                        isLoading: provider.status == AuthStatus.loading,
+                        onTap: () async {
+                          await provider.login(
+                            phoneNumber: phoneNumber.text,
+                            password: password.text,
+                          );
+                          if (provider.status == AuthStatus.authenticated) {
+                            context.goNamed(AppRouteName.home);
+                          } else {
+                            AppSnackBar.showError(
+                              context,
+                              message: provider.errorMessage!,
                             );
+                          }
+                        },
+                        text: AppString.enterToWallet,
+                      );
                     },
                   ),
                   AppDimens.vSpaceSmall,
@@ -149,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                       AppDimens.hSpaceVerySmall,
                       GestureDetector(
                         onTap: () {
-                          context.pushNamed(AppRouteName.createWallet);
+                          context.pushNamed(AppRouteName.createNewWallet);
                         },
                         child: Text(
                           AppString.createNewWallet,

@@ -13,11 +13,13 @@ abstract class AppRouteName {
   static const String followX = '/followX';
   static const String likeCoinmarketcap = '/likeCoinmarketcap';
   static const String welcome = '/welcome';
-  static const String createWallet = '/createWallet';
+  static const String createNewWallet = '/createNewWallet';
   static const String recoveryphrase = '/recoveryphrase';
   static const String buy = '/buy';
   static const String swap = '/swap';
   static const String send = '/send';
   static const String receive = '/receive';
   static const String inviteFriends = '/inviteFriends';
+  static const String connectWalletToEmail = '/connectWalletToEmail';
+  static const String validation = '/validation';
 }

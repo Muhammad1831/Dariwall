@@ -1,8 +1,8 @@
 import 'package:ostad/core/services/error_handler_service.dart';
-import 'package:ostad/features/create_wallet/data/datasource/create_wallet_datasource.dart';
-import 'package:ostad/features/create_wallet/data/model/recovery_phrase_model.dart';
-import 'package:ostad/features/create_wallet/domain/entity/new_wallet_entity.dart';
-import 'package:ostad/features/create_wallet/domain/repository/create_wallet_repository.dart';
+import 'package:ostad/features/create_new_wallet/data/datasource/create_wallet_datasource.dart';
+import 'package:ostad/features/create_new_wallet/data/model/recovery_phrase_model.dart';
+import 'package:ostad/features/create_new_wallet/domain/entity/new_wallet_entity.dart';
+import 'package:ostad/features/create_new_wallet/domain/repository/create_wallet_repository.dart';
 
 class CreateWalletRepositoryImpl implements CreateWalletRepository {
   final CreateWalletDatasource _datasource;

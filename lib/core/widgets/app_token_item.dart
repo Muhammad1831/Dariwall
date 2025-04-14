@@ -25,12 +25,7 @@ class AppTokenCard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: AppDimens.paddingSmall),
       child: Container(
-        padding: EdgeInsets.fromLTRB(
-          AppDimens.paddingMedium,
-          AppDimens.paddingSmall,
-          AppDimens.paddingSmall,
-          AppDimens.paddingSmall,
-        ),
+        padding: EdgeInsets.all(AppDimens.paddingLarge),
         decoration: BoxDecoration(
           color: theme.cardTheme.color,
           borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
