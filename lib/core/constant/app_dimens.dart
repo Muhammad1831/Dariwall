@@ -37,6 +37,7 @@ abstract class AppDimens {
   static double get paddingMedium => 12;
   static double get paddingLarge => 16;
   static double get paddingVeryLarge => 24;
+  static double get paddingExtraLarge => 32;
 
   static double get marginVerySmall => 4;
   static double get marginSmall => 8;
@@ -49,6 +50,7 @@ abstract class AppDimens {
   static double get borderRadiusSmall => 8;
   static double get borderRadiusMedium => 12;
   static double get borderRadiusLarge => 16;
+  static double get borderRadiusVeryLarge => 24;
   static double get borderRadiusExtraLarge => 50;
 
   // Icon Sizes

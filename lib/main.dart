@@ -3,8 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:ostad/features/create_wallet/domain/usecase/create_wallet_usecase.dart';
-import 'package:ostad/features/create_wallet/presentation/provider/create_wallet_provider.dart';
+import 'package:ostad/features/create_new_wallet/domain/usecase/create_wallet_usecase.dart';
+import 'package:ostad/features/create_new_wallet/presentation/provider/create_wallet_provider.dart';
 import 'package:ostad/features/login/presentation/provider/auth_provider.dart';
 import 'package:ostad/core/route/app_routeing.dart';
 import 'package:ostad/features/login/data/datasource/auth_service.dart';
@@ -49,14 +49,6 @@ class MyApp extends StatelessWidget {
         Locale('fa', 'IR'),
       ],
       theme: darkTheme,
-      // builder: (context, child) {
-      //   return MediaQuery(
-      //     data: MediaQuery.of(context).copyWith(
-      //       textScaler: const TextScaler.linear(1.0),
-      //     ),
-      //     child: child!,
-      //   );
-      // },
       routerConfig: AppRouter.router,
     );
   }

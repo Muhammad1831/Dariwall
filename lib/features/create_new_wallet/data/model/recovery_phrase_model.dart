@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:ostad/core/constant/app_keys.dart';
-import 'package:ostad/features/create_wallet/domain/entity/new_wallet_entity.dart';
+import 'package:ostad/features/create_new_wallet/domain/entity/new_wallet_entity.dart';
 
 class RecoveryPhraseModel extends Equatable {
   final String access;

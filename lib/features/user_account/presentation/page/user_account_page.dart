@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:ostad/core/constant/app_color.dart';
 import 'package:ostad/core/constant/app_dimens.dart';
 import 'package:ostad/core/constant/app_icons.dart';
-import 'package:ostad/core/constant/app_images.dart';
 import 'package:ostad/core/constant/app_string.dart';
 import 'package:ostad/core/route/app_route_name.dart';
 import 'package:ostad/features/login/presentation/provider/auth_provider.dart';
@@ -23,146 +22,107 @@ class UserAccountPage extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppDimens.paddingMedium),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  AppString.userAccount,
-                  style: theme.textTheme.titleMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                AppDimens.vSpaceMedium,
-                Image.asset(
-                  AppImages.logo,
-                  height: AppDimens.cardLargeHeight,
-                  width: AppDimens.cardLargeHeight,
-                  fit: BoxFit.contain,
-                ),
-                AppDimens.vSpaceSmall,
-                Text('علیرضا قاسمی - احراز هویت(اولیه)'),
-                AppDimens.vSpaceVerySmall,
-                Text('+98 918 123 4455'),
-                AppDimens.vSpaceMedium,
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: AppColor.warningColor.withAlpha(15),
-                    borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(
-                      AppDimens.paddingSmall,
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            AppString.addEmailForMoreSecurity,
-                            style: theme.textTheme.bodyMedium!.copyWith(
-                              color: AppColor.warningColor,
-                            ),
-                            textAlign: TextAlign.justify,
-                          ),
-                        ),
-                        AppDimens.hSpaceLarge,
-                        Text(
-                          AppString.towStepVerification,
-                          style: theme.textTheme.bodyMedium!.copyWith(
-                            color: AppColor.infoColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+          DecoratedBox(
+            decoration: BoxDecoration(
+              color: theme.colorScheme.surface,
+              shape: BoxShape.circle,
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(AppDimens.paddingExtraLarge),
+              child: SvgPicture.asset(
+                AppIcons.account,
+                height: AppDimens.iconExtraLarge,
+                width: AppDimens.iconExtraLarge,
+              ),
             ),
           ),
           AppDimens.vSpaceMedium,
-          Expanded(
-            child: ListView(
-              children: [
-                // user account info
-                UserAccountItem(
-                  icon: AppIcons.account,
-                  title: AppString.userAccountInfo,
-                  onTap: () {},
-                ),
-                // security
-                UserAccountItem(
-                  icon: AppIcons.lockClose,
-                  title: AppString.security,
-                  onTap: () {},
-                ),
-                // phantom wallet address
-                UserAccountItem(
-                  icon: AppIcons.wallet,
-                  title: AppString.phantomWalletAddress,
-                  onTap: () {},
-                ),
-                // gift code
-                UserAccountItem(
-                  icon: AppIcons.gift,
-                  title: AppString.giftCode,
-                  onTap: () {},
-                ),
-                // learn and guide
-                UserAccountItem(
-                  icon: AppIcons.lightBulb,
-                  title: AppString.learnAndGuide,
-                  onTap: () {
-                    context.pushNamed(AppRouteName.learnAndGuide);
-                  },
-                ),
-                // invite friends
-                UserAccountItem(
-                  icon: AppIcons.friends,
-                  title: AppString.inviteFriends,
-                  onTap: () {
-                    context.pushNamed(AppRouteName.inviteFriends);
-                  },
-                ),
-                // about us
-                UserAccountItem(
-                  icon: AppIcons.smile,
-                  title: AppString.aboutUs,
-                  onTap: () {},
-                ),
-                // logout
-                InkWell(
-                  onTap: () {
-                    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-                    authProvider.logout();
-                    if (!authProvider.isAuthenticated) {
-                      context.goNamed(AppRouteName.login);
-                    }
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.all(
-                      AppDimens.paddingMedium,
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.logout,
-                          color: theme.colorScheme.error,
-                          size: AppDimens.iconMedium,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: AppDimens.verySmall,
+            children: [
+              Text(AppString.userName),
+              Icon(
+                Icons.chevron_right,
+              )
+            ],
+          ),
+          AppDimens.vSpaceLarge,
+          ListView(
+            shrinkWrap: true,
+            children: [
+              // security
+              UserAccountItem(
+                icon: AppIcons.lockClose,
+                title: AppString.security,
+                onTap: () {},
+              ),
+              // phantom wallet address
+              UserAccountItem(
+                icon: AppIcons.wallet,
+                title: AppString.phantomWalletAddress,
+                onTap: () {},
+              ),
+              // gift code
+              UserAccountItem(
+                icon: AppIcons.gift,
+                title: AppString.giftCode,
+                onTap: () {},
+              ),
+              // learn and guide
+              UserAccountItem(
+                icon: AppIcons.lightBulb,
+                title: AppString.learnAndGuide,
+                onTap: () {
+                  context.pushNamed(AppRouteName.learnAndGuide);
+                },
+              ),
+              // invite friends
+              UserAccountItem(
+                icon: AppIcons.friends,
+                title: AppString.inviteFriends,
+                onTap: () {
+                  context.pushNamed(AppRouteName.inviteFriends);
+                },
+              ),
+              // about us
+              UserAccountItem(
+                icon: AppIcons.smile,
+                title: AppString.aboutUs,
+                onTap: () {},
+              ),
+              // logout
+              InkWell(
+                onTap: () {
+                  final authProvider = Provider.of<AuthProvider>(context, listen: false);
+                  authProvider.logout();
+                  if (!authProvider.isAuthenticated) {
+                    context.goNamed(AppRouteName.login);
+                  }
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(
+                    AppDimens.paddingMedium,
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.logout,
+                        color: theme.colorScheme.error,
+                        size: AppDimens.iconMedium,
+                      ),
+                      AppDimens.hSpaceSmall,
+                      Text(
+                        AppString.logout,
+                        style: theme.textTheme.bodyMedium!.copyWith(
+                          color: AppColor.errorColor,
                         ),
-                        AppDimens.hSpaceSmall,
-                        Text(
-                          AppString.logout,
-                          style: theme.textTheme.bodyMedium!.copyWith(
-                            color: AppColor.errorColor,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           )
         ],
       ),

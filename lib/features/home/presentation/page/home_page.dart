@@ -24,11 +24,11 @@ class HomePage extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.25,
                 width: double.maxFinite,
                 child: DecoratedBox(
-                  decoration: BoxDecoration(gradient: AppColor.priceDecreaseGradient),
+                  decoration: BoxDecoration(gradient: AppColor.priceIncreaseGradient),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: AppDimens.paddingLarge),
+                padding: EdgeInsets.only(top: AppDimens.paddingVeryLarge),
                 child: Column(
                   children: [
                     // total balance text
@@ -42,23 +42,23 @@ class HomePage extends StatelessWidget {
                       children: [
                         AppDimens.vSpaceMedium,
                         Text(
-                          '\$0.00023066',
+                          '50,000,000 تومان',
                           style: theme.textTheme.displayLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         AppDimens.vSpaceMedium,
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              '4.36%+',
+                              '+4.36%',
                               style: theme.textTheme.bodyLarge!.copyWith(
                                 color: AppColor.priceIncreaseColor,
                               ),
                             ),
                             Text(
-                              '\$0.44+',
+                              '+200,000 تومان',
                               style: theme.textTheme.bodyLarge!.copyWith(
                                 color: AppColor.priceIncreaseColor,
                               ),
@@ -68,31 +68,33 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                     AppDimens.vSpaceLarge,
-                    Row(
-                      spacing: AppDimens.medium,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ActionItem(
-                          onTap: () => context.pushNamed(AppRouteName.buy),
-                          icon: AppIcons.buy,
-                          title: AppString.buy,
-                        ),
-                        ActionItem(
-                          onTap: () => context.pushNamed(AppRouteName.swap),
-                          icon: AppIcons.swap,
-                          title: AppString.swap,
-                        ),
-                        ActionItem(
-                          onTap: () => context.pushNamed(AppRouteName.send),
-                          icon: AppIcons.send,
-                          title: AppString.send,
-                        ),
-                        ActionItem(
-                          onTap: () => context.pushNamed(AppRouteName.receive),
-                          icon: AppIcons.scanQrCode,
-                          title: AppString.receive,
-                        ),
-                      ],
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: AppDimens.paddingMedium),
+                      child: Row(
+                        spacing: AppDimens.verySmall,
+                        children: [
+                          ActionItem(
+                            onTap: () => context.pushNamed(AppRouteName.buy),
+                            icon: AppIcons.buy,
+                            title: AppString.buy,
+                          ),
+                          ActionItem(
+                            onTap: () => context.pushNamed(AppRouteName.swap),
+                            icon: AppIcons.swap,
+                            title: AppString.swap,
+                          ),
+                          ActionItem(
+                            onTap: () => context.pushNamed(AppRouteName.send),
+                            icon: AppIcons.send,
+                            title: AppString.send,
+                          ),
+                          ActionItem(
+                            onTap: () => context.pushNamed(AppRouteName.receive),
+                            icon: AppIcons.scanQrCode,
+                            title: AppString.receive,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -112,7 +114,7 @@ class HomePage extends StatelessWidget {
               itemBuilder: (context, index) {
                 return AppTokenCard(
                   tokenIcon: AppIcons.solana,
-                  tokenName: 'Shajarian',
+                  tokenName: 'شجریان',
                   tokenProfit: '-\$30',
                   tokenTotalNumber: '69،920.23528 OSTAD',
                   tokenTotalPrice: '\$2264',
@@ -141,39 +143,38 @@ class ActionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Material(
-      color: theme.cardTheme.color,
-      borderRadius: BorderRadius.circular(
-        AppDimens.borderRadiusSmall,
-      ),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
-        child: SizedBox(
-          height: AppDimens.cardLargeHeight,
-          width: AppDimens.cardLargeHeight,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AppDimens.vSpaceVeryVerySmall,
-              Expanded(
-                child: SvgPicture.asset(
+    return Expanded(
+      child: Material(
+        color: theme.cardTheme.color,
+        borderRadius: BorderRadius.circular(
+          AppDimens.borderRadiusLarge,
+        ),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(AppDimens.borderRadiusLarge),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: AppDimens.paddingMedium),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppDimens.vSpaceVeryVerySmall,
+                SvgPicture.asset(
                   icon,
-                  height: AppDimens.iconLarge,
-                  width: AppDimens.iconLarge,
+                  height: AppDimens.iconVeryLarge,
+                  width: AppDimens.iconVeryLarge,
                   fit: BoxFit.contain,
                   colorFilter: ColorFilter.mode(
-                    theme.colorScheme.tertiary,
+                    theme.colorScheme.primary,
                     BlendMode.srcIn,
                   ),
                 ),
-              ),
-              Expanded(
-                child: Text(
+                Text(
                   title,
-                ),
-              )
-            ],
+                  style: theme.textTheme.bodyLarge,
+                )
+              ],
+            ),
           ),
         ),
       ),

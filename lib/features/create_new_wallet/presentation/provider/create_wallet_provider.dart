@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ostad/features/create_wallet/domain/entity/new_wallet_entity.dart';
-import 'package:ostad/features/create_wallet/domain/usecase/create_wallet_usecase.dart';
+import 'package:ostad/features/create_new_wallet/domain/entity/new_wallet_entity.dart';
+import 'package:ostad/features/create_new_wallet/domain/usecase/create_wallet_usecase.dart';
 import 'dart:async';
 
 enum CreateWalletState { initial, gettingOtp, checkingOtp, settingPassword, success, error }

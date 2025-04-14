@@ -25,9 +25,7 @@ class TransactionsPage extends StatelessWidget {
             children: [
               Text(
                 'شنبه، 1404/02/03',
-                style: theme.textTheme.bodyMedium!.copyWith(
-                  color: theme.colorScheme.onSurface,
-                ),
+                style: theme.textTheme.bodyMedium
               ),
               Expanded(
                 child: Divider(),

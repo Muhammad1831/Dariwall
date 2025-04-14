@@ -49,35 +49,34 @@ class AppButton extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderRadiusSmall),
-          child: SizedBox(
-            height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: icon != null ? AppDimens.verySmall : 0,
-              children: [
-                if (icon != null)
-                  SvgPicture.asset(
-                    icon!,
-                    height: iconSize ?? AppDimens.iconLarge,
-                    width: iconSize ?? AppDimens.iconLarge,
-                    fit: BoxFit.contain,
-                    colorFilter: ColorFilter.mode(
-                      iconColor ?? theme.colorScheme.onPrimary,
-                      BlendMode.srcIn,
-                    ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: AppDimens.paddingMedium),
+            child: isLoading == true
+                ? const AppLoading()
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: icon != null ? AppDimens.verySmall : 0,
+                    children: [
+                      if (icon != null)
+                        SvgPicture.asset(
+                          icon!,
+                          height: iconSize ?? AppDimens.iconLarge,
+                          width: iconSize ?? AppDimens.iconLarge,
+                          fit: BoxFit.contain,
+                          colorFilter: ColorFilter.mode(
+                            iconColor ?? theme.colorScheme.onPrimary,
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                      Text(
+                        text,
+                        style: theme.textTheme.titleSmall!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: textColor ?? theme.colorScheme.onPrimary,
+                        ),
+                      ),
+                    ],
                   ),
-                if (isLoading == true)
-                  const AppLoading()
-                else
-                  Text(
-                    text,
-                    style: theme.textTheme.titleSmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: textColor ?? theme.colorScheme.onPrimary,
-                    ),
-                  ),
-              ],
-            ),
           ),
         ),
       ),

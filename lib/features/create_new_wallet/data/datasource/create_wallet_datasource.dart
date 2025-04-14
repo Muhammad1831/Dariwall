@@ -4,7 +4,7 @@ import 'package:ostad/core/constant/app_shared_preferences_key.dart';
 import 'package:ostad/core/services/api_client_service.dart';
 import 'package:ostad/core/services/error_handler_service.dart';
 import 'package:ostad/core/utils/utils_shared_preferences.dart';
-import 'package:ostad/features/create_wallet/data/model/recovery_phrase_model.dart';
+import 'package:ostad/features/create_new_wallet/data/model/recovery_phrase_model.dart';
 
 class CreateWalletDatasource {
   final ApiClientService _apiClient;

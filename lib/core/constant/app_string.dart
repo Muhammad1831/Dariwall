@@ -4,16 +4,26 @@ abstract class AppString {
   // welcome page
   static const String welcome = 'خوش آمدید';
   static const String toTheWallet = 'به کیف پول';
-  static const String welcomeDescription =
-      'برای شروع استفاده از کیف پول داریوال، کیف پول جدید بسازید (اگر اولین بار است که از دارویال استفاده می‌کنید) یا با کدهای بازیابی وارد شوید (اگر قبلاً کیف پول داریوال داشته‌اید).';
+  static const String welcomeDescriptionPart1 = 'برای شروع استفاده از کیف پول داریوال\n';
+  static const String welcomeDescriptionPart2 = 'بسازید یا اگر قبلا حساب کاربری داشته‌اید از طریق';
+  static const String newWallet = 'کیف پول جدید';
   static const String createNewWallet = 'ایجاد کیف پول جدید';
   static const String haveWallet = 'کیف پول دارم';
+  static const String enter = 'وارد شوید';
+  static const String chooseLanguage = 'انتخاب زبان';
+  static const String farsi = 'فارسی';
+  static const String persian = 'Persian';
+  static const String englisi = 'انگلیسی';
+  static const String english = 'English';
+  static const String youCanChangeLanguageInSetting =
+      'شما می توانید در هر زمان از بخش تنظیمات\n زبان را تغییر دهید.';
 
   // create wallet page
   static const String referrerCode = 'کد معرف';
   static const String optional = 'اختیاری';
   static const String enterReferrerCode = 'کد معرف را وارد کنید...';
-  static const String roleOfUseDariwall = 'قوانین و شرایط استفاده از داریوال';
+  static const String roleAndCondition = 'قوانین و شرایط';
+  static const String useOf = 'استفاده از';
   static const String accept = 'را می‌پذیرم.';
   static const String enterYourPhoneNumberForValidation =
       'لطفاً شماره تلفن همراه خود را بررسی کنید و کد ارسال شده را در کادر زیر وارد کنید تا فرایند اعتبارسنجی شما تکمیل شود.';
@@ -30,6 +40,10 @@ abstract class AppString {
   static const String saveInClipboard = 'ذخیره در کلیپبورد';
   static const String enterToApp = 'ورود به برنامه';
   static const String wrotePasswords = 'رمزها را یادداشت کردم.';
+  static const String connectWalletToEmail = 'متصل کردن کیف پول به ایمیل';
+
+  // connect wallet to email
+  static const String sendCode = 'ارسال کد';
 
   // home
   static const String receive = 'دریافت';
@@ -68,12 +82,16 @@ abstract class AppString {
   static const String referralLink = 'لینک دعوت اختصاصی';
   static const String inviteYourFriends = 'دوستانتان را دعوت کنید و پاداش بگیرید!';
   static const String howToInviteFriends = 'چگونه دوستان را دعوت کنیم؟';
-  static const String copyReferralCode = 'کد معرف خود را کپی کنید (یا لینک دعوت را اشتراک‌ گذاری کنید).';
+  static const String copyReferralCode =
+      'کد معرف خود را کپی کنید (یا لینک دعوت را اشتراک‌ گذاری کنید).';
   static const String sendToFriends = 'برای دوستانتان بفرستید (واتساپ، تلگرام، ایمیل و...)';
-  static const String afterRegisterAndFirstTransaction = 'پس از تکمیل ثبت‌نام و اولین تراکنش دوستتان، پاداش شما خودکار واریز می‌شود!';
-  
+  static const String afterRegisterAndFirstTransaction =
+      'پس از تکمیل ثبت‌نام و اولین تراکنش دوستتان، پاداش شما خودکار واریز می‌شود!';
+
   static const String dariWall = 'داریوال';
+  static const String dariWallEnglish = 'DariWall';
   static const String enterUserAccount = 'ورود به حساب کاربری';
+  static const String userName = 'نام کاربری';
   static const String phoneNumber = 'شماره تلفن همراه';
   static const String password = 'رمز عبور';
   static const String repeatPassword = 'تکرار رمز عبور';
@@ -93,7 +111,8 @@ abstract class AppString {
   static const String enterRepeatPassword = 'تکرار رمز عبور را وارد کنید.';
   static const String passwordMustContainLettersAndNumbersAndSpecialCharacter =
       'رمز عبور باید شامل حروف بزرگ و کوچک، اعداد و حداقل یک کاراکتر خاص (@, #, !, ...) باشد.';
-  static const String enterUserName = 'نام کاربری خود را وارد کنید';
+  static const String enterUserName = 'نام کاربری خود را وارد کنید...';
+  static const String userNameCanNotBeEmpty = 'نام کاربری نمی تواند خالی باشد';
   static const String thisFieldMustNotBeEmpty = 'این فیلد نمی‌تواند خالی باشد';
   static String minimumCharacterPassword(int length) => 'رمز عبور باید حداقل $length کاراکتر باشد.';
 
@@ -156,7 +175,7 @@ abstract class AppString {
   static const String transactions = 'تراکنش‌ها';
   static const String learnAndGuide = 'آموزش و راهنما';
   static const String logout = 'خروج از حساب کاربری';
-  static const String totalBalance = 'موجودی کل';
+  static const String totalBalance = 'ارزش کل دارایی‌ها';
   static const String toman = 'تومان';
   static const String buy = 'خرید';
   static const String sell = 'فروش';

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ostad/core/route/app_route_path.dart';
 import 'package:ostad/features/buy/presentation/page/buy_page.dart';
-import 'package:ostad/features/create_wallet/presentation/page/create_wallet_page.dart';
+import 'package:ostad/features/connet_wallet_to_email/presentation/page/connet_wallet_to_email_page.dart';
+import 'package:ostad/features/connet_wallet_to_email/presentation/page/validation_page.dart';
+import 'package:ostad/features/create_new_wallet/presentation/page/create_new_wallet_page.dart';
 import 'package:ostad/features/forget_password/presentation/page/forget_password_page.dart';
 import 'package:ostad/features/home/presentation/page/home_page.dart';
 import 'package:ostad/features/invite_friends/presentaion/page/invite_friends_page.dart';
@@ -65,26 +67,27 @@ class AppRouter {
     redirect: (context, state) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       final isLoggedIn = authProvider.isAuthenticated;
+      final currentPath = state.matchedLocation;
 
-      final isPublicRoute = state.matchedLocation == AppRouteName.login ||
-          state.matchedLocation == AppRouteName.createWallet ||
-          state.matchedLocation == AppRouteName.recoveryphrase ||
-          state.matchedLocation == AppRouteName.forgetPassword ||
-          state.matchedLocation == AppRouteName.splash;
+      // List of public routes that don't require authentication
+      final publicRoutes = [
+        AppRouteName.login,
+        AppRouteName.createNewWallet,
+        AppRouteName.recoveryphrase,
+        AppRouteName.forgetPassword,
+        AppRouteName.splash
+      ];
 
-      if (state.matchedLocation == AppRouteName.splash) {
-        return null;
+      // If on splash screen, let it proceed
+      if (currentPath == AppRouteName.splash) return null;
+
+      // If not logged in and trying to access public route, redirect to it
+      if (!isLoggedIn && !publicRoutes.contains(currentPath)) {
+        return currentPath;
       }
 
-      if (!isLoggedIn && !isPublicRoute) {
-        return AppRouteName.login;
-      }
-
-      if (isLoggedIn &&
-          (state.matchedLocation == AppRouteName.login ||
-              state.matchedLocation == AppRouteName.createWallet ||
-              state.matchedLocation == AppRouteName.recoveryphrase ||
-              state.matchedLocation == AppRouteName.forgetPassword)) {
+      // If logged in and trying to access login page, redirect to home
+      if (isLoggedIn && currentPath == AppRouteName.login) {
         return AppRouteName.home;
       }
 
@@ -133,9 +136,9 @@ class AppRouter {
         builder: (context, state) => const WelcomePage(),
       ),
       GoRoute(
-        name: AppRouteName.createWallet,
-        path: AppRoutePath.createWallet,
-        builder: (context, state) => const CreateWalletPage(),
+        name: AppRouteName.createNewWallet,
+        path: AppRoutePath.createNewWallet,
+        builder: (context, state) => const CreateNewWalletPage(),
       ),
       GoRoute(
         name: AppRouteName.recoveryphrase,
@@ -166,6 +169,16 @@ class AppRouter {
         name: AppRouteName.inviteFriends,
         path: AppRoutePath.inviteFriends,
         builder: (context, state) => const InviteFriendsPage(),
+      ),
+      GoRoute(
+        name: AppRouteName.connectWalletToEmail,
+        path: AppRoutePath.connectWalletToEmail,
+        builder: (context, state) => const ConnetWalletToEmailPage(),
+      ),
+      GoRoute(
+        name: AppRouteName.validation,
+        path: AppRoutePath.validation,
+        builder: (context, state) => const ValidationPage(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {

@@ -26,7 +26,7 @@ class AppBackButton extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(AppDimens.paddingSmall),
           child: Icon(
-            icon ?? CupertinoIcons.chevron_back,
+            icon ?? CupertinoIcons.chevron_right  ,
             color: theme.colorScheme.onPrimary,
           ),
         ),

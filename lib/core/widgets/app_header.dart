@@ -18,24 +18,20 @@ class AppHeader extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(
-                headerText,
-                style: theme.textTheme.titleMedium!.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+        AppBackButton(
+          onTap: onTap,
+        ),
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            headerText,
+            style: theme.textTheme.titleMedium!.copyWith(
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        AppBackButton(
-          onTap: onTap,
-        )
       ],
     );
   }

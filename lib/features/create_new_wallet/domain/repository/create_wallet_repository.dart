@@ -1,4 +1,4 @@
-import 'package:ostad/features/create_wallet/domain/entity/new_wallet_entity.dart';
+import 'package:ostad/features/create_new_wallet/domain/entity/new_wallet_entity.dart';
 
 abstract class CreateWalletRepository {
   Future<void> sendPhoneNumberAndReferralCode(String phoneNumber, String? referralCode);
