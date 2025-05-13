@@ -1,8 +1,8 @@
-import 'package:ostad/core/services/error_handler_service.dart';
-import 'package:ostad/features/create_new_wallet/data/datasource/create_wallet_datasource.dart';
-import 'package:ostad/features/create_new_wallet/data/model/recovery_phrase_model.dart';
-import 'package:ostad/features/create_new_wallet/domain/entity/new_wallet_entity.dart';
-import 'package:ostad/features/create_new_wallet/domain/repository/create_wallet_repository.dart';
+import 'package:dariwall/core/models/either.dart';
+import 'package:dariwall/core/services/error_handler_service.dart';
+import 'package:dariwall/features/create_new_wallet/data/datasource/create_wallet_datasource.dart';
+import 'package:dariwall/features/create_new_wallet/domain/entity/create_wallet_entity.dart';
+import 'package:dariwall/features/create_new_wallet/domain/repository/create_wallet_repository.dart';
 
 class CreateWalletRepositoryImpl implements CreateWalletRepository {
   final CreateWalletDatasource _datasource;
@@ -11,30 +11,13 @@ class CreateWalletRepositoryImpl implements CreateWalletRepository {
       : _datasource = datasource;
 
   @override
-  Future<void> sendPhoneNumberAndReferralCode(String phoneNumber, String? referralCode) async {
+  Future<Either<AppException, CreateWalletEntity>> createWallet(
+      String name, String referralCode) async {
     try {
-      await _datasource.sendPhoneNumberAndReferralCode(phoneNumber, referralCode);
-    } on AppException {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> checkOtpCode(String code) async {
-    try {
-      await _datasource.checkOtpCode(code);
-    } on AppException {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<RecoveryPhraseEntity> setPassword(String password) async {
-    try {
-      RecoveryPhraseModel recoveryPhrase = await _datasource.setPassword(password);
-      return recoveryPhrase.toEntity();
-    } on AppException {
-      rethrow;
+      final createWalletModel = await _datasource.createWallet(name, referralCode);
+      return Right(createWalletModel.toEntity());
+    } on AppException catch (e) {
+      return Left(e);
     }
   }
 }

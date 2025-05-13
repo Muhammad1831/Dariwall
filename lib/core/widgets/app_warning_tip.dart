@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ostad/core/constant/app_color.dart';
-import 'package:ostad/core/constant/app_dimens.dart';
-import 'package:ostad/core/constant/app_icons.dart';
+import 'package:dariwall/core/constant/app_color.dart';
+import 'package:dariwall/core/constant/app_dimens.dart';
+import 'package:dariwall/core/constant/app_icons.dart';
 
 class AppWarningTip extends StatelessWidget {
   const AppWarningTip({
@@ -37,7 +37,7 @@ class AppWarningTip extends StatelessWidget {
               child: Text(
                 text,
                 style: theme.textTheme.bodySmall!.copyWith(
-                  color: theme.colorScheme.secondary,
+                  color: AppColor.warningColor,
                 ),
               ),
             ),

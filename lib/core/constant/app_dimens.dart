@@ -5,13 +5,13 @@ abstract class AppDimens {
   AppDimens._();
 
   // Spacing values
-  static double get veryVerySmall => 4;
-  static double get verySmall => 8;
-  static double get small => 12;
-  static double get medium => 16;
-  static double get large => 24;
-  static double get veryLarge => 32;
-  static double get extraLarge => 48;
+  static const double veryVerySmall = 4;
+  static const double verySmall = 8;
+  static const double small = 12;
+  static const double medium = 16;
+  static const double large = 24;
+  static const double veryLarge = 32;
+  static const double extraLarge = 48;
 
   // SizedBox for vertical spacing
   static SizedBox get vSpaceVeryVerySmall => SizedBox(height: veryVerySmall);
@@ -32,43 +32,43 @@ abstract class AppDimens {
   static SizedBox get hSpaceExtraLarge => SizedBox(width: extraLarge);
 
   // Padding and Margin
-  static double get paddingVerySmall => 4;
-  static double get paddingSmall => 8;
-  static double get paddingMedium => 12;
-  static double get paddingLarge => 16;
-  static double get paddingVeryLarge => 24;
-  static double get paddingExtraLarge => 32;
+  static const double paddingVerySmall = 4;
+  static const double paddingSmall = 8;
+  static const double paddingMedium = 12;
+  static const double paddingLarge = 16;
+  static const double paddingVeryLarge = 24;
+  static const double paddingExtraLarge = 32;
 
-  static double get marginVerySmall => 4;
-  static double get marginSmall => 8;
-  static double get marginMedium => 12;
-  static double get marginLarge => 16;
-  static double get marginVeryLarge => 24;
+  static const double marginVerySmall = 4;
+  static const double marginSmall = 8;
+  static const double marginMedium = 12;
+  static const double marginLarge = 16;
+  static const double marginVeryLarge = 24;
 
   // Border Radius
-  static double get borderRadiusVerySmall => 4;
-  static double get borderRadiusSmall => 8;
-  static double get borderRadiusMedium => 12;
-  static double get borderRadiusLarge => 16;
-  static double get borderRadiusVeryLarge => 24;
-  static double get borderRadiusExtraLarge => 50;
+  static const double borderRadiusVerySmall = 4;
+  static const double borderRadiusSmall = 8;
+  static const double borderRadiusMedium = 12;
+  static const double borderRadiusLarge = 16;
+  static const double borderRadiusVeryLarge = 24;
+  static const double borderRadiusExtraLarge = 50;
 
   // Icon Sizes
-  static double get iconSmall => 16;
-  static double get iconMedium => 20;
-  static double get iconLarge => 24;
-  static double get iconVeryLarge => 32;
-  static double get iconExtraLarge => 48;
+  static const double iconSmall = 16;
+  static const double iconMedium = 20;
+  static const double iconLarge = 24;
+  static const double iconVeryLarge = 32;
+  static const double iconExtraLarge = 48;
 
   // Button Heights
-  static double get buttonLargeHeight => 48;
-  static double get buttonMediumHeight => 36;
-  static double get buttonSmallHeight => 32;
+  static const double buttonLargeHeight = 48;
+  static const double buttonMediumHeight = 36;
+  static const double buttonSmallHeight = 32;
   // Input Heights
-  static double get inputLargeHeight => 48;
-  static double get inputSmallHeight => 36;
+  static const double inputLargeHeight = 48;
+  static const double inputSmallHeight = 36;
 
   // card Heights
-  static double get cardMediumHeight => 40;
-  static double get cardLargeHeight => 64;
+  static const double cardMediumHeight = 40;
+  static const double cardLargeHeight = 64;
 }

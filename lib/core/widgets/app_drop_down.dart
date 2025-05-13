@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:dariwall/core/constant/app_dimens.dart';
+import 'package:dariwall/core/constant/app_message.dart';
+import 'package:dariwall/core/constant/app_string.dart';
+import 'package:dariwall/core/utils/utils_show_snackbar.dart';
+import 'package:dariwall/core/widgets/app_loading.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppDropDown<T> extends StatelessWidget {
@@ -14,22 +19,24 @@ class AppDropDown<T> extends StatelessWidget {
   final double? borderRadius;
   final TextStyle? hintStyle;
   final TextStyle? style;
+  final double? menuMaxHeight;
 
   const AppDropDown({
-    Key? key,
+    super.key,
     required this.items,
     required this.value,
     required this.onChanged,
-    this.hint = 'انتخاب کنید',
+    this.hint = AppString.choose,
     this.isExpanded = true,
     this.icon,
     this.dropdownColor,
     this.decoration,
     this.padding,
-    this.borderRadius = 8.0,
+    this.borderRadius = AppDimens.borderRadiusSmall,
     this.hintStyle,
     this.style,
-  }) : super(key: key);
+    this.menuMaxHeight,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +59,7 @@ class AppDropDown<T> extends StatelessWidget {
       ),
       child: DropdownButtonFormField<T>(
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        menuMaxHeight: 200,
+        menuMaxHeight: menuMaxHeight ?? 200,
         value: value,
         items: items,
         onChanged: onChanged,
@@ -84,19 +91,19 @@ class AsyncDropDown<T> extends StatefulWidget {
   final TextStyle? style;
 
   const AsyncDropDown({
-    Key? key,
+    super.key,
     required this.fetchItems,
     required this.value,
     required this.onChanged,
-    this.hint = 'انتخاب کنید',
+    this.hint = AppString.choose,
     this.isExpanded = true,
     this.icon,
     this.dropdownColor,
     this.decoration,
-    this.borderRadius = 8.0,
+    this.borderRadius = AppDimens.borderRadiusSmall,
     this.hintStyle,
     this.style,
-  }) : super(key: key);
+  });
 
   @override
   State<AsyncDropDown<T>> createState() => _AsyncDropDownState<T>();
@@ -132,7 +139,7 @@ class _AsyncDropDownState<T> extends State<AsyncDropDown<T>> {
       try {
         // دریافت آیتم‌ها از سرور
         final fetchedItems = await widget.fetchItems();
-        
+
         if (mounted) {
           setState(() {
             _items = fetchedItems;
@@ -146,10 +153,12 @@ class _AsyncDropDownState<T> extends State<AsyncDropDown<T>> {
             _isLoading = false;
             _removeOverlay();
           });
-          
+
           // نمایش خطا
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('خطا در دریافت اطلاعات: ${e.toString()}')),
+          UtilsShowSnackbar.show(
+            context: context,
+            status: Status.error,
+            message: AppMessage.errorInFetchingData,
           );
         }
       }
@@ -172,23 +181,16 @@ class _AsyncDropDownState<T> extends State<AsyncDropDown<T>> {
           offset: Offset(0, size.height),
           child: Material(
             elevation: 4.0,
-            borderRadius: BorderRadius.circular(widget.borderRadius ?? 8.0),
+            borderRadius: BorderRadius.circular(widget.borderRadius ?? AppDimens.borderRadiusSmall),
             color: widget.dropdownColor ?? Theme.of(context).canvasColor,
             child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              padding: const EdgeInsets.symmetric(vertical: AppDimens.paddingLarge),
               constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(context).size.height * 0.3,
               ),
               child: _isLoading
                   ? const Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          CircularProgressIndicator(),
-                          SizedBox(height: 8),
-                          Text('در حال دریافت اطلاعات...'),
-                        ],
-                      ),
+                      child: AppLoading(),
                     )
                   : _items != null && _items!.isNotEmpty
                       ? ListView(
@@ -202,8 +204,8 @@ class _AsyncDropDownState<T> extends State<AsyncDropDown<T>> {
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                  vertical: 12.0,
-                                  horizontal: 16.0,
+                                  vertical: AppDimens.paddingMedium,
+                                  horizontal: AppDimens.paddingLarge,
                                 ),
                                 child: item.child,
                               ),
@@ -212,8 +214,8 @@ class _AsyncDropDownState<T> extends State<AsyncDropDown<T>> {
                         )
                       : const Center(
                           child: Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Text('اطلاعاتی یافت نشد'),
+                            padding: EdgeInsets.all(AppDimens.paddingLarge),
+                            child: Text(AppMessage.noDataFound),
                           ),
                         ),
             ),
@@ -250,22 +252,25 @@ class _AsyncDropDownState<T> extends State<AsyncDropDown<T>> {
         }
       }
     }
-    
+
     return widget.hint;
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     final InputDecoration effectiveDecoration = widget.decoration ??
         InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: AppDimens.paddingMedium,
+            vertical: AppDimens.paddingSmall,
+          ),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(widget.borderRadius ?? 8.0),
-            borderSide: BorderSide(color: Colors.grey.shade400),
+            borderRadius: BorderRadius.circular(widget.borderRadius ?? AppDimens.borderRadiusSmall),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(widget.borderRadius ?? 8.0),
-            borderSide: BorderSide(color: Colors.grey.shade400),
+            borderRadius: BorderRadius.circular(widget.borderRadius ?? AppDimens.borderRadiusSmall),
           ),
         );
 
@@ -275,7 +280,7 @@ class _AsyncDropDownState<T> extends State<AsyncDropDown<T>> {
         onTap: _toggleDropdown,
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(widget.borderRadius ?? 8.0),
+            borderRadius: BorderRadius.circular(widget.borderRadius ?? AppDimens.borderRadiusSmall),
           ),
           child: InputDecorator(
             decoration: effectiveDecoration,
@@ -285,21 +290,22 @@ class _AsyncDropDownState<T> extends State<AsyncDropDown<T>> {
                   child: Text(
                     _getSelectedItemText(),
                     style: widget.value == null
-                        ? widget.hintStyle ?? TextStyle(color: Colors.grey.shade600)
-                        : widget.style,
+                        ? widget.hintStyle ?? theme.textTheme.labelMedium
+                        : widget.style ??
+                            theme.textTheme.labelMedium!.copyWith(
+                              color: theme.colorScheme.onPrimary,
+                            ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 if (_isLoading && !_isDropdownOpen)
-                  const SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                    ),
-                  )
+                  const AppLoading()
                 else
-                  widget.icon ?? const Icon(Icons.arrow_drop_down),
+                  widget.icon ??
+                      RotatedBox(
+                        quarterTurns: 1,
+                        child: Icon(Icons.chevron_left),
+                      ),
               ],
             ),
           ),

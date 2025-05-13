@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.example.ostad"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "29.0.13113456"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -37,6 +37,16 @@ android {
             signingConfig = signingConfigs.debug
         }
     }
+
+    // flavorDimensions "devdariwall"
+    // productFlavors {
+    //     devdariwall {
+    //         dimension "devdariwall"
+    //         versionName "1.0.0"          
+    //         applicationIdSuffix ".devdariwall"
+    //         versionCode 1
+    //     }
+    // }
 }
 
 flutter {

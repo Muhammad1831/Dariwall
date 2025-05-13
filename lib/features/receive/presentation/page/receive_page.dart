@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ostad/core/constant/app_dimens.dart';
-import 'package:ostad/core/constant/app_icons.dart';
-import 'package:ostad/core/constant/app_images.dart';
-import 'package:ostad/core/constant/app_string.dart';
-import 'package:ostad/core/widgets/app_header.dart';
+import 'package:dariwall/core/constant/app_dimens.dart';
+import 'package:dariwall/core/constant/app_icons.dart';
+import 'package:dariwall/core/constant/app_images.dart';
+import 'package:dariwall/core/constant/app_string.dart';
+import 'package:dariwall/core/widgets/app_header.dart';
 
 class ReceivePage extends StatelessWidget {
   const ReceivePage({super.key});

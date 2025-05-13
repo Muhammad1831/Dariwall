@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:dariwall/core/constant/app_color.dart';
+import 'package:dariwall/core/widgets/app_loading.dart';
 
 class AppCachedImage extends StatelessWidget {
   final String imageUrl;
@@ -12,6 +14,7 @@ class AppCachedImage extends StatelessWidget {
   final BorderRadius? borderRadius;
   final Color? backgroundColor;
   final bool showLoadingProgress;
+  final BoxShape? shape;
 
   const AppCachedImage({
     super.key,
@@ -25,6 +28,7 @@ class AppCachedImage extends StatelessWidget {
     this.borderRadius,
     this.backgroundColor,
     this.showLoadingProgress = true,
+    this.shape = BoxShape.rectangle,
   });
 
   @override
@@ -41,6 +45,7 @@ class AppCachedImage extends StatelessWidget {
         errorWidget: (context, url, error) => _buildErrorWidget(),
         imageBuilder: (context, imageProvider) => Container(
           decoration: BoxDecoration(
+            shape: shape ?? BoxShape.rectangle,
             image: DecorationImage(
               image: imageProvider,
               fit: fit ?? BoxFit.cover,
@@ -58,12 +63,11 @@ class AppCachedImage extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      color: backgroundColor ?? Colors.grey[200],
-      child: showLoadingProgress
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : null,
+      decoration: BoxDecoration(
+        color: backgroundColor ?? AppColor.disabledColor,
+        shape: shape ?? BoxShape.circle,
+      ),
+      child: showLoadingProgress ? AppLoading() : null,
     );
   }
 
@@ -73,7 +77,10 @@ class AppCachedImage extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      color: backgroundColor ?? Colors.grey[200],
+      decoration: BoxDecoration(
+        color: backgroundColor ?? AppColor.disabledColor,
+        shape: shape ?? BoxShape.circle,
+      ),
       child: const Center(
         child: Icon(
           Icons.error_outline,
@@ -82,4 +89,4 @@ class AppCachedImage extends StatelessWidget {
       ),
     );
   }
-} 
+}

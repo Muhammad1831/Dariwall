@@ -1,4 +1,5 @@
-abstract class AppImages {
+abstract class 
+AppImages {
   AppImages._();
 
   static const String logo = 'assets/images/logo.png';
@@ -8,12 +9,20 @@ abstract class AppImages {
   static const String followX = 'assets/images/follow-x.jpg';
   static const String caPost = 'assets/images/post-ostad.jpg';
   static const String coinMarketCap = 'assets/images/coin-market-cap.jpg';
-  static const String welcome = 'assets/images/welcome.svg';
+  static const String welcome = 'assets/images/welcome.png';
   static const String createNewWallet = 'assets/images/create-new-wallet.svg';
   static const String createWalletValidation = 'assets/images/create-wallet-validation.svg';
   static const String createWalletSetPassword = 'assets/images/create-wallet-set-password.svg';
-  static const String forgetPass = 'assets/images/forget-pass.svg';
   static const String receive = 'assets/images/receive.svg';
   static const String inviteFriends = 'assets/images/invite-friends.svg';
   static const String connectWalletToEmail = 'assets/images/wallet-connect-to-email.svg';
+  static const String loginToWallet = 'assets/images/login-to-wallet.svg';
+  static const String telegram = 'assets/images/telegram.jpg';
+  static const String giftCode = 'assets/images/gift-code.png';
+  static const String comingSoon = 'assets/images/coming-soon.svg';
+  static const String avatar = 'assets/images/avatar.png';
+  static const String aboutUs = 'assets/images/about-us.svg';
+  static const String solanaAddressWallet = 'assets/images/solana-address-wallet.svg';
+  static const String noTransactions = 'assets/images/no-transactions.png';
+  static const String noBalanceToSend = 'assets/images/no-balance-to-send.png';
 }

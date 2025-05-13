@@ -4,13 +4,14 @@ abstract class AppColor {
   AppColor._();
 
   // Colors
-  static const Color primaryColor = Color(0xFF187AB4);
-  static const Color secondaryColor = Color(0xFF8D319B);
-  static const Color backgroundColor = Color(0xFF0A0F15);
-  static const Color surfaceColor = Color(0xFF161B22);
-  static const Color cardColor = Color(0xFF1D2430);
+  static const Color primaryColor = Color(0xFF34C759);
+  static const Color secondaryColor = Color(0xFF9A71D8);
+  static const Color backgroundColor = Color(0xFF0C0C1D);
+  static const Color surfaceColor = Color(0xFF141429);
+  static const Color cardColor = Color(0xFF1A1A2E);
   static const Color selectedBorderColor = Color(0xff442E87);
-  static const Color divider = Color(0xFF1D2430);
+  static const Color dividerColor = Color(0xFF1A1A2E);
+  static Color strokeColor = Color(0xffffffff).withAlpha(25);
 
   static const Color onPrimary = Color(0xFFF5F5F5);
   static const Color onTertiary = Color(0xFFF5F5F5);
@@ -33,6 +34,11 @@ abstract class AppColor {
   static const Color blueColor = Color(0xFF3183FF);
 
   // Gradients
+  static final List<Color> glassBoxColors = [
+    Color(0xff181D25).withValues(alpha: 0.6),
+    Color(0xff28303E),
+  ];
+
   static final LinearGradient splashGradient = LinearGradient(
     colors: [
       Color(0xff23272A).withValues(alpha: 0.1),
@@ -51,29 +57,19 @@ abstract class AppColor {
     end: Alignment.bottomCenter,
   );
 
-  static final LinearGradient priceDecreaseGradient = LinearGradient(
+  static final LinearGradient strokeGradient = LinearGradient(
     colors: [
-      Color(0xFFF93827).withAlpha(90),
-      Color(0xff0F1419).withAlpha(150),
+      Color(0xff0C0C1D),
+      Color(0xffFFFFFF).withValues(alpha: 0.4),
     ],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-  );
-
-  static final LinearGradient priceIncreaseGradient = LinearGradient(
-    colors: [
-      Color(0xFF20E66F).withAlpha(90),
-      Color(0xff0F1419).withAlpha(150),
-    ],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
   );
 
   static final LinearGradient logoGradient = LinearGradient(
     colors: [
-      Color(0xff3CA0D9),
-      Color(0xff6E2C8B),
-      Color(0xffD50D8A),
+      Color(0xff34C759),
+      Color(0xff9A71D8),
     ],
     begin: Alignment.centerRight,
     end: Alignment.centerLeft,
@@ -81,9 +77,8 @@ abstract class AppColor {
 
   static final LinearGradient logoEnglishGradient = LinearGradient(
     colors: [
-      Color(0xff3CA0D9),
-      Color(0xff6E2C8B),
-      Color(0xffD50D8A),
+      Color(0xff9A71D8),
+      Color(0xff34C759),
     ],
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
@@ -91,8 +86,8 @@ abstract class AppColor {
 
   static final LinearGradient glassGradia = LinearGradient(
     colors: [
-      Color(0xffffffff).withAlpha(50),
-      Color(0xffffffff).withAlpha(125),
+      Color(0xffffffff).withValues(alpha: 0.2),
+      Color(0xffffffff).withValues(alpha: 0.5),
     ],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,

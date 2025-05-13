@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ostad/core/constant/app_dimens.dart';
+import 'package:dariwall/core/constant/app_dimens.dart';
 
 class AppBackButton extends StatelessWidget {
   const AppBackButton({

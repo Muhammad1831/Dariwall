@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ostad/core/constant/app_dimens.dart';
-import 'package:ostad/core/widgets/app_text_field.dart';
+import 'package:dariwall/core/constant/app_dimens.dart';
+import 'package:dariwall/core/widgets/app_text_field.dart';
 
 class AppOtp extends StatefulWidget {
   const AppOtp({super.key, this.numberOfField = 6, required this.onChanged});

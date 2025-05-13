@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ostad/core/constant/app_dimens.dart';
+import 'package:dariwall/core/constant/app_dimens.dart';
 
 class AppProgressBar extends StatelessWidget {
   final List<String> stepsTitle;

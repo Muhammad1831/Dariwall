@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ostad/core/constant/app_dimens.dart';
-import 'package:ostad/core/constant/app_string.dart';
-import 'package:ostad/core/utils/extensions.dart';
+import 'package:dariwall/core/constant/app_color.dart';
+import 'package:dariwall/core/constant/app_dimens.dart';
+import 'package:dariwall/core/constant/app_string.dart';
+import 'package:dariwall/core/extensions/string_validation_extension.dart';
 
 /// Defines the types of validation that can be applied to the text field
 enum ValidationType {
@@ -45,6 +46,7 @@ class AppTextFormField extends StatelessWidget {
     this.errorBorderColor, // Border color when error
     this.focusedBorderColor, // Border color when focused
     this.focusedErrorBorderColor, // Border color when focused with error
+    this.borderColor,
     this.labelText, // Label text
     this.hintText, // Hint text
     this.suffixIcon, // Custom suffix icon
@@ -56,6 +58,13 @@ class AppTextFormField extends StatelessWidget {
     this.title, // title for textformfield
     this.focusNode,
     this.onChanged,
+    this.prefixIcon, // Custom prefix icon
+    this.prefixIconColor, // Prefix icon color
+    this.readOnly = false, // Whether the field is read-only
+    this.onTap, // on tap function
+    this.onEditingComplete, // on editing complete function
+    this.fill = true, // Whether the field is filled
+    this.isDense = false, // Whether the field is dense
   });
 
   AppTextFormField.withTitle({
@@ -89,6 +98,7 @@ class AppTextFormField extends StatelessWidget {
     this.errorBorderColor, // Border color when error
     this.focusedBorderColor, // Border color when focused
     this.focusedErrorBorderColor, // Border color when focused with error
+    this.borderColor,
     this.labelText, // Label text
     this.hintText, // Hint text
     this.suffixIcon, // Custom suffix icon
@@ -99,6 +109,13 @@ class AppTextFormField extends StatelessWidget {
     this.errorText, // Custom error message
     this.focusNode,
     this.onChanged,
+    this.prefixIcon, // Custom prefix icon
+    this.prefixIconColor, // Prefix icon color
+    this.readOnly = false, // Whether the field is read-only
+    this.onTap, // on tap function
+    this.onEditingComplete, // on editing complete function
+    this.fill = true, // Whether the field is filled
+    this.isDense = false, // Whether the field is dense
   });
 
   final TextEditingController controller;
@@ -129,6 +146,7 @@ class AppTextFormField extends StatelessWidget {
   final double? contentPaddingHorizontal;
   final Color? fillColor;
   final double? borderRadius;
+  final Color? borderColor;
   final Color? focusedBorderColor;
   final Color? errorBorderColor;
   final Color? focusedErrorBorderColor;
@@ -141,11 +159,18 @@ class AppTextFormField extends StatelessWidget {
   final String? title;
   final FocusNode? focusNode;
   final Function(String value)? onChanged;
+  final Widget? prefixIcon;
+  final Color? prefixIconColor;
+  final bool readOnly;
+  final Function()? onTap;
+  final Function()? onEditingComplete;
+  final bool fill;
+  final bool isDense;
 
   /// Validates email format
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return AppString.enterEmail;
+      return AppString.thisFieldIsRequired;
     }
     if (!value.isValidEmail()) {
       return AppString.enterValidEmail;
@@ -156,7 +181,7 @@ class AppTextFormField extends StatelessWidget {
   /// Validates Iranian phone number format
   String? validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) {
-      return AppString.enterPhoneNumber;
+      return AppString.thisFieldIsRequired;
     }
     if (!value.isValidIranianPhoneNumber()) {
       return AppString.enterValidPhoneNumber;
@@ -174,7 +199,7 @@ class AppTextFormField extends StatelessWidget {
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       if (validationType == ValidationType.password) {
-        return AppString.enterPassword;
+        return AppString.thisFieldIsRequired;
       } else {
         return AppString.enterRepeatPassword;
       }
@@ -202,7 +227,7 @@ class AppTextFormField extends StatelessWidget {
   /// Basic validation for required fields
   String? validateNotEmpty(String? value) {
     if (value == null || value.isEmpty) {
-      return errorText ?? AppString.thisFieldMustNotBeEmpty;
+      return null;
     }
     return null;
   }
@@ -242,6 +267,9 @@ class AppTextFormField extends StatelessWidget {
           ),
         AppDimens.vSpaceVeryVerySmall,
         TextFormField(
+          onTap: onTap,
+          onEditingComplete: onEditingComplete,
+
           // Basic configuration
           focusNode: focusNode,
           controller: controller,
@@ -253,6 +281,7 @@ class AppTextFormField extends StatelessWidget {
           canRequestFocus: canRequestFocus,
           expands: expands,
           obscuringCharacter: obscuringCharacter,
+          readOnly: readOnly,
 
           // Keyboard configuration
           textInputAction: textInputAction ?? TextInputAction.done,
@@ -277,6 +306,32 @@ class AppTextFormField extends StatelessWidget {
 
           // Decoration (uses theme with custom overrides)
           decoration: InputDecoration(
+            isDense: isDense,
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: borderColor ?? AppColor.surfaceColor),
+              borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderRadiusSmall),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: enabledBorderColor ?? AppColor.surfaceColor),
+              borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderRadiusSmall),
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: disabledBorderColor ?? AppColor.surfaceColor),
+              borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderRadiusSmall),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: focusedBorderColor ?? AppColor.secondaryColor),
+              borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderRadiusSmall),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: errorBorderColor ?? AppColor.errorColor),
+              borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderRadiusSmall),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: focusedErrorBorderColor ?? AppColor.errorColor),
+              borderRadius: BorderRadius.circular(borderRadius ?? AppDimens.borderRadiusSmall),
+            ),
+            errorStyle: const TextStyle(height: 0),
             counter: enableCounter ? null : const SizedBox.shrink(),
             contentPadding: EdgeInsets.symmetric(
               vertical: contentPaddingVertical ?? AppDimens.paddingSmall,
@@ -287,18 +342,20 @@ class AppTextFormField extends StatelessWidget {
             labelStyle: labelStyle ?? Theme.of(context).inputDecorationTheme.labelStyle,
             hintStyle: hintStyle ?? Theme.of(context).inputDecorationTheme.hintStyle,
             errorMaxLines: 2,
-            filled: Theme.of(context).inputDecorationTheme.filled,
+            filled: fill,
             fillColor: fillColor ?? Theme.of(context).inputDecorationTheme.fillColor,
-            border: Theme.of(context).inputDecorationTheme.border,
-            enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-            focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-            errorBorder: Theme.of(context).inputDecorationTheme.errorBorder,
-            focusedErrorBorder: Theme.of(context).inputDecorationTheme.focusedErrorBorder,
+            prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
+            prefixIconConstraints:
+                BoxConstraints(maxHeight: AppDimens.iconLarge, maxWidth: AppDimens.iconVeryLarge),
+            suffixIconConstraints:
+                BoxConstraints(maxHeight: AppDimens.iconLarge, maxWidth: AppDimens.iconVeryLarge),
             suffixIconColor:
                 suffixIconColor ?? Theme.of(context).inputDecorationTheme.suffixIconColor,
+            prefixIconColor:
+                prefixIconColor ?? Theme.of(context).inputDecorationTheme.prefixIconColor,
           ),
-        ),
+        )
       ],
     );
   }
