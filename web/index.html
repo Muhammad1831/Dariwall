@@ -18,21 +18,67 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="Wallpaper app for your phone">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Cache Control -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="ostad">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <meta name="apple-mobile-web-app-title" content="DariWall">
+  <link rel="apple-touch-icon" href="icons/web-app-manifest-192x192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="icons/web-app-manifest-192x192.png"/>
+  <link rel="shortcut icon" type="image/png" href="icons/web-app-manifest-192x192.png"/>
 
-  <title>ostad</title>
+  <title>DariWall</title>
   <link rel="manifest" href="manifest.json">
+
+  <style>
+    body {
+      background-color: #000000;
+      margin: 0;
+      padding: 0;
+    }
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+    .loading img {
+      width: 80px;
+      height: 80px;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="loading">
+    <img src="icons/web-app-manifest-192x192.png" alt="DariWall Logo">
+  </div>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
+

@@ -1,8 +1,46 @@
 abstract class AppString {
   AppString._();
 
+  static const String aboutUsDescription =
+      '''داریوال در سال ۱۴۰۳ به‌ همت جمعی از فارغ التحصیلان دانشگاه صنعتی شریف و بوعلی سینا راه‌اندازی شد و در ادامه با بهره‌گیری از تیمی جوان، خلاق و علاقه‌مند، مسیر خود را در پیش دارد.  در پلتفرم داریوال تلاش بر این است تا با معرفی توکن استاد شجریان، گامی بزرگ در راستای ارائه خدمات دیجیتال در امور روزانه برداشته شود.   در آینده‌ و با گذشت زمان بر تعداد ارزها افزوده می‌شود.  در پلتفرم داریوال شما می‌توانید با انجام دادن ماموریت ها بصورت بازی‌ پاداش دریافت کنید و ارزهای استاد شجریان و سولانا خود را در حساب کاربری‌تان نگه داشته و در صورت نیاز رمز ارز خود را به ولت فانتوم خود منتقل کنید.''';
+
+  static const String fromWallet = 'از کیف پول';
+  static const String toWallet = 'به کیف پول';
+  static const String fromDariwall = 'از داریوال';
+
+  // send page
+  static const String sendTo = 'ارسال به';
+  static const String availableBalance = 'موجودی قابل ارسال';
+  static const String receivedFrom = 'دریافت شده از';
+  static const String max = 'حداکثر';
+  static const String inHour = 'در ساعت';
+  static const String date = 'تاریخ';
+  static const String status = 'وضعیت';
+  static const String network = 'شبکه';
+  static const String fee = 'کارمزد';
+
+  // gift code page
+  static const String giftCodeVerification = 'صحت سنجی';
+  static const String giftCodeVerificationDescription =
+      'در صورتی که کد هدیه خود را وارد کرده‌اید، برای اطمینان از معتبر بودن آن، لطفا مراحل زیر را دنبال کنید:';
+  static const String clickOnTheVerificationButton = '۱. روی دکمه «صحت‌سنجی» کلیک کنید.';
+  static const String waitForTheVerificationResult = '۲. منتظر نتیجه صحت سنجی بمانید.';
+  static const String receiveGift = 'دریافت هدیه';
+  static const String giftCode = 'کد هدیه';
+  static const String giftCodeExample = 'Dari12_34';
+
+  // user account info edit
+  static const String addimage = 'افزودن تصویر';
+
+  // coming soon
+  static const String comingSoon = 'به زودی در دسترس قرار میگیره!';
+  static const String comingSoonDescription =
+      'این ویژگی هنوز آماده نیست، اما به زودی در آپدیت بعدی اضافه میشه. اپلیکیشن رو به‌روز نگه دار.';
+  static const String backToPreviousPage = 'بازگشت به صفحه قبل';
+
   // welcome page
   static const String welcome = 'خوش آمدید';
+  static const String welcomeToDariWallFamily = 'به خانواده‌ی داریوال خوش آمدید.';
   static const String toTheWallet = 'به کیف پول';
   static const String welcomeDescriptionPart1 = 'برای شروع استفاده از کیف پول داریوال\n';
   static const String welcomeDescriptionPart2 = 'بسازید یا اگر قبلا حساب کاربری داشته‌اید از طریق';
@@ -18,6 +56,9 @@ abstract class AppString {
   static const String youCanChangeLanguageInSetting =
       'شما می توانید در هر زمان از بخش تنظیمات\n زبان را تغییر دهید.';
 
+  // validation page
+  static const String editEmail = 'ویرایش ایمیل';
+
   // create wallet page
   static const String referrerCode = 'کد معرف';
   static const String optional = 'اختیاری';
@@ -25,8 +66,6 @@ abstract class AppString {
   static const String roleAndCondition = 'قوانین و شرایط';
   static const String useOf = 'استفاده از';
   static const String accept = 'را می‌پذیرم.';
-  static const String enterYourPhoneNumberForValidation =
-      'لطفاً شماره تلفن همراه خود را بررسی کنید و کد ارسال شده را در کادر زیر وارد کنید تا فرایند اعتبارسنجی شما تکمیل شود.';
   static const String editPhoneNumber = 'ویرایش شماره تلفن';
   static const String enterWithFingerPrint = 'ورود با اثرانگشت';
 
@@ -47,6 +86,7 @@ abstract class AppString {
 
   // home
   static const String receive = 'دریافت';
+  static const String transfer = 'انتقال';
   static const String swap = 'تبادل';
   static const String swapToken = 'تبادل توکن';
 
@@ -58,28 +98,40 @@ abstract class AppString {
   static const String userAccountInfo = 'اطلاعات حساب کاربری';
   static const String security = 'امنیت';
   static const String phantomWalletAddress = 'آدرس کیف پول فانتوم(Phantom)';
-  static const String giftCode = 'کد هدیه';
   static const String inviteFriends = 'دعوت دوستان';
   static const String aboutUs = 'درباره ما';
+  static const String areYouSureLogout = 'آیا مطمئنید می‌خواهید از حساب کاربری خود خارج شوید؟';
+  static const String areYouSureLogoutContent =
+      'با تایید این عمل از حساب کاربری خود خارج می‌شوید و باید برای ورود دوباره، رمز یا اطلاعات خود را وارد کنید. خارج می‌شوید؟';
 
   // login
   static const String enterToWallet = 'ورود به کیف پول';
   static const String enterWithRecoveryPharse = 'ورود با استفاده از کدهای بازیابی';
+  static const String loginDescription =
+      'برای ورود به کیف‌پول، اگر ایمیل خود را قبلاً به کیف‌پول اضافه کرده‌اید، از گزینه‌ی ورود با ایمیل استفاده کنید. در غیر این صورت، لطفاً از رمزهای بازیابی برای ورود استفاده کنید.';
+  static const String loginWithEmail = 'ورود با ایمیل';
+  static const String loginWithKeys = 'ورود با رمزهای بازیابی';
+
+  // login with keys
+  static const String loginWithKeysDescription =
+      'لطفاً ۱۲ رمز بازیابی خود را وارد کنید تا وارد کیف‌پولتان شوید. توجه داشته باشید که تمام ۱۲ رمز باید کاملاً صحیح باشند.';
 
   // buy
   static const String search = 'جستجو کنید...';
-  static const String popularTokens = 'توکن‌های پرطرفدار';
+  static const String chooseToken = 'انتخاب توکن';
 
   // receive
   static const String copy = 'کپی';
   static const String barcode = 'بارکد';
 
   // invite friends
+  static const String inviteCount = 'تعداد دعوت';
   static const String successfulInvite = 'دعوت موفق';
-  static const String rewardReceived = 'جایزه دریافتی';
-  static const String nextGift = 'هدیه دعوت بعدی';
+  static const String inviteGift = 'هدیه دعوت';
   static const String yourReferralCode = 'کد معرف شما';
   static const String referralLink = 'لینک دعوت اختصاصی';
+  static const String inviteNote =
+      'توجه شود که افراد دعوت شده توسط شما پس از انجام احراز هویت دانشجویی و تکمیل ماموریت های توییتری به عنوان دعوت موفق برای شما لحاظ خواهند شد.';
   static const String inviteYourFriends = 'دوستانتان را دعوت کنید و پاداش بگیرید!';
   static const String howToInviteFriends = 'چگونه دوستان را دعوت کنیم؟';
   static const String copyReferralCode =
@@ -93,21 +145,23 @@ abstract class AppString {
   static const String enterUserAccount = 'ورود به حساب کاربری';
   static const String userName = 'نام کاربری';
   static const String phoneNumber = 'شماره تلفن همراه';
+  static const String phoneNumberHaveTelegram = 'شماره تلفن همراه (تلگرام)';
   static const String password = 'رمز عبور';
   static const String repeatPassword = 'تکرار رمز عبور';
   static const String newPassword = 'رمز عبور جدید';
   static const String newRepeatPassword = 'تکرار رمز عبور جدید';
   static const String enterInAccount = 'ورود به حساب';
-  static const String forgotPassword = 'فراموشی رمز عبور';
   static const String dontHaveWallet = 'کیف پول ندارید؟';
   static const String passHint = '********';
   static const String phoneHint = '1122***0918';
   static const String emailHint = 'example@gmail.com';
   static const String enterPhoneNumber = 'شماره موبایل خود را وارد کنید.';
+  static const String enterPhoneNumberHaveTelegram =
+      'شماره تلفن همراهی که با آن تلگرام دارید را وارد کنید...';
   static const String enterValidPhoneNumber = 'شماره موبایل وارد شده معتبر نمی باشد.';
   static const String enterEmail = 'ایمیل خود را وارد کنید.';
   static const String enterValidEmail = 'ایمیل وارد شده معتبر نمی باشد.';
-  static const String enterPassword = 'رمز عبور را وارد کنید.';
+  static const String thisFieldIsRequired = 'این فیلد الزامی است.';
   static const String enterRepeatPassword = 'تکرار رمز عبور را وارد کنید.';
   static const String passwordMustContainLettersAndNumbersAndSpecialCharacter =
       'رمز عبور باید شامل حروف بزرگ و کوچک، اعداد و حداقل یک کاراکتر خاص (@, #, !, ...) باشد.';
@@ -122,7 +176,6 @@ abstract class AppString {
   static const String referrer = 'معرف';
   static const String validation = 'اعتبارسنجی';
   static const String upload = 'بارگذاری';
-  static const String basicInfo = 'اطلاعات پایه';
   static const String additionalInfo = 'اطلاعات تکمیلی';
   static const String name = 'نام';
   static const String lastName = 'نام خانوادگی';
@@ -131,8 +184,8 @@ abstract class AppString {
   static const String university = 'دانشگاه';
   static const String studentNumber = 'شماره دانشجویی';
   static const String telegramId = 'آیدی تلگرام';
-  static const String solanaAddressWallet = 'آدرس کیف پول سولانا';
-  static const String enterYourName = 'نام  را وارد کنید...';
+  static const String solanaAddressWallet = 'آدرس سولانا کیف پول فانتوم';
+  static const String enterYourName = 'نام را وارد کنید...';
   static const String enterYourLastName = 'نام خانوادگی را وارد کنید...';
   static const String male = 'مذکر';
   static const String female = 'مونث';
@@ -167,8 +220,10 @@ abstract class AppString {
   static const String uploadImage = 'بارگزاری تصویر';
   static const String uploadImages = 'بارگزاری تصاویر';
   static const String uploadNewImage = 'بارگزاری تصویر جدید';
+  static const String uploadStudentCardImage = 'بارگزاری تصویر کارت دانشجویی';
   static const String imageUploadedSuccessfuly = 'تصویر با موفقیت بارگزاری شد.';
   static const String confirm = 'تایید';
+  static const String cancel = 'لغو';
   static const String home = 'خانه';
   static const String account = 'حساب کاربری';
   static const String missions = 'ماموریت‌ها';
@@ -177,6 +232,7 @@ abstract class AppString {
   static const String logout = 'خروج از حساب کاربری';
   static const String totalBalance = 'ارزش کل دارایی‌ها';
   static const String toman = 'تومان';
+  static const String tether = 'تتر';
   static const String buy = 'خرید';
   static const String sell = 'فروش';
   static const String sharePurchase = 'سهم خریداری شده';
@@ -194,7 +250,6 @@ abstract class AppString {
   static const String doTheTasks = 'کارهای خواسته شده در ماموریت‌ها را انجام دهید.';
   static const String uploadTheImage =
       'پس از انجام هر ماموریت، تصویر مربوط به آن را بارگذاری کنید.';
-  static const String viewAndDoMission = 'مشاهده و انجام مأموریت‌ها';
   static const String waitingForConfirmation = 'انتظار برای تایید';
   static const String afterUploadingTheImages =
       'پس از بارگذاری تصاویر، منتظر بمانید تا ماموریت‌ها و احراز هویت شما توسط تیم ما تایید شود.';
@@ -211,21 +266,45 @@ abstract class AppString {
       'با انجام این کار، مجوز شرکت در رویدادهای بعدی را دریافت خواهید کرد.';
   static const String participateInEvents = 'شرکت در رویدادها';
   static const String participateInEventsDescription =
-      'برای اطلاع از رویدادهای جدید، به صفحه اطلاعیه‌ها در اپلیکیشن یا کانال تلگرامی هواداران استاد شجریان مراجعه کنید.';
+      'برای اطلاع از رویدادهای جدید، به صفحه اطلاعیه‌ها در اپلیکیشن یا کانال تلگرامی dariwall@ مراجعه کنید.';
   static const String beforeStarting =
       'قبل از شروع، تمام مراحل را با دقت مطالعه کنید و سپس اقدامات را به درستی انجام دهید.';
-  static const String followOstadInX = 'دنبال کردن OSTAD در  X';
+  static const String studentInfoAtuntion = 'احراز هویت دانشجویی';
+  static const String followOstadInTwitter = 'دنبال کردن OSTAD در توییتر';
+  static const String likeTwitterPost = 'لایک کردن پست در توئیتر';
+  static const String retweetTwitterPost = 'ریتوئیت کردن پست در توئیتر';
+  static const String commentOnTwitterPost = 'کامنت گذاری در پست توئیتر';
   static const String steps = 'مراحل';
-  static const String followOstadInXDescription = '۱. OSTAD رو در X دنبال کنید:';
-  static const String likeAndRepostPost = '2. پست مربوط به آدرس CA رو لایک، ریپلای و ریتوییت کنید:';
-  static const String uploadImagesFromEachStep = '3. بارگزاری تصاویر از هر مرحله';
-  static const String uploadImagesFromEachStepDescription =
-      'لطفاً از تمامی کارهایی که انجام می‌دهید، اسکرین‌شات بگیرید و برای ما ارسال کنید. این اسکرین‌شات‌ها به عنوان مدرک انجام ماموریت‌ها استفاده خواهند شد.';
+  static const String followOstadInTwitterDescription = 'OSTAD رو در توییتر دنبال کنید:';
+  static const String likeCAPost = 'پست مربوط به آدرس CA رو لایک کنید:';
+  static const String retweetCAPost = 'پست مربوط به آدرس CA رو ریتوئیت کنید:';
+  static const String commentOnCAPost = 'در زیر پست مربوط به آدرس CA، کامنت بگذارید:';
   static const String clickOnFollowButton =
       'بعد از ورود به صفحه توییتر، روی دکمه "Follow" (دنبال کردن) کلیک کنید.';
+  static const String studentInfoAttentionDescription =
+      'اگر شما دانشجو هستید، این فرصت ویژه را از دست ندهید!';
+  static const String uploadImageForCompleteProcess =
+      'حالا برای تکمیل فرآیند، لطفاً عکس مربوط به انجام این ماموریت را بارگذاری  کنید.';
+  static const String joinOstadInTelegram = 'عضو شدن در کانال تلگرامی OSTAD';
+  static const String joinOstadInDiscussionGroup = 'عضو شدن در گروه تلگرامی OSTAD';
+  static const String joinDariwallTelegramChannel = 'عضو شدن در کانال تلگرامی داریوال';
+  static const String joinOstadInTelegramDescription =
+      'اگر می‌خواهید از جدیدترین اخبار، تحلیل‌ها و فرصت‌های ویژه OSTAD با خبر باشید، همین حالا به کانال ما در تلگرام بپیوندید!';
+  static const String justClickAndJoin = 'فقط کافی است روی لینک زیر کلیک کنید و عضو شوید:';
+  static const String noNeedToSendImageOrManualVerification =
+      'نیازی به ارسال تصویر یا تأیید دستی نیست! ما از طریق روش‌های مختلف، عضویت شما را بررسی می‌کنیم. پس نگران نباشید و همین حالا به جمع ما بپیوندید!';
+  static const String joinOstadInDiscussionGroupDescription =
+      'برای پیوستن به گروه اختصاصی ما، باید خودت لینک گروه رو پیدا کنی! سرنخ: تو صفحه اصلی کانال یا پست‌های اخیر ما یه گشتی بزن.';
+  static const String joinDariwallTelegramChannelDescription =
+      '''به کانال تلگرامی داریوال بپیوندید!\n
+اینجا جاییه که می‌تونید از آخرین اخبار، آموزش‌ها و فرصت‌های جذاب در دنیای کریپتو و سرمایه‌گذاری باخبر بشید.
+
+با عضویت در داریوال، همیشه یک قدم جلوتر هستید!''';
+  static const String justClickAndJoinDariwallTelegramChannel =
+      'فقط کافی است روی لینک زیر کلیک کنید و عضو شوید:';
   static const String afterEnterPost = ' بعد از ورود به پست:';
   static const String onLikeButton = 'روی دکمه لایک';
-  static const String click = 'بزنید';
+  static const String click = 'بزنید.';
   static const String aComment = 'یک کامنت';
   static const String write = 'بنویسید';
   static const String onRetweetButton = 'روی دکمه ریتوییت';
@@ -236,6 +315,16 @@ abstract class AppString {
   static const String send = 'ارسال';
   static const String likeCoinmarketcapDescription =
       '1. وارد لینک زیر شوید و رای خود را مشابه تصویر زیر ثبت کنید:';
-  static const String voteForOstadInCoinMarketCap = 'رای دادن به استاد در CoinMarketCap';
+  static const String likeOstadInCoinMarketCap = 'لایک کردن OSTAD در CoinMarketCap';
   static const String vote = 'رای دادن';
+  static const String check = 'بررسی';
+  static const String choose = 'انتخاب کنید';
+  static const String usdt = 'USDT';
+  static const String pending = 'در انتظار';
+  static const String confirmed = 'تایید شده';
+  static const String rejected = 'رد شده';
+  static const String notDone = 'انجام نشده';
+  static const String failed = 'ناموفق';
+  static const String reverted = 'بازگشت شده';
+  static const String completed = 'موفق';
 }

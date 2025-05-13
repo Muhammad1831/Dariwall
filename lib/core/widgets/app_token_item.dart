@@ -1,91 +1,111 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:ostad/core/constant/app_dimens.dart';
+import 'package:dariwall/core/constant/app_color.dart';
+import 'package:dariwall/core/constant/app_dimens.dart';
+import 'package:dariwall/core/utils/utils_cached_image.dart';
 
-class AppTokenCard extends StatelessWidget {
-  const AppTokenCard({
+class AppTokenItem extends StatelessWidget {
+  const AppTokenItem({
     super.key,
     required this.tokenIcon,
     required this.tokenName,
-    required this.tokenProfit,
+    this.tokenProfit,
     required this.tokenTotalNumber,
     required this.tokenTotalPrice,
+    this.onTap,
   });
 
   final String tokenIcon;
   final String tokenName;
   final String tokenTotalNumber;
   final String tokenTotalPrice;
-  final String tokenProfit;
+  final String? tokenProfit;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Padding(
-      padding: EdgeInsets.only(bottom: AppDimens.paddingSmall),
-      child: Container(
-        padding: EdgeInsets.all(AppDimens.paddingLarge),
-        decoration: BoxDecoration(
-          color: theme.cardTheme.color,
-          borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
-        ),
-        child: Row(
-          children: [
-            SvgPicture.asset(
-              tokenIcon,
-              height: AppDimens.iconExtraLarge,
-              width: AppDimens.iconExtraLarge,
-              fit: BoxFit.contain,
+    return Material(
+      color: theme.cardColor,
+      borderRadius: BorderRadius.circular(AppDimens.borderRadiusLarge),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(AppDimens.borderRadiusLarge),
+        child: Container(
+          padding: EdgeInsets.all(AppDimens.paddingMedium),
+          decoration: BoxDecoration(
+            // gradient: LinearGradient(
+            //   colors: AppColor.glassBoxColors,
+            //   begin: Alignment.centerLeft,
+            //   end: Alignment.centerRight,
+            // ),
+            borderRadius: BorderRadius.circular(AppDimens.borderRadiusLarge),
+            border: Border.all(
+              color: AppColor.strokeColor,
             ),
-            AppDimens.hSpaceVerySmall,
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          ),
+          child: Row(
+            children: [
+              SizedBox(
+                height: AppDimens.iconExtraLarge,
+                width: AppDimens.iconExtraLarge,
+                child: Padding(
+                  padding: EdgeInsets.all(AppDimens.paddingVerySmall),
+                  child: AppCachedImage(
+                    imageUrl: tokenIcon,
+                    fit: BoxFit.scaleDown,
+                  ),
+                ),
+              ),
+              AppDimens.hSpaceVerySmall,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: AppDimens.verySmall,
+                  children: [
+                    Text(
+                      tokenName,
+                      style: theme.textTheme.titleSmall!.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        tokenTotalNumber,
+                        style: theme.textTheme.titleSmall!.copyWith(
+                          color: theme.colorScheme.onSurface,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
                 spacing: AppDimens.verySmall,
                 children: [
-                  Text(
-                    tokenName,
-                    style: theme.textTheme.titleSmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
-                      tokenTotalNumber,
+                      tokenTotalPrice,
                       style: theme.textTheme.titleSmall!.copyWith(
-                        color: theme.colorScheme.onSurface,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
+                  Text(
+                    tokenProfit ?? '',
+                    style: theme.textTheme.titleSmall!.copyWith(
+                      color: theme.colorScheme.error,
+                    ),
+                  )
                 ],
               ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              spacing: AppDimens.verySmall,
-              children: [
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    tokenTotalPrice,
-                    style: theme.textTheme.titleSmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Text(
-                  tokenProfit,
-                  style: theme.textTheme.titleSmall!.copyWith(
-                    color: theme.colorScheme.error,
-                  ),
-                )
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

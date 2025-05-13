@@ -1,30 +1,49 @@
+import 'package:dariwall/features/transactions/domain/entity/base_transactions_entity.dart';
+import 'package:dariwall/features/transactions/presentation/page/details_transaction_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ostad/core/route/app_route_path.dart';
-import 'package:ostad/features/buy/presentation/page/buy_page.dart';
-import 'package:ostad/features/connet_wallet_to_email/presentation/page/connet_wallet_to_email_page.dart';
-import 'package:ostad/features/connet_wallet_to_email/presentation/page/validation_page.dart';
-import 'package:ostad/features/create_new_wallet/presentation/page/create_new_wallet_page.dart';
-import 'package:ostad/features/forget_password/presentation/page/forget_password_page.dart';
-import 'package:ostad/features/home/presentation/page/home_page.dart';
-import 'package:ostad/features/invite_friends/presentaion/page/invite_friends_page.dart';
-import 'package:ostad/features/learn_and_guide/presentation/page/learn_and_guide_page.dart';
-import 'package:ostad/features/login/presentation/page/login_page.dart';
-import 'package:ostad/features/login/presentation/provider/auth_provider.dart';
-import 'package:ostad/features/missions/presentation/page/missions_page.dart';
-import 'package:ostad/features/receive/presentation/page/receive_page.dart';
-import 'package:ostad/features/recovery_phrase/presentation/page/recovery_phrase_page.dart';
-import 'package:ostad/features/send/presentation/page/send_page.dart';
-import 'package:ostad/features/sign_up/presentation/page/sign_up_page.dart';
-import 'package:ostad/features/splash/presentation/page/splash_page.dart';
-import 'package:ostad/features/swap/presentation/page/swap_page.dart';
-import 'package:ostad/features/tasks/presentation/page/follow_x_page.dart';
-import 'package:ostad/features/tasks/presentation/page/like_coinmarketcap_page.dart';
-import 'package:ostad/features/user_account/presentation/page/user_account_page.dart';
-import 'package:ostad/features/transactions/presentation/page/transactions_page.dart';
-import 'package:ostad/features/scaffold_with_nav_bar.dart';
-import 'package:ostad/core/route/app_route_name.dart';
-import 'package:ostad/features/welcome/presentation/page/welcome_page.dart';
+import 'package:dariwall/core/route/app_route_path.dart';
+import 'package:dariwall/core/services/snack_bar_service.dart';
+import 'package:dariwall/features/about_us/about_us_page.dart';
+import 'package:dariwall/features/buy/presentation/page/buy_page.dart';
+import 'package:dariwall/features/coming_soon/coming_soon_page.dart';
+import 'package:dariwall/features/connet_wallet_to_email/presentation/page/connect_wallet_email_otp.dart';
+import 'package:dariwall/features/connet_wallet_to_email/presentation/page/connect_wallet_to_email_page.dart';
+import 'package:dariwall/features/gift_code_page/presentation/pages/gift_code_page.dart';
+import 'package:dariwall/features/home/domain/entity/balances_entity.dart';
+import 'package:dariwall/features/missions/presentation/page/comment_on_twitter_mission_page.dart';
+import 'package:dariwall/features/missions/presentation/page/join_dariwall_telegram_channel_mission_page.dart';
+import 'package:dariwall/features/missions/presentation/page/join_discussion_group_mission_page.dart';
+import 'package:dariwall/features/missions/presentation/page/join_telegram_channel_mission_page.dart';
+import 'package:dariwall/features/missions/presentation/page/like_twitter_mission_page.dart';
+import 'package:dariwall/features/missions/presentation/page/retweet_twitter_mission_page.dart';
+import 'package:dariwall/features/missions/presentation/page/student_info_missions_page.dart';
+import 'package:dariwall/features/send/presentation/page/choose_token_page.dart';
+import 'package:dariwall/features/send/presentation/page/summary_page.dart';
+import 'package:dariwall/features/solana_address_wallet/presentation/page/solana_address_wallet_page.dart';
+import 'package:dariwall/features/user_account_info_edit/presentation/page/user_account_info_edit_page.dart';
+import 'package:dariwall/features/validation/presentation/page/validation_page.dart';
+import 'package:dariwall/features/create_new_wallet/presentation/page/create_new_wallet_page.dart';
+import 'package:dariwall/features/home/presentation/page/home_page.dart';
+import 'package:dariwall/features/invite_friends/presentaion/page/invite_friends_page.dart';
+import 'package:dariwall/features/learn_and_guide/presentation/page/learn_and_guide_page.dart';
+import 'package:dariwall/features/login/presentation/page/login_page.dart';
+import 'package:dariwall/features/login/presentation/page/login_with_email_page.dart';
+import 'package:dariwall/features/login/presentation/page/login_with_keys_page.dart';
+import 'package:dariwall/features/login/presentation/provider/login_provider.dart';
+import 'package:dariwall/features/missions/presentation/page/missions_page.dart';
+import 'package:dariwall/features/receive/presentation/page/receive_page.dart';
+import 'package:dariwall/features/recovery_phrase/presentation/page/recovery_phrase_page.dart';
+import 'package:dariwall/features/send/presentation/page/send_page.dart';
+import 'package:dariwall/features/splash/presentation/page/splash_page.dart';
+import 'package:dariwall/features/swap/presentation/page/swap_page.dart';
+import 'package:dariwall/features/missions/presentation/page/follow_twitter_mission_page.dart';
+import 'package:dariwall/features/missions/presentation/page/like_coinmarketcap_mission_page.dart';
+import 'package:dariwall/features/user_account/presentation/page/user_account_page.dart';
+import 'package:dariwall/features/transactions/presentation/page/transactions_page.dart';
+import 'package:dariwall/features/scaffold_with_nav_bar.dart';
+import 'package:dariwall/core/route/app_route_name.dart';
+import 'package:dariwall/features/welcome/presentation/page/welcome_page.dart';
 import 'package:provider/provider.dart';
 
 class RouteLogger extends NavigatorObserver {
@@ -52,12 +71,12 @@ class RouteLogger extends NavigatorObserver {
   }
 }
 
-class AppRouter {
-  static final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
-
+class AppRouteing {
   static final GoRouter router = GoRouter(
-    navigatorKey: _rootNavigatorKey,
     initialLocation: AppRouteName.splash,
+    navigatorKey: SnackBarService.navigatorKey,
+    routerNeglect: true,
+
     // debugLogDiagnostics: true,
     restorationScopeId: 'app',
     observers: [
@@ -65,17 +84,16 @@ class AppRouter {
     ],
 
     redirect: (context, state) {
-      final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      final isLoggedIn = authProvider.isAuthenticated;
+      final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+      final isLoggedIn = loginProvider.isLoggedIn;
       final currentPath = state.matchedLocation;
 
       // List of public routes that don't require authentication
       final publicRoutes = [
+        AppRouteName.splash,
         AppRouteName.login,
+        AppRouteName.welcome,
         AppRouteName.createNewWallet,
-        AppRouteName.recoveryphrase,
-        AppRouteName.forgetPassword,
-        AppRouteName.splash
       ];
 
       // If on splash screen, let it proceed
@@ -95,25 +113,97 @@ class AppRouter {
     },
 
     routes: [
+      // splash
       GoRoute(
         name: AppRouteName.splash,
         path: AppRoutePath.splash,
         builder: (context, state) => const SplashPage(),
       ),
+
+      // welcome
       GoRoute(
-        name: AppRouteName.login,
-        path: AppRoutePath.login,
-        builder: (context, state) => const LoginPage(),
+        name: AppRouteName.welcome,
+        path: AppRoutePath.welcome,
+        builder: (context, state) => const WelcomePage(),
+        routes: [
+          // login
+          GoRoute(
+            name: AppRouteName.login,
+            path: AppRoutePath.login,
+            builder: (context, state) => const LoginPage(),
+            routes: [
+              GoRoute(
+                name: AppRouteName.loginWithEmail,
+                path: AppRoutePath.loginWithEmail,
+                builder: (context, state) => const LoginWithEmailPage(),
+              ),
+              GoRoute(
+                name: AppRouteName.validation,
+                path: AppRoutePath.validation,
+                builder: (context, state) => ValidationPage(
+                  email: state.extra as String,
+                ),
+              ),
+              GoRoute(
+                name: AppRouteName.loginWithKeys,
+                path: AppRoutePath.loginWithKeys,
+                builder: (context, state) => LoginWithKeysPage(),
+              ),
+            ],
+          ),
+
+          // create new wallet
+          GoRoute(
+            name: AppRouteName.createNewWallet,
+            path: AppRoutePath.createNewWallet,
+            builder: (context, state) => const CreateNewWalletPage(),
+            routes: [
+              GoRoute(
+                name: AppRouteName.recoveryphrase,
+                path: AppRoutePath.recoveryphrase,
+                builder: (context, state) => const RecoveryPhrasePage(),
+              ),
+              GoRoute(
+                name: AppRouteName.connectWalletToEmail,
+                path: AppRoutePath.connectWalletToEmail,
+                builder: (context, state) => const ConnetWalletToEmailPage(),
+              ),
+              GoRoute(
+                name: AppRouteName.connectWalletEmailOtp,
+                path: AppRoutePath.connectWalletEmailOtp,
+                builder: (context, state) => ConnectWalletEmailOtpPage(
+                  email: state.extra as String,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      GoRoute(
+        name: AppRouteName.userAccountInfoEdit,
+        path: AppRoutePath.userAccountInfoEdit,
+        builder: (context, state) => UserAccountInfoEditPage(),
       ),
       GoRoute(
-        name: AppRouteName.signUp,
-        path: AppRoutePath.signUp,
-        builder: (context, state) => const SignUpPage(),
+        name: AppRouteName.solanaAddressWallet,
+        path: AppRoutePath.solanaAddressWallet,
+        builder: (context, state) => SolanaAddressWalletPage(),
       ),
       GoRoute(
-        name: AppRouteName.forgetPassword,
-        path: AppRoutePath.forgetPassword,
-        builder: (context, state) => const ForgetPasswordPage(),
+        name: AppRouteName.comingSoon,
+        path: AppRoutePath.comingSoon,
+        builder: (context, state) => const ComingSoonPage(),
+      ),
+      GoRoute(
+        name: AppRouteName.aboutUs,
+        path: AppRoutePath.aboutUs,
+        builder: (context, state) => const AboutUsPage(),
+      ),
+      GoRoute(
+        name: AppRouteName.giftCode,
+        path: AppRoutePath.giftCode,
+        builder: (context, state) => const GiftCodePage(),
       ),
       GoRoute(
         name: AppRouteName.learnAndGuide,
@@ -121,30 +211,69 @@ class AppRouter {
         builder: (context, state) => const LearnAndGuidePage(),
       ),
       GoRoute(
-        name: AppRouteName.followX,
-        path: AppRoutePath.followX,
-        builder: (context, state) => const FollowXPage(),
+        name: AppRouteName.commentOnTwitterMission,
+        path: AppRoutePath.commentOnTwitterMission,
+        builder: (context, state) => CommentOnTwitterMissionPage(
+          amount: state.extra as double,
+        ),
       ),
       GoRoute(
-        name: AppRouteName.likeCoinmarketcap,
-        path: AppRoutePath.likeCoinmarketcap,
-        builder: (context, state) => const LikeCoinmarketcapPage(),
+        name: AppRouteName.joinTelegramChannelMission,
+        path: AppRoutePath.joinTelegramChannelMission,
+        builder: (context, state) => JoinTelegramChannelMissionPage(
+          amount: state.extra as double,
+        ),
       ),
       GoRoute(
-        name: AppRouteName.welcome,
-        path: AppRoutePath.welcome,
-        builder: (context, state) => const WelcomePage(),
+        name: AppRouteName.joinDiscussionGroupMission,
+        path: AppRoutePath.joinDiscussionGroupMission,
+        builder: (context, state) => JoinDiscussionGroupMissionPage(
+          amount: state.extra as double,
+        ),
       ),
       GoRoute(
-        name: AppRouteName.createNewWallet,
-        path: AppRoutePath.createNewWallet,
-        builder: (context, state) => const CreateNewWalletPage(),
+        name: AppRouteName.retweetTwitterMission,
+        path: AppRoutePath.retweetTwitterMission,
+        builder: (context, state) => RetweetTwitterMissionPage(
+          amount: state.extra as double,
+        ),
       ),
       GoRoute(
-        name: AppRouteName.recoveryphrase,
-        path: AppRoutePath.recoveryphrase,
-        builder: (context, state) => const RecoveryPhrasePage(),
+        name: AppRouteName.followTwitterMission,
+        path: AppRoutePath.followTwitterMission,
+        builder: (context, state) => FollowTwitterMissionPage(
+          amount: state.extra as double,
+        ),
       ),
+      GoRoute(
+        name: AppRouteName.likeTwitterMission,
+        path: AppRoutePath.likeTwitterMission,
+        builder: (context, state) => LikeTwitterMissionPage(
+          amount: state.extra as double,
+        ),
+      ),
+      GoRoute(
+        name: AppRouteName.studentInfoMissions,
+        path: AppRoutePath.studentInfoMissions,
+        builder: (context, state) => StudentInfoMissionsPage(
+          amount: state.extra as double,
+        ),
+      ),
+      GoRoute(
+        name: AppRouteName.likeCoinmarketcapMission,
+        path: AppRoutePath.likeCoinmarketcapMission,
+        builder: (context, state) => LikeCoinmarketcapMissionPage(
+          amount: state.extra as double,
+        ),
+      ),
+      GoRoute(
+        name: AppRouteName.joinDariwallTelegramChannelMission,
+        path: AppRoutePath.joinDariwallTelegramChannelMission,
+        builder: (context, state) => JoinDariwallTelegramChannelMissionPage(
+          amount: state.extra as double,
+        ),
+      ),
+
       GoRoute(
         name: AppRouteName.buy,
         path: AppRoutePath.buy,
@@ -158,7 +287,19 @@ class AppRouter {
       GoRoute(
         name: AppRouteName.send,
         path: AppRoutePath.send,
-        builder: (context, state) => SendPage(),
+        builder: (context, state) => SendPage(
+          balance: state.extra as BalancesEntity,
+        ),
+      ),
+      GoRoute(
+        name: AppRouteName.chooseToken,
+        path: AppRoutePath.chooseToken,
+        builder: (context, state) => ChooseTokenPage(),
+      ),
+      GoRoute(
+        name: AppRouteName.summary,
+        path: AppRoutePath.summary,
+        builder: (context, state) => SummaryPage(),
       ),
       GoRoute(
         name: AppRouteName.receive,
@@ -171,15 +312,13 @@ class AppRouter {
         builder: (context, state) => const InviteFriendsPage(),
       ),
       GoRoute(
-        name: AppRouteName.connectWalletToEmail,
-        path: AppRoutePath.connectWalletToEmail,
-        builder: (context, state) => const ConnetWalletToEmailPage(),
+        name: AppRouteName.detailsTransaction,
+        path: AppRoutePath.detailsTransaction,
+        builder: (context, state) => DetailsTransactionPage(
+          transaction: state.extra as BaseTransactionEntity,
+        ),
       ),
-      GoRoute(
-        name: AppRouteName.validation,
-        path: AppRoutePath.validation,
-        builder: (context, state) => const ValidationPage(),
-      ),
+
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return ScaffoldWithNavBar(

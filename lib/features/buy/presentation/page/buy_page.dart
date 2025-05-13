@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ostad/core/constant/app_color.dart';
-import 'package:ostad/core/constant/app_dimens.dart';
-import 'package:ostad/core/constant/app_icons.dart';
-import 'package:ostad/core/constant/app_string.dart';
-import 'package:ostad/core/widgets/app_glow_dot.dart';
-import 'package:ostad/core/widgets/app_header.dart';
-import 'package:ostad/core/widgets/app_text_field.dart';
-import 'package:ostad/core/widgets/app_token_item.dart';
+import 'package:dariwall/core/constant/app_dimens.dart';
+import 'package:dariwall/core/constant/app_icons.dart';
+import 'package:dariwall/core/constant/app_string.dart';
+import 'package:dariwall/core/widgets/app_header.dart';
+import 'package:dariwall/core/widgets/app_text_field.dart';
+import 'package:dariwall/core/widgets/app_token_item.dart';
 
 class BuyPage extends StatelessWidget {
   BuyPage({super.key});
@@ -21,42 +19,32 @@ class BuyPage extends StatelessWidget {
             vertical: AppDimens.paddingLarge,
             horizontal: AppDimens.paddingMedium,
           ),
-          child: Stack(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AppGlowDot(shadow: AppColor.blueGlowShadow),
-              AppGlowDot(
-                shadow: AppColor.pinkGlowShadow,
-                bottom: 0,
-                left: 0,
+              AppHeader(headerText: AppString.buy),
+              AppDimens.vSpaceLarge,
+              AppTextFormField(
+                controller: search,
+                hintText: AppString.search,
+                suffixIcon: Icon(
+                  Icons.search,
+                ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppHeader(headerText: AppString.buy),
-                  AppDimens.vSpaceLarge,
-                  AppTextFormField(
-                    controller: search,
-                    hintText: AppString.search,
-                    suffixIcon: Icon(
-                      Icons.search,
-                    ),
-                  ),
-                  AppDimens.vSpaceLarge,
-                  Text(AppString.popularTokens),
-                  AppDimens.vSpaceSmall,
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: 12,
-                      itemBuilder: (context, index) => AppTokenCard(
-                          tokenIcon: AppIcons.solana,
-                          tokenName: 'Solana',
-                          tokenProfit: '100%',
-                          tokenTotalNumber: '100',
-                          tokenTotalPrice: '100'),
-                    ),
-                  )
-                ],
-              ),
+              AppDimens.vSpaceLarge,
+              Text(AppString.chooseToken),
+              AppDimens.vSpaceSmall,
+              Expanded(
+                child: ListView.builder(
+                  itemCount: 12,
+                  itemBuilder: (context, index) => AppTokenItem(
+                      tokenIcon: AppIcons.solana,
+                      tokenName: 'Solana',
+                      tokenProfit: '100%',
+                      tokenTotalNumber: '100',
+                      tokenTotalPrice: '100'),
+                ),
+              )
             ],
           ),
         ),

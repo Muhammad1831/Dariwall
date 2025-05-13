@@ -1,4 +1,4 @@
-import 'package:ostad/core/constant/app_shared_preferences_key.dart';
+import 'package:dariwall/core/constant/app_shared_preferences_key.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UtilsSharedPreferences {

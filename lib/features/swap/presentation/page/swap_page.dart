@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ostad/core/constant/app_dimens.dart';
-import 'package:ostad/core/constant/app_icons.dart';
-import 'package:ostad/core/constant/app_string.dart';
-import 'package:ostad/core/widgets/app_header.dart';
-import 'package:ostad/core/widgets/app_button.dart';
+import 'package:dariwall/core/constant/app_dimens.dart';
+import 'package:dariwall/core/constant/app_icons.dart';
+import 'package:dariwall/core/constant/app_string.dart';
+import 'package:dariwall/core/widgets/app_header.dart';
+import 'package:dariwall/core/widgets/app_button.dart';
 
 class SwapPage extends StatefulWidget {
   const SwapPage({super.key});

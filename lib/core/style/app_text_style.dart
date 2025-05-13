@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ostad/core/constant/app_color.dart';
+import 'package:dariwall/core/constant/app_color.dart';
 
 abstract class AppTextStyle {
   AppTextStyle._();

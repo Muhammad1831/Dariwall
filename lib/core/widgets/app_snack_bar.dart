@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ostad/core/constant/app_color.dart';
-import 'package:ostad/core/constant/app_dimens.dart';
-
-enum SnackBarType { success, error, warning, info }
+import 'package:dariwall/core/constant/app_color.dart';
+import 'package:dariwall/core/constant/app_dimens.dart';
 
 class AppSnackBar extends StatelessWidget {
   final String message;
@@ -48,7 +46,7 @@ class AppSnackBar extends StatelessWidget {
                     ),
                     child: Icon(
                       icon,
-                      color: Theme.of(context).primaryIconTheme.color,
+                      color: Theme.of(context).iconTheme.color,
                     ),
                   ),
                 ),
@@ -108,8 +106,8 @@ class AppSnackBar extends StatelessWidget {
     show(
       context,
       message: message,
-      iconBackgroundColor: AppColor.secondaryColor,
-      icon: Icons.warning,
+      iconBackgroundColor: AppColor.warningColor,
+      icon: Icons.warning_amber_rounded,
     );
   }
 

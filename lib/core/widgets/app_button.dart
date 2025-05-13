@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ostad/core/constant/app_dimens.dart';
-import 'package:ostad/core/widgets/app_loading.dart';
+import 'package:dariwall/core/constant/app_dimens.dart';
+import 'package:dariwall/core/widgets/app_loading.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({
@@ -17,6 +16,7 @@ class AppButton extends StatelessWidget {
     this.iconColor,
     this.iconSize,
     this.isLoading,
+    this.textHorizontalPadding,
     super.key,
   });
 
@@ -31,6 +31,7 @@ class AppButton extends StatelessWidget {
   final Color? iconColor;
   final double? iconSize;
   final bool? isLoading;
+  final double? textHorizontalPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -53,29 +54,32 @@ class AppButton extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: AppDimens.paddingMedium),
             child: isLoading == true
                 ? const AppLoading()
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: icon != null ? AppDimens.verySmall : 0,
-                    children: [
-                      if (icon != null)
-                        SvgPicture.asset(
-                          icon!,
-                          height: iconSize ?? AppDimens.iconLarge,
-                          width: iconSize ?? AppDimens.iconLarge,
-                          fit: BoxFit.contain,
-                          colorFilter: ColorFilter.mode(
-                            iconColor ?? theme.colorScheme.onPrimary,
-                            BlendMode.srcIn,
+                : Padding(
+                    padding: EdgeInsets.symmetric(horizontal: textHorizontalPadding ?? 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      spacing: icon != null ? AppDimens.verySmall : 0,
+                      children: [
+                        if (icon != null)
+                          SvgPicture.asset(
+                            icon!,
+                            height: iconSize ?? AppDimens.iconLarge,
+                            width: iconSize ?? AppDimens.iconLarge,
+                            fit: BoxFit.contain,
+                            colorFilter: ColorFilter.mode(
+                              iconColor ?? theme.colorScheme.onPrimary,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        Text(
+                          text,
+                          style: theme.textTheme.titleSmall!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: textColor ?? theme.colorScheme.onPrimary,
                           ),
                         ),
-                      Text(
-                        text,
-                        style: theme.textTheme.titleSmall!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: textColor ?? theme.colorScheme.onPrimary,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
           ),
         ),

@@ -1,10 +1,9 @@
-import 'package:ostad/core/constant/app_api.dart';
-import 'package:ostad/core/constant/app_keys.dart';
-import 'package:ostad/core/constant/app_shared_preferences_key.dart';
-import 'package:ostad/core/services/api_client_service.dart';
-import 'package:ostad/core/services/error_handler_service.dart';
-import 'package:ostad/core/utils/utils_shared_preferences.dart';
-import 'package:ostad/features/create_new_wallet/data/model/recovery_phrase_model.dart';
+import 'package:dariwall/core/constant/app_api.dart';
+import 'package:dariwall/core/constant/app_keys.dart';
+import 'package:dariwall/core/constant/app_shared_preferences_key.dart';
+import 'package:dariwall/core/services/api_client_service.dart';
+import 'package:dariwall/core/utils/utils_shared_preferences.dart';
+import 'package:dariwall/features/create_new_wallet/data/model/create_wallet_model.dart';
 
 class CreateWalletDatasource {
   final ApiClientService _apiClient;
@@ -12,64 +11,24 @@ class CreateWalletDatasource {
 
   CreateWalletDatasource(this._apiClient, this._preferences);
 
-  Future<void> sendPhoneNumberAndReferralCode(String phoneNumber, String? referralCode) async {
-    try {
-      final response = await _apiClient.post(
-        AppApi.confirmPhoneNumber1,
-        data: {
-          AppKeys.keyPhoneNumber: phoneNumber,
-          AppKeys.keyPassword: referralCode,
-        },
-      );
+  Future<CreateWalletModel> createWallet(String name, String referralCode) async {
+    final response = await _apiClient.post(
+      AppApi.createWallet,
+      data: {
+        AppKeys.keyName: name,
+        AppKeys.keyReferralCode: referralCode.isEmpty ? null : referralCode,
+      },
+    );
 
-      _preferences.setString(
-        AppSharedPreferencesKey.keySecureToken,
-        response.data[AppSharedPreferencesKey.keySecureToken],
-      );
-    } on AppException {
-      rethrow;
-    }
-  }
+    _preferences.setString(
+      AppSharedPreferencesKey.keyAccess,
+      response.data[AppSharedPreferencesKey.keyAccess],
+    );
+    _preferences.setString(
+      AppSharedPreferencesKey.keyRefresh,
+      response.data[AppSharedPreferencesKey.keyRefresh],
+    );
 
-  Future<void> checkOtpCode(String code) async {
-    try {
-      final response = await _apiClient.post(
-        AppApi.confirmPhoneNumber2,
-        data: {
-          AppSharedPreferencesKey.keySecureToken: _preferences.getString(
-            AppSharedPreferencesKey.keySecureToken,
-          ),
-          AppKeys.keyCode: code,
-        },
-      );
-
-      _preferences.setString(
-        AppSharedPreferencesKey.keySecureToken,
-        response.data[AppSharedPreferencesKey.keySecureToken],
-      );
-    } on AppException {
-      rethrow;
-    }
-  }
-
-  Future<RecoveryPhraseModel> setPassword(String password) async {
-    try {
-      final response = await _apiClient.post(
-        AppApi.setPassword,
-        data: {
-          AppSharedPreferencesKey.keySecureToken: _preferences.getString(
-            AppSharedPreferencesKey.keySecureToken,
-          ),
-          AppKeys.keyPassword: password,
-        },
-      );
-
-      await _preferences.saveAccessToken(response.data[AppSharedPreferencesKey.keyAccess]);
-      await _preferences.saveRefreshToken(response.data[AppSharedPreferencesKey.keyRefresh]);
-
-      return RecoveryPhraseModel.fromJson(response.data);
-    } on AppException {
-      rethrow;
-    }
+    return CreateWalletModel.fromJson(response.data);
   }
 }

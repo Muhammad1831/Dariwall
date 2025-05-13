@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ostad/core/constant/app_dimens.dart';
+import 'package:dariwall/core/constant/app_dimens.dart';
 
 class BulletText extends StatelessWidget {
   const BulletText({

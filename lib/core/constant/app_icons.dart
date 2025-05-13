@@ -36,4 +36,6 @@ abstract class AppIcons {
   static const String barcode = 'assets/icons/barcode.svg';
   //TODO: must be delete
   static const String solana = 'assets/icons/solana.svg';
+  static const String tomanIcon = 'assets/icons/toman-icon.svg';
+  static const String tetherIcon = 'assets/icons/tether-icon.svg';
 }

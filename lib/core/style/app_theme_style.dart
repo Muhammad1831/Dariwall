@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ostad/core/constant/app_color.dart';
-import 'package:ostad/core/constant/app_dimens.dart';
-import 'package:ostad/core/style/app_text_style.dart';
+import 'package:dariwall/core/constant/app_color.dart';
+import 'package:dariwall/core/constant/app_dimens.dart';
+import 'package:dariwall/core/style/app_text_style.dart';
 
 final darkTheme = ThemeData(
   useMaterial3: true,
@@ -24,6 +24,18 @@ final darkTheme = ThemeData(
     onSecondary: AppColor.onSecondary,
     onSurface: AppColor.onSurface,
     onError: AppColor.onError,
+  ),
+
+  highlightColor: Colors.transparent,
+
+  //popup menu
+  popupMenuTheme: PopupMenuThemeData(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(AppDimens.borderRadiusLarge),
+      side: BorderSide(
+        color: AppColor.strokeColor,
+      ),
+    ),
   ),
 
   // checkbox
@@ -83,8 +95,23 @@ final darkTheme = ThemeData(
 
   // divider
   dividerTheme: DividerThemeData(
-    color: AppColor.divider,
+    color: AppColor.dividerColor,
     thickness: 1,
+  ),
+
+  // dialog
+  dialogTheme: DialogTheme(
+    backgroundColor: AppColor.surfaceColor,
+    alignment: Alignment.center,
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppDimens.borderRadiusVerySmall)),
+    titleTextStyle: AppTextStyle.titleMediumDark.copyWith(
+      fontWeight: FontWeight.bold,
+    ),
+    contentTextStyle: AppTextStyle.bodySmallDark.copyWith(
+      color: AppColor.onSurface,
+    ),
+    barrierColor: AppColor.textSecondary2Color.withAlpha(80),
   ),
 
   snackBarTheme: SnackBarThemeData(
@@ -111,6 +138,7 @@ final darkTheme = ThemeData(
       ),
     ),
   ),
+
   buttonTheme: ButtonThemeData(
     colorScheme: ColorScheme.dark(
       primary: AppColor.primaryColor,
@@ -130,7 +158,7 @@ final darkTheme = ThemeData(
   iconTheme: IconThemeData(
     color: AppColor.onPrimary,
   ),
-  
+
   primaryIconTheme: IconThemeData(
     color: AppColor.primaryColor,
   ),
@@ -160,31 +188,11 @@ final darkTheme = ThemeData(
   // Input Decoration Theme
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: AppColor.cardColor,
+    fillColor: AppColor.surfaceColor,
     hintStyle: AppTextStyle.labelMediumDark,
     labelStyle: AppTextStyle.labelMediumDark,
     errorStyle: AppTextStyle.labelSmallDark.copyWith(color: AppColor.errorColor),
     suffixIconColor: AppColor.textSecondary2Color,
-    border: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColor.surfaceColor),
-      borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
-    ),
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColor.surfaceColor),
-      borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
-    ),
-    disabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColor.surfaceColor),
-      borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColor.selectedBorderColor),
-      borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
-    ),
-    errorBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColor.errorColor),
-      borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
-    ),
   ),
 
   // Text Theme

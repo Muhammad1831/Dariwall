@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ostad/core/constant/app_dimens.dart';
-import 'package:ostad/core/constant/app_string.dart';
+import 'package:go_router/go_router.dart';
+import 'package:dariwall/core/constant/app_dimens.dart';
+import 'package:dariwall/core/constant/app_string.dart';
 
 enum Language { persian, english }
 
@@ -47,7 +48,7 @@ class _LanguageSelectionModalState extends State<LanguageSelectionModal> {
             isSelected: _language == Language.persian,
             onTap: () {
               changeLanguage(Language.persian);
-              Navigator.pop(context);
+              context.pop();
             },
           ),
           Divider(),
@@ -57,7 +58,7 @@ class _LanguageSelectionModalState extends State<LanguageSelectionModal> {
             isSelected: _language == Language.english,
             onTap: () {
               changeLanguage(Language.english);
-              Navigator.pop(context);
+              context.pop();
             },
           ),
           Divider(),
