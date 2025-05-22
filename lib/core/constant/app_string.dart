@@ -31,6 +31,7 @@ abstract class AppString {
 
   // user account info edit
   static const String addimage = 'افزودن تصویر';
+  static const String verificationCode = 'کد اعتبارسنجی';
 
   // coming soon
   static const String comingSoon = 'به زودی در دسترس قرار میگیره!';
@@ -123,6 +124,8 @@ abstract class AppString {
   // receive
   static const String copy = 'کپی';
   static const String barcode = 'بارکد';
+  static const String solana = 'Solana';
+  static const String addressWalletCopiedSuccessfuly = 'آدرس کیف پول سولانا با موفقیت کپی شد';
 
   // invite friends
   static const String inviteCount = 'تعداد دعوت';
@@ -228,6 +231,7 @@ abstract class AppString {
   static const String account = 'حساب کاربری';
   static const String missions = 'ماموریت‌ها';
   static const String transactions = 'تراکنش‌ها';
+  static const String noTransactions = 'تراکنشی ثبت نشده است';
   static const String learnAndGuide = 'آموزش و راهنما';
   static const String logout = 'خروج از حساب کاربری';
   static const String totalBalance = 'ارزش کل دارایی‌ها';

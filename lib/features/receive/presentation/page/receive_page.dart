@@ -1,3 +1,7 @@
+import 'package:dariwall/core/extensions/to_short_wallet_address_extensions.dart';
+import 'package:dariwall/core/services/snack_bar_service.dart';
+import 'package:dariwall/core/utils/utils_clipboard.dart';
+import 'package:dariwall/features/user_account/presentation/provider/get_user_account_info_provider.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,13 +10,13 @@ import 'package:dariwall/core/constant/app_icons.dart';
 import 'package:dariwall/core/constant/app_images.dart';
 import 'package:dariwall/core/constant/app_string.dart';
 import 'package:dariwall/core/widgets/app_header.dart';
+import 'package:provider/provider.dart';
 
 class ReceivePage extends StatelessWidget {
   const ReceivePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -34,9 +38,9 @@ class ReceivePage extends StatelessWidget {
               AppDimens.vSpaceMedium,
               Expanded(
                 child: ListView.builder(
-                  itemCount: 5,
+                  itemCount: 1,
                   itemBuilder: (context, index) {
-                    return ReceiveItem(theme: theme);
+                    return ReceiveItem();
                   },
                 ),
               )
@@ -51,13 +55,13 @@ class ReceivePage extends StatelessWidget {
 class ReceiveItem extends StatelessWidget {
   const ReceiveItem({
     super.key,
-    required this.theme,
   });
-
-  final ThemeData theme;
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    String solanaWalletAddress =
+        context.read<GetUserAccountInfoProvider>().userAccountInfo!.solanaWalletAddress!;
     return Padding(
       padding: EdgeInsets.only(bottom: AppDimens.paddingSmall),
       child: DecoratedBox(
@@ -80,7 +84,7 @@ class ReceiveItem extends StatelessWidget {
                   spacing: AppDimens.verySmall,
                   children: [
                     Text(
-                      'Solana',
+                      AppString.solana,
                       style: theme.textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -88,7 +92,7 @@ class ReceiveItem extends StatelessWidget {
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        'UioQ...mKcE',
+                        solanaWalletAddress.toShortWalletAddress(),
                         style: theme.textTheme.titleSmall!.copyWith(
                           color: theme.colorScheme.onSurface,
                         ),
@@ -100,14 +104,20 @@ class ReceiveItem extends StatelessWidget {
               ReceiveItemAction(
                 title: AppString.copy,
                 icon: AppIcons.copy,
-                onTap: () {},
+                onTap: () async {
+                  await UtilsClipboard.copyToClipboard(text: solanaWalletAddress);
+                  SnackBarService.show(
+                    status: SnackBarStatus.success,
+                    message: AppString.addressWalletCopiedSuccessfuly,
+                  );
+                },
               ),
-              AppDimens.hSpaceVerySmall,
-              ReceiveItemAction(
-                title: AppString.barcode,
-                icon: AppIcons.barcode,
-                onTap: () {},
-              )
+              // AppDimens.hSpaceVerySmall,
+              // ReceiveItemAction(
+              //   title: AppString.barcode,
+              //   icon: AppIcons.barcode,
+              //   onTap: () {},
+              // )
             ],
           ),
         ),
@@ -131,25 +141,28 @@ class ReceiveItemAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.all(
-          Radius.circular(AppDimens.borderRadiusVerySmall),
+    return InkWell(
+      onTap: onTap,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surface,
+          borderRadius: BorderRadius.all(
+            Radius.circular(AppDimens.borderRadiusVerySmall),
+          ),
         ),
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: AppDimens.paddingVerySmall,
-          horizontal: AppDimens.paddingSmall,
-        ),
-        child: Column(
-          children: [
-            SvgPicture.asset(icon),
-            Text(
-              title,
-            )
-          ],
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: AppDimens.paddingVerySmall,
+            horizontal: AppDimens.paddingSmall,
+          ),
+          child: Column(
+            children: [
+              SvgPicture.asset(icon),
+              Text(
+                title,
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -16,15 +16,15 @@ class LoginDataSource {
       AppApi.obtainPair,
       data: {AppKeys.keyMnemonic: keys},
     );
-    await _preferences.saveAccessToken(response.data[AppSharedPreferencesKey.keyAccess]);
-    await _preferences.saveRefreshToken(response.data[AppSharedPreferencesKey.keyRefresh]);
+    await _preferences.setAccessToken(response.data[AppSharedPreferencesKey.keyAccess]);
+    await _preferences.setRefreshToken(response.data[AppSharedPreferencesKey.keyRefresh]);
 
     return AccountInfoModel.fromJson(response.data[AppKeys.keyAccountInfo]);
   }
 
   Future loginWithEmail({required String email}) async {
     final response = await _apiClient.post(
-      AppApi.sendEmail,
+      AppApi.loginViaEmail,
       data: {AppKeys.keyEmail: email},
     );
 
@@ -36,7 +36,7 @@ class LoginDataSource {
 
   Future<AccountInfoModel> verifyEmailCode({required String code}) async {
     final response = await _apiClient.post(
-      AppApi.verifyCode,
+      AppApi.verifyEmailCode,
       data: {
         AppSharedPreferencesKey.keySecureToken:
             _preferences.getString(AppSharedPreferencesKey.keySecureToken),
@@ -44,8 +44,8 @@ class LoginDataSource {
       },
     );
 
-    await _preferences.saveAccessToken(response.data[AppSharedPreferencesKey.keyAccess]);
-    await _preferences.saveRefreshToken(response.data[AppSharedPreferencesKey.keyRefresh]);
+    await _preferences.setAccessToken(response.data[AppSharedPreferencesKey.keyAccess]);
+    await _preferences.setRefreshToken(response.data[AppSharedPreferencesKey.keyRefresh]);
 
     return AccountInfoModel.fromJson(response.data[AppKeys.keyAccountInfo]);
   }

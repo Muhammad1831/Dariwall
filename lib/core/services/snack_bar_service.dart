@@ -12,6 +12,67 @@ class SnackBarService {
     _rootContext = context;
   }
 
+  static void showTopSnackBar({
+    required BuildContext context,
+    required SnackBarStatus status,
+    required String message,
+    Duration duration = const Duration(seconds: 3),
+  }) {
+    final overlay = Overlay.of(context);
+    final overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        top: MediaQuery.of(context).padding.top + AppDimens.paddingLarge,
+        left: AppDimens.paddingLarge,
+        right: AppDimens.paddingLarge,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            height: 40,
+            decoration: BoxDecoration(
+              color: Theme.of(context).snackBarTheme.backgroundColor,
+              borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: _getIconBackgroundColor(status),
+                      borderRadius: BorderRadius.horizontal(
+                        right: Radius.circular(AppDimens.borderRadiusSmall),
+                      ),
+                    ),
+                    child: Icon(
+                      _getIcon(status),
+                      color: Theme.of(context).iconTheme.color,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: AppDimens.paddingSmall),
+                    child: Text(
+                      message,
+                      style: Theme.of(context).snackBarTheme.contentTextStyle,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+
+    overlay.insert(overlayEntry);
+    Future.delayed(duration, () => overlayEntry.remove());
+  }
+
   static void show({
     required SnackBarStatus status,
     required String message,

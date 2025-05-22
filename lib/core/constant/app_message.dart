@@ -45,7 +45,8 @@ abstract class AppMessage {
   static const String solanaAddressWalletChangedSuccessfully =
       'آدرس کیف پول سولانا با موفقیت تغییر کرد';
 
-  // change user image
+  // change user account info
+  static const String userEmailChangedSuccessfully = 'ایمیل با موفقیت تغییر کرد';
   static const String userImageChangedSuccessfully = 'تصویر کاربری با موفقیت تغییر کرد';
   static const String userNameChangedSuccessfully = 'نام کاربری با موفقیت تغییر کرد';
 

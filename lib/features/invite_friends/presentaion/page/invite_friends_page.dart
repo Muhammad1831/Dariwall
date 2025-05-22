@@ -1,4 +1,5 @@
 import 'package:dariwall/core/constant/app_color.dart';
+import 'package:dariwall/core/services/snack_bar_service.dart';
 import 'package:dariwall/core/widgets/app_shadow_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -133,7 +134,10 @@ class InviteFriendsPage extends StatelessWidget {
                                                 .userAccountInfo
                                                 ?.referralCode ??
                                             '',
-                                        successMessage: AppMessage.copiedReferralCode,
+                                      );
+                                      SnackBarService.show(
+                                        status: SnackBarStatus.success,
+                                        message: AppMessage.copiedReferralCode,
                                       );
                                     },
                                     child: SvgPicture.asset(AppIcons.copy),

@@ -25,7 +25,7 @@ class UserAccountInfoEditProvider extends ChangeNotifier {
     _state = UserAccountImageStatus.loading;
     notifyListeners();
 
-    final response = await changeUserAccountUsecase.call(AccountInfoEntity(userImage: image));
+    final response = await changeUserAccountUsecase.call(AccountInfoEntity(accountImage: image));
 
     response.fold(
       (l) {

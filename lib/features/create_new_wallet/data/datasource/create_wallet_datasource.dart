@@ -11,23 +11,17 @@ class CreateWalletDatasource {
 
   CreateWalletDatasource(this._apiClient, this._preferences);
 
-  Future<CreateWalletModel> createWallet(String name, String referralCode) async {
+  Future<CreateWalletModel> createWallet(String name, String? referralCode) async {
     final response = await _apiClient.post(
       AppApi.createWallet,
       data: {
         AppKeys.keyName: name,
-        AppKeys.keyReferralCode: referralCode.isEmpty ? null : referralCode,
+        AppKeys.keyReferralCode: referralCode,
       },
     );
 
-    _preferences.setString(
-      AppSharedPreferencesKey.keyAccess,
-      response.data[AppSharedPreferencesKey.keyAccess],
-    );
-    _preferences.setString(
-      AppSharedPreferencesKey.keyRefresh,
-      response.data[AppSharedPreferencesKey.keyRefresh],
-    );
+    await _preferences.setAccessToken(response.data[AppSharedPreferencesKey.keyAccess]);
+    await _preferences.setRefreshToken(response.data[AppSharedPreferencesKey.keyRefresh]);
 
     return CreateWalletModel.fromJson(response.data);
   }

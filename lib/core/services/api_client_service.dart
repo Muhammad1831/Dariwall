@@ -1,6 +1,6 @@
+import 'package:dariwall/core/di/locator_service.dart';
 import 'package:dio/dio.dart';
 // import 'package:dio_smart_retry/dio_smart_retry.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:dariwall/core/constant/app_api.dart';
@@ -15,34 +15,34 @@ import 'package:dariwall/core/utils/utils_shared_preferences.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class ApiClientService {
-  late Dio _dio;
-  final int _timeout = 10;
+  final Dio _dio;
+  final int _timeout = 15;
+  final Dio _refreshDio = Dio();
   // final int _maxRetries = 3;
   // final Duration _retryDelay = const Duration(seconds: 2);
 
   final UtilsSharedPreferences _preferences;
-  final Dio _refreshDio = Dio();
-  
+  bool _isRefreshing = false;
 
-  ApiClientService(this._preferences) {
+  ApiClientService(this._dio, this._preferences) {
     _initDio();
   }
 
   void _initDio() {
-    _dio = Dio(
-      BaseOptions(
-        baseUrl: AppApi.baseUrl,
-        connectTimeout: Duration(seconds: _timeout),
-        receiveTimeout: Duration(seconds: _timeout),
-        sendTimeout: Duration(seconds: _timeout),
-        contentType: 'application/json',
-        responseType: ResponseType.json,
-        headers: {
-          'Accept-Language': 'fa',
-        },
-        validateStatus: (status) => status != null && status < 400,
-      ),
-    );
+    // _dio = Dio(
+    //   BaseOptions(
+    //     baseUrl: AppApi.baseUrl,
+    //     connectTimeout: Duration(seconds: _timeout),
+    //     receiveTimeout: Duration(seconds: _timeout),
+    //     sendTimeout: Duration(seconds: _timeout),
+    //     contentType: 'application/json',
+    //     responseType: ResponseType.json,
+    //     headers: {
+    //       'Accept-Language': 'fa',
+    //     },
+    //     validateStatus: (status) => status != null && status < 400,
+    //   ),
+    // );
 
     // Add retry interceptor
     // _dio.interceptors.add(
@@ -72,39 +72,51 @@ class ApiClientService {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          final token = await _preferences.getAccessToken();
+          final token = _preferences.getAccessToken();
           if (token != null) {
             options.headers[AppKeys.keyAuthorization] = '${AppKeys.keyBearer} $token';
           }
           return handler.next(options);
         },
         onError: (error, handler) async {
+          debugPrint('---------------------called onError---------------------');
+          debugPrint('StatusCode ${error.type} >>> ${error.message}');
+          debugPrint('************************************');
           if (error.response?.statusCode == 401 &&
               error.requestOptions.path != AppApi.refreshPair) {
-            try {
-              final newToken = await _refreshToken();
-              if (newToken != null) {
-                final opts = error.requestOptions;
-                opts.headers[AppKeys.keyAuthorization] = '${AppKeys.keyBearer} $newToken';
-                final response = await _dio.fetch(opts);
-                return handler.resolve(response);
-              } else {
-                await _logout();
-                return handler.reject(
-                  DioException(
-                    requestOptions: error.requestOptions,
-                    type: DioExceptionType.badResponse,
-                  ),
-                );
+            debugPrint('---------------------enter refresh token---------------------');
+            if (!_isRefreshing) {
+              _isRefreshing = true;
+              try {
+                final newToken = await _refreshToken();
+                if (newToken != null) {
+                  final opts = error.requestOptions;
+                  opts.headers[AppKeys.keyAuthorization] = '${AppKeys.keyBearer} $newToken';
+                  try {
+                    final response = await _dio.fetch(opts);
+                    return handler.resolve(response);
+                  } on DioException catch (retryError) {
+                    debugPrint(
+                        '--------------call api again after refreshToken have Error--------------');
+                    debugPrint(retryError.toString());
+                    return handler.next(retryError);
+                  }
+                } else {
+                  debugPrint('--------------clearToken When newToken is Null--------------');
+                  await _logout();
+                  return handler.next(error);
+                }
+              } catch (refreshError) {
+                debugPrint('--------------clearToken When refreshToken have Error--------------');
+                debugPrint('--------------$refreshError--------------');
+                if (error.response?.statusCode == 401) {
+                  await _logout();
+                }
+                return handler.next(error);
+              } finally {
+                _isRefreshing = false;
+                debugPrint('_isRefreshing Token : $_isRefreshing');
               }
-            } catch (e) {
-              await _logout();
-              return handler.reject(
-                DioException(
-                  requestOptions: error.requestOptions,
-                  type: DioExceptionType.badResponse,
-                ),
-              );
             }
           }
           return handler.next(error);
@@ -112,21 +124,21 @@ class ApiClientService {
       ),
     );
 
-    if (kDebugMode) {
-      _dio.interceptors.add(
-        LogInterceptor(
-          requestBody: true,
-          responseBody: true,
-          requestHeader: true,
-          responseHeader: true,
-        ),
-      );
-    }
+    // if (kDebugMode) {
+    //   _dio.interceptors.add(
+    //     LogInterceptor(
+    //       requestBody: true,
+    //       responseBody: true,
+    //       requestHeader: true,
+    //       responseHeader: true,
+    //     ),
+    //   );
+    // }
   }
 
   Future<String?> _refreshToken() async {
     try {
-      final refreshToken = await _preferences.getRefreshToken();
+      final refreshToken = _preferences.getRefreshToken();
       if (refreshToken == null) return null;
 
       final response = await _refreshDio.post(
@@ -138,37 +150,31 @@ class ApiClientService {
         ),
       );
 
-      if (response.statusCode == 200 &&
-          response.data[AppSharedPreferencesKey.keyAccess] != null &&
-          response.data[AppSharedPreferencesKey.keyRefresh] != null) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         final accessToken = response.data[AppSharedPreferencesKey.keyAccess];
         final newRefreshToken = response.data[AppSharedPreferencesKey.keyRefresh];
-        await _preferences.saveAccessToken(accessToken);
-        await _preferences.saveRefreshToken(newRefreshToken);
+
+        await _preferences.setAccessToken(accessToken);
+        await _preferences.setRefreshToken(newRefreshToken);
 
         return accessToken;
       }
       return null;
     } catch (e) {
-      return null;
+      rethrow;
     }
   }
 
   Future<void> _logout() async {
-    await _preferences.clear();
-    _dio.options.headers.remove(AppKeys.keyAuthorization);
+    LocatorService.reset();
     navigatorKey.currentContext?.goNamed(AppRouteName.welcome);
   }
 
   Future<Response> get(
     String path, {
     Map<String, dynamic>? queryParameters,
-    bool forceRefresh = false,
   }) async {
     try {
-      // final options = Options(
-      //   extra: {'refresh': forceRefresh},
-      // );
       return await _dio.get(
         path,
         queryParameters: queryParameters,

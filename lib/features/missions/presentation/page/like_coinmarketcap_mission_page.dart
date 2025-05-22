@@ -1,3 +1,4 @@
+import 'package:dariwall/features/missions/data/model/mission_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -19,8 +20,8 @@ import 'package:dariwall/features/missions/presentation/widgets/upload_image.dar
 import 'package:provider/provider.dart';
 
 class LikeCoinmarketcapMissionPage extends StatelessWidget {
-  const LikeCoinmarketcapMissionPage({super.key, required this.amount});
-  final double amount;
+  const LikeCoinmarketcapMissionPage({super.key, required this.mission});
+  final MissionModel mission;
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +99,7 @@ class LikeCoinmarketcapMissionPage extends StatelessWidget {
                     children: [
                       Text('${AppString.reward} :'),
                       Text(
-                        '${amount.toString()} ${AppString.usdt}',
+                        '${mission.amount.toString()} ${mission.currencyInfo.currencyEnName}',
                         style: theme.textTheme.bodyLarge!.copyWith(
                           color: AppColor.warningColor,
                           fontWeight: FontWeight.bold,

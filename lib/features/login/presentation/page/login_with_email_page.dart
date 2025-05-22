@@ -37,53 +37,60 @@ class _LoginWithEmailPageState extends State<LoginWithEmailPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Form(
-          key: _formKey,
-          child: Padding(
-            padding: EdgeInsets.all(AppDimens.paddingLarge),
-            child: Center(
-              child: Column(
-                children: [
-                  AppHeader(
-                    headerText: AppString.enterToWallet,
+        body: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Form(
+                key: _formKey,
+                child: Padding(
+                  padding: EdgeInsets.all(AppDimens.paddingLarge),
+                  child: Center(
+                    child: Column(
+                      children: [
+                        AppHeader(
+                          headerText: AppString.enterToWallet,
+                        ),
+                        AppDimens.vSpaceExtraLarge,
+                        SvgPicture.asset(
+                          AppImages.connectWalletToEmail,
+                          fit: BoxFit.scaleDown,
+                        ),
+                        AppDimens.vSpaceLarge,
+                        AppTextFormField.withTitle(
+                          title: AppString.email,
+                          controller: emailController,
+                          hintText: AppString.enterEmail,
+                          validationType: ValidationType.email,
+                        ),
+                        AppDimens.vSpaceLarge,
+                        Spacer(),
+                        Consumer<LoginProvider>(
+                          builder: (context, provider, child) {
+                            return AppButton(
+                              isLoading: provider.status == LoginStatus.loading,
+                              text: AppString.continueText,
+                              onTap: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  await provider.loginWithEmail(email: emailController.text);
+                                  if (provider.status == LoginStatus.success) {
+                                    context.pushNamed(
+                                      AppRouteName.validation,
+                                      extra: emailController.text,
+                                    );
+                                  }
+                                }
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                  AppDimens.vSpaceExtraLarge,
-                  SvgPicture.asset(
-                    AppImages.connectWalletToEmail,
-                    fit: BoxFit.scaleDown,
-                  ),
-                  AppDimens.vSpaceLarge,
-                  AppTextFormField.withTitle(
-                    title: AppString.email,
-                    controller: emailController,
-                    hintText: AppString.enterEmail,
-                    validationType: ValidationType.email,
-                  ),
-                  Spacer(),
-                  Consumer<LoginProvider>(
-                    builder: (context, provider, child) {
-                      return AppButton(
-                        isLoading: provider.status == LoginStatus.loading,
-                        text: AppString.continueText,
-                        onTap: () async {
-                          if (_formKey.currentState!.validate()) {
-                            await provider.loginWithEmail(email: emailController.text);
-                            if (provider.status == LoginStatus.success) {
-                              context.pushNamed(
-                                AppRouteName.validation,
-                                extra: emailController.text,
-                              );
-                            }
-                          }
-                        },
-                      );
-                    },
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
+            )
+          ],
         ),
       ),
     );

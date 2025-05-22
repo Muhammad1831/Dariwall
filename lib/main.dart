@@ -1,10 +1,9 @@
+import 'package:dariwall/desktop_block_screen.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:dariwall/core/services/snack_bar_service.dart';
-import 'package:dariwall/core/widgets/app_snack_bar.dart';
 import 'package:dariwall/features/create_new_wallet/domain/usecase/create_wallet_usecase.dart';
 import 'package:dariwall/features/create_new_wallet/presentation/provider/create_wallet_provider.dart';
 import 'package:dariwall/features/home/presentation/provider/my_balances_provider.dart';
@@ -25,6 +24,17 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocatorService.init();
+
+  if (kIsWeb) {
+    final view = WidgetsBinding.instance.platformDispatcher.views.first;
+    final mediaQueryData = MediaQueryData.fromView(view);
+    final isMobile = mediaQueryData.size.width < 600;
+
+    if (!isMobile) {
+      runApp(const DesktopNotSupportedApp());
+      return;
+    }
+  }
 
   runApp(
     MultiProvider(
@@ -51,11 +61,11 @@ Future<void> main() async {
           create: (_) => getIt<CurrencyPricesProvider>(),
         ),
       ],
-      // child: DevicePreview(
-      //   enabled: !kReleaseMode,
-      //   builder: (context) => MyApp(),
-      // ),
-      child: MyApp(),
+      child: DevicePreview(
+        enabled: !kReleaseMode,
+        builder: (context) => MyApp(),
+      ),
+      // child: MyApp(),
     ),
   );
 }

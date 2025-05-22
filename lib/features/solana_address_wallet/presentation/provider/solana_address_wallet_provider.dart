@@ -29,7 +29,7 @@ class SolanaAddressWalletProvider extends ChangeNotifier {
     final response = await changeUserAccountUsecase.call(AccountInfoEntity(
       solanaWalletAddress: solanaAddressWallet,
       name: null,
-      userImage: null,
+      accountImage: null,
     ));
 
     response.fold(
@@ -44,8 +44,8 @@ class SolanaAddressWalletProvider extends ChangeNotifier {
           message: AppMessage.solanaAddressWalletChangedSuccessfully,
         );
         _status = SolanaAddressWalletStatus.success;
-        notifyListeners();
         await getIt<GetUserAccountInfoProvider>().getUserAccountInfo();
+        notifyListeners();
       },
     );
   }

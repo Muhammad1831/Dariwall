@@ -65,6 +65,7 @@ class AppTextFormField extends StatelessWidget {
     this.onEditingComplete, // on editing complete function
     this.fill = true, // Whether the field is filled
     this.isDense = false, // Whether the field is dense
+    this.onFieldSubmitted,
   });
 
   AppTextFormField.withTitle({
@@ -116,6 +117,7 @@ class AppTextFormField extends StatelessWidget {
     this.onEditingComplete, // on editing complete function
     this.fill = true, // Whether the field is filled
     this.isDense = false, // Whether the field is dense
+    this.onFieldSubmitted,
   });
 
   final TextEditingController controller;
@@ -166,6 +168,7 @@ class AppTextFormField extends StatelessWidget {
   final Function()? onEditingComplete;
   final bool fill;
   final bool isDense;
+  final Function(String)? onFieldSubmitted;
 
   /// Validates email format
   String? validateEmail(String? value) {
@@ -275,6 +278,7 @@ class AppTextFormField extends StatelessWidget {
           controller: controller,
           autovalidateMode: autovalidateMode ?? AutovalidateMode.onUserInteraction,
           onChanged: onChanged,
+          onFieldSubmitted: onFieldSubmitted,
 
           // Input behavior
           enabled: enabled,

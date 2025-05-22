@@ -150,7 +150,7 @@ final darkTheme = ThemeData(
 
   // Card Theme
   cardTheme: CardTheme(
-    color: AppColor.surfaceColor,
+    color: AppColor.cardColor,
     elevation: 0,
   ),
 
@@ -188,7 +188,7 @@ final darkTheme = ThemeData(
   // Input Decoration Theme
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: AppColor.surfaceColor,
+    fillColor: AppColor.cardColor,
     hintStyle: AppTextStyle.labelMediumDark,
     labelStyle: AppTextStyle.labelMediumDark,
     errorStyle: AppTextStyle.labelSmallDark.copyWith(color: AppColor.errorColor),

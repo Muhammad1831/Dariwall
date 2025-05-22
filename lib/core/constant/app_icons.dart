@@ -38,4 +38,5 @@ abstract class AppIcons {
   static const String solana = 'assets/icons/solana.svg';
   static const String tomanIcon = 'assets/icons/toman-icon.svg';
   static const String tetherIcon = 'assets/icons/tether-icon.svg';
+  static const String shieldCheck = 'assets/icons/shield-check.svg';
 }

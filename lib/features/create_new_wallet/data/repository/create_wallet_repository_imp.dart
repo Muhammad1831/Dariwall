@@ -12,7 +12,7 @@ class CreateWalletRepositoryImpl implements CreateWalletRepository {
 
   @override
   Future<Either<AppException, CreateWalletEntity>> createWallet(
-      String name, String referralCode) async {
+      String name, String? referralCode) async {
     try {
       final createWalletModel = await _datasource.createWallet(name, referralCode);
       return Right(createWalletModel.toEntity());

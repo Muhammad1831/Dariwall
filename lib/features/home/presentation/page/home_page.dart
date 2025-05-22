@@ -168,8 +168,7 @@ class _HomePageState extends State<HomePage> {
                                   title: AppString.buy,
                                 ),
                                 ActionItem(
-                                  // onTap: () => context.pushNamed(AppRouteName.swap),
-                                  onTap: () => context.pushNamed(AppRouteName.comingSoon),
+                                  onTap: () => context.pushNamed(AppRouteName.swap),
                                   icon: AppIcons.swap,
                                   title: AppString.swap,
                                 ),
@@ -179,8 +178,7 @@ class _HomePageState extends State<HomePage> {
                                   title: AppString.send,
                                 ),
                                 ActionItem(
-                                  // onTap: () => context.pushNamed(AppRouteName.receive),
-                                  onTap: () => context.pushNamed(AppRouteName.comingSoon),
+                                  onTap: () => context.pushNamed(AppRouteName.receive),
                                   icon: AppIcons.scanQrCode,
                                   title: AppString.receive,
                                 ),

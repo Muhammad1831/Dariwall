@@ -22,8 +22,8 @@ class UserAccountDataSource {
       {
         AppKeys.keyName: changeAccountInfoModel.name,
         AppKeys.keySolanaWalletAddress: changeAccountInfoModel.solanaWalletAddress,
-        AppKeys.keyImage: changeAccountInfoModel.userImage != null
-            ? await MultipartFile.fromFile(changeAccountInfoModel.userImage!)
+        AppKeys.keyImage: changeAccountInfoModel.accountImage != null
+            ? await MultipartFile.fromFile(changeAccountInfoModel.accountImage!)
             : null,
       },
     );

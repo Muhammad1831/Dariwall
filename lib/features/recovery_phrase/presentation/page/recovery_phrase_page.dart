@@ -1,3 +1,4 @@
+import 'package:dariwall/core/services/snack_bar_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -132,7 +133,11 @@ class _RecoveryPhrasePageState extends State<RecoveryPhrasePage> {
                     final text = words.join(' ');
                     await UtilsClipboard.copyToClipboard(
                       text: text,
-                      successMessage: AppMessage.copiedPasswords,
+                    );
+                    SnackBarService.showTopSnackBar(
+                      context: context,
+                      status: SnackBarStatus.success,
+                      message: AppMessage.copiedPasswords,
                     );
                   },
                   child: Row(
@@ -194,6 +199,7 @@ class _RecoveryPhrasePageState extends State<RecoveryPhrasePage> {
     );
   }
 }
+
 // wrong pigeon dragon sketch intact soon tortoise provide assault battle ranch evil
 class KeyWordItem extends StatelessWidget {
   const KeyWordItem({

@@ -131,7 +131,7 @@ class _AsyncDropDownState<T> extends State<AsyncDropDown<T>> {
     // شروع بارگذاری
     _showLoadingOverlay();
 
-    if (_items == null) {
+    if (_items == null || _items!.isEmpty) {
       setState(() {
         _isLoading = true;
       });
@@ -139,7 +139,7 @@ class _AsyncDropDownState<T> extends State<AsyncDropDown<T>> {
       try {
         // دریافت آیتم‌ها از سرور
         final fetchedItems = await widget.fetchItems();
-
+        debugPrint(fetchedItems.toString());
         if (mounted) {
           setState(() {
             _items = fetchedItems;

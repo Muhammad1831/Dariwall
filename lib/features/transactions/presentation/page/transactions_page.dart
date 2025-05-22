@@ -63,11 +63,23 @@ class _TransactionsPageState extends State<TransactionsPage> {
                       onRefresh: () async {
                         await provider.getTransactions();
                       },
-                      child: Center(
-                        child: Image.asset(
-                          AppImages.noTransactions,
-                          fit: BoxFit.scaleDown,
-                        ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: Image.asset(
+                              AppImages.noTransactions,
+                              fit: BoxFit.scaleDown,
+                            ),
+                          ),
+                          Text(
+                            AppString.noTransactions,
+                            style: theme.textTheme.titleLarge!.copyWith(
+                              color: theme.colorScheme.onSurface,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                        ],
                       ),
                     );
                   }

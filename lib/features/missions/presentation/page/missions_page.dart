@@ -133,7 +133,7 @@ class MissionsItem extends StatelessWidget {
                   mission.mission?.statusCode == MissionStatusEnum.rejected.index) {
                 GoRouter.of(context).pushNamed(
                   pageCorrespondingMissionCode[mission.ruleCode]!,
-                  extra: mission.amount,
+                  extra: mission,
                 );
               }
             },
@@ -184,7 +184,7 @@ class MissionsItem extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '${mission.amount} ${AppString.usdt}',
+                                '${mission.amount} ${mission.currencyInfo.currencyEnName}',
                                 style: theme.textTheme.bodySmall!.copyWith(
                                   fontWeight: FontWeight.bold,
                                   color: AppColor.warningColor,

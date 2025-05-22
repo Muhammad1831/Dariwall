@@ -1,3 +1,4 @@
+import 'package:dariwall/features/missions/data/model/mission_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -21,9 +22,9 @@ import 'package:dariwall/features/missions/presentation/widgets/upload_image.dar
 import 'package:provider/provider.dart';
 
 class CommentOnTwitterMissionPage extends StatelessWidget {
-  const CommentOnTwitterMissionPage({super.key, required this.amount});
+  const CommentOnTwitterMissionPage({super.key, required this.mission});
 
-  final double amount;
+  final MissionModel mission;
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +113,7 @@ class CommentOnTwitterMissionPage extends StatelessWidget {
                     children: [
                       Text('${AppString.reward} :'),
                       Text(
-                        '${amount.toString()} ${AppString.usdt}',
+                        '${mission.amount.toString()} ${mission.currencyInfo.currencyEnName}',
                         style: theme.textTheme.bodyLarge!.copyWith(
                           color: AppColor.warningColor,
                           fontWeight: FontWeight.bold,
@@ -149,8 +150,8 @@ class CommentOnTwitterMissionPage extends StatelessWidget {
                             : theme.disabledColor,
                         onTap: () {
                           if (imageProvider.imageFile != null) {
-                            commentOnTwitterMissionProvider
-                                .commentOnTwitterMission(imageFile: imageProvider.imageFile!);
+                            commentOnTwitterMissionProvider.commentOnTwitterMission(
+                                imageFile: imageProvider.imageFile!);
                           }
                         },
                       );

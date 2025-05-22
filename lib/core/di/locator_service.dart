@@ -1,3 +1,12 @@
+import 'package:dariwall/core/constant/app_api.dart';
+import 'package:dariwall/features/user_account_info_edit/data/datasource/set_email_data_source.dart';
+import 'package:dariwall/features/user_account_info_edit/data/repository/set_email_repository_imp.dart';
+import 'package:dariwall/features/user_account_info_edit/domain/repository/set_email_repository.dart';
+import 'package:dariwall/features/user_account_info_edit/domain/usecase/set_email_usecase.dart';
+import 'package:dariwall/features/user_account_info_edit/domain/usecase/verify_email_usecase.dart';
+import 'package:dariwall/features/user_account_info_edit/presentation/provider/set_email_provider.dart';
+import 'package:dariwall/features/user_account_info_edit/presentation/provider/verify_email_provider.dart';
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dariwall/features/connet_wallet_to_email/data/datasource/connect_wallet_email_datasource.dart';
 import 'package:dariwall/features/connet_wallet_to_email/data/repository/connect_wallet_email_repository_imp.dart';
@@ -94,11 +103,29 @@ final getIt = GetIt.instance;
 
 class LocatorService {
   static Future<void> init() async {
-    await UtilsSharedPreferences.init();
+    // Register the LocalStorageService as a singleton
+    final utilsSharedPreferences = await UtilsSharedPreferences.getInstance();
+    getIt.registerSingleton<UtilsSharedPreferences>(utilsSharedPreferences);
 
-    getIt.registerSingleton<UtilsSharedPreferences>(UtilsSharedPreferences.getInstance);
+    getIt.registerSingleton<Dio>(
+      Dio(
+        BaseOptions(
+          baseUrl: AppApi.baseUrl,
+          connectTimeout: Duration(seconds: 15),
+          receiveTimeout: Duration(seconds: 15),
+          sendTimeout: Duration(seconds: 15),
+          contentType: 'application/json',
+          responseType: ResponseType.json,
+          headers: {
+            'Accept-Language': 'fa',
+          },
+          validateStatus: (status) => status != null && status < 400,
+        ),
+      ),
+    );
+
     getIt.registerSingleton<ApiClientService>(
-      ApiClientService(getIt<UtilsSharedPreferences>()),
+      ApiClientService(getIt<Dio>(), getIt<UtilsSharedPreferences>()),
     );
 
     // image picker
@@ -342,6 +369,26 @@ class LocatorService {
     getIt.registerFactory<WithdrawProvider>(
       () => WithdrawProvider(withdrawUsecase: getIt<WithdrawUsecase>()),
     );
+
+    // set email
+    getIt.registerLazySingleton<SetEmailDataSource>(
+      () => SetEmailDataSource(apiClientService: getIt<ApiClientService>()),
+    );
+    getIt.registerLazySingleton<SetEmailRepository>(
+      () => SetEmailRepositoryImp(setEmailDataSource: getIt<SetEmailDataSource>()),
+    );
+    getIt.registerLazySingleton<SetEmailUsecase>(
+      () => SetEmailUsecase(setEmailRepository: getIt<SetEmailRepository>()),
+    );
+    getIt.registerLazySingleton<VerifyEmailUsecase>(
+      () => VerifyEmailUsecase(setEmailRepository: getIt<SetEmailRepository>()),
+    );
+    getIt.registerFactory<SetEmailProvider>(
+      () => SetEmailProvider(setEmailUsecase: getIt<SetEmailUsecase>()),
+    );
+    getIt.registerFactory<VerifyEmailProvider>(
+      () => VerifyEmailProvider(verifyEmailUsecase: getIt<VerifyEmailUsecase>()),
+    );
   }
 
   static void reset() async {
@@ -349,6 +396,8 @@ class LocatorService {
     getIt<TransactionsProvider>().reset();
     getIt<CurrencyPricesProvider>().reset();
     getIt<GetUserAccountInfoProvider>().reset();
+    // getIt<Dio>().close(force: true);
+    getIt<UtilsSharedPreferences>().clear();
     await getIt.reset();
     init();
   }

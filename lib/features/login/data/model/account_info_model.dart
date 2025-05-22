@@ -8,7 +8,8 @@ class AccountInfoModel extends AccountInfoEntity with EquatableMixin {
     required super.solanaWalletAddress,
     required super.email,
     required super.name,
-    required super.userImage,
+    required super.accountImage,
+    required super.telegramConnectionLink,
     // required super.dateJoined,
     // required super.lastLogin,
   });
@@ -19,10 +20,22 @@ class AccountInfoModel extends AccountInfoEntity with EquatableMixin {
       solanaWalletAddress: json[AppKeys.keySolanaWalletAddress],
       email: json[AppKeys.keyEmail],
       name: json[AppKeys.keyName],
-      userImage: json[AppKeys.keyAccountImage],
+      accountImage: json[AppKeys.keyAccountImage],
+      telegramConnectionLink: json[AppKeys.keyTelegramConnectionLink],
       //TODO: add dateJoined and lastLogin
       // dateJoined: DateTime.parse(json[AppKeys.keyDateJoined]),
       // lastLogin: DateTime.parse(json[AppKeys.keyLastLogin]),
+    );
+  }
+
+  AccountInfoEntity toEntity() {
+    return AccountInfoEntity(
+      referralCode: referralCode,
+      solanaWalletAddress: solanaWalletAddress,
+      email: email,
+      name: name,
+      accountImage: accountImage,
+      telegramConnectionLink: telegramConnectionLink,
     );
   }
 
@@ -32,7 +45,8 @@ class AccountInfoModel extends AccountInfoEntity with EquatableMixin {
       AppKeys.keySolanaWalletAddress: solanaWalletAddress,
       AppKeys.keyEmail: email,
       AppKeys.keyName: name,
-      AppKeys.keyAccountImage: userImage,
+      AppKeys.keyAccountImage: accountImage,
+      AppKeys.keyTelegramConnectionLink: telegramConnectionLink,
       // AppKeys.keyDateJoined: dateJoined.toIso8601String(),
       // AppKeys.keyLastLogin: lastLogin.toIso8601String(),
     };
@@ -52,7 +66,8 @@ class AccountInfoModel extends AccountInfoEntity with EquatableMixin {
       solanaWalletAddress: solanaWalletAddress ?? this.solanaWalletAddress,
       email: email ?? this.email,
       name: name ?? this.name,
-      userImage: userImage ?? this.userImage,
+      accountImage: accountImage ?? accountImage,
+      telegramConnectionLink: telegramConnectionLink ?? telegramConnectionLink,
       // dateJoined: dateJoined ?? this.dateJoined,
       // lastLogin: lastLogin ?? this.lastLogin,D
     );
@@ -64,7 +79,7 @@ class AccountInfoModel extends AccountInfoEntity with EquatableMixin {
         solanaWalletAddress,
         email,
         name,
-        userImage,
+        accountImage,
         dateJoined,
         lastLogin,
       ];

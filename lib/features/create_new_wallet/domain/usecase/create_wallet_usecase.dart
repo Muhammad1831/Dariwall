@@ -10,7 +10,7 @@ class CreateWalletUsecase {
   CreateWalletUsecase({required this.createWalletRepository});
 
   Future<Either<AppException, CreateWalletEntity>> createWallet(
-      String name, String referralCode) async {
+      String name, String? referralCode) async {
     if (name.isEmpty) {
       return Left(AppException(message: AppMessage.userNameIsRequired));
     }

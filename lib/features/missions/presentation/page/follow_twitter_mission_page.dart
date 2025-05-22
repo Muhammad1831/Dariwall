@@ -1,3 +1,4 @@
+import 'package:dariwall/features/missions/data/model/mission_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:dariwall/core/constant/app_color.dart';
@@ -19,8 +20,8 @@ import 'package:dariwall/core/widgets/app_warning_tip.dart';
 import 'package:provider/provider.dart';
 
 class FollowTwitterMissionPage extends StatelessWidget {
-  const FollowTwitterMissionPage({super.key, required this.amount});
-  final double amount;
+  const FollowTwitterMissionPage({super.key, required this.mission});
+  final MissionModel mission;
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +104,7 @@ class FollowTwitterMissionPage extends StatelessWidget {
                     children: [
                       Text('${AppString.reward} :'),
                       Text(
-                        '${amount.toString()} ${AppString.usdt}',
+                        '${mission.amount.toString()} ${mission.currencyInfo.currencyEnName}',
                         style: theme.textTheme.bodyLarge!.copyWith(
                           color: AppColor.warningColor,
                           fontWeight: FontWeight.bold,

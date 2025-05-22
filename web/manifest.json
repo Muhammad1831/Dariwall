@@ -7,7 +7,7 @@
     "display": "standalone",
     "description": "Wallpaper app for your phone",
     "orientation": "portrait-primary",
-    "prefer_related_applications": false,
+    "prefer_related_applications": true,
     "icons": [
         {
           "src": "icons/web-app-manifest-192x192.png",

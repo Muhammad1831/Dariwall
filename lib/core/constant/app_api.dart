@@ -7,8 +7,8 @@ class AppApi {
   // login
   static const String obtainPair = 'accounts/login/token/obtain-pair/';
   static const String refreshPair = 'accounts/login/token/refresh-pair/';
-  static const String sendEmail = 'accounts/login/via-email/1/';
-  static const String verifyCode = 'accounts/login/via-email/2/';
+  static const String loginViaEmail = 'accounts/login/via-email/1/';
+  static const String verifyEmailCode = 'accounts/login/via-email/2/';
 
   // create wallet
   static const String createWallet = 'accounts/register/';
@@ -31,8 +31,8 @@ class AppApi {
   static const String balances = 'accounts/panel/my-balances/';
 
   // set email
-  static const String sendEmailOtp = 'accounts/panel/set-email-address/1/';
-  static const String verifyEmailOtp = 'accounts/panel/set-email-address/2/';
+  static const String setEmail = 'accounts/panel/set-email-address/1/';
+  static const String verifyEmail = 'accounts/panel/set-email-address/2/';
 
   // invite friends
   static const String inviteFriends = 'invitations/invites-sent/';
@@ -56,8 +56,4 @@ class AppApi {
 
   // currency price
   static const String currencyPrice = 'currencies/prices/';
-
-  static const String confirmEmailAddress1 = 'accounts/register/confirm-email-address/1/';
-  static const String confirmEmailAddress2 = 'accounts/register/confirm-email-address/2/';
-  static const String universities = 'generics/universities/';
 }

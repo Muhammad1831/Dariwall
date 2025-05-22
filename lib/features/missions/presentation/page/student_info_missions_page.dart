@@ -1,3 +1,4 @@
+import 'package:dariwall/features/missions/data/model/mission_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:dariwall/core/constant/app_color.dart';
@@ -18,8 +19,8 @@ import 'package:dariwall/features/missions/presentation/widgets/upload_image.dar
 import 'package:provider/provider.dart';
 
 class StudentInfoMissionsPage extends StatefulWidget {
-  const StudentInfoMissionsPage({super.key, required this.amount});
-  final double amount;
+  const StudentInfoMissionsPage({super.key, required this.mission});
+  final MissionModel mission;
 
   @override
   State<StudentInfoMissionsPage> createState() => _StudentInfoMissionsPageState();
@@ -152,7 +153,7 @@ class _StudentInfoMissionsPageState extends State<StudentInfoMissionsPage> {
                     children: [
                       Text('${AppString.reward} :'),
                       Text(
-                        '${widget.amount.toString()} ${AppString.usdt}',
+                        '${widget.mission.amount.toString()} ${widget.mission.currencyInfo.currencyEnName}',
                         style: theme.textTheme.bodyLarge!.copyWith(
                           color: AppColor.warningColor,
                           fontWeight: FontWeight.bold,

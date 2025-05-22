@@ -5,7 +5,8 @@ abstract class AppKeys {
   static const String keyAuthorization = 'Authorization';
   static const String keyAccess = 'access';
   static const String keyRefresh = 'refresh';
-
+  static const String keyRetry = 'retry';
+  
   static const String keyFirstName = 'firstName';
   static const String keyLastName = 'lastName';
   static const String keyPhoneNumber = 'phoneNumber';
@@ -32,6 +33,7 @@ abstract class AppKeys {
   static const String keyLastLogin = 'lastLogin';
   static const String keyAccountInfo = 'accountInfo';
   static const String keyAccountImage = 'accountImage';
+  static const String keyTelegramConnectionLink = 'telegramConnectionLink';
 
   static const String keyBalances = 'balances';
   static const String keyTotalBalance = 'totalBalance';

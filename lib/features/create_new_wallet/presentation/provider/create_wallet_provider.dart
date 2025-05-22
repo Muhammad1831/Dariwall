@@ -18,7 +18,7 @@ class CreateWalletProvider with ChangeNotifier {
   CreateWalletStatus get status => _status;
   CreateWalletEntity? get wallet => _wallet;
 
-  Future<void> createWallet(String name, String referralCode) async {
+  Future<void> createWallet(String name, String? referralCode) async {
     _status = CreateWalletStatus.loading;
     _wallet = null;
     notifyListeners();

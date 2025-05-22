@@ -1,3 +1,4 @@
+import 'package:dariwall/features/missions/data/model/mission_model.dart';
 import 'package:dariwall/features/transactions/domain/entity/base_transactions_entity.dart';
 import 'package:dariwall/features/transactions/presentation/page/details_transaction_page.dart';
 import 'package:flutter/material.dart';
@@ -214,63 +215,63 @@ class AppRouteing {
         name: AppRouteName.commentOnTwitterMission,
         path: AppRoutePath.commentOnTwitterMission,
         builder: (context, state) => CommentOnTwitterMissionPage(
-          amount: state.extra as double,
+          mission: state.extra as MissionModel,
         ),
       ),
       GoRoute(
         name: AppRouteName.joinTelegramChannelMission,
         path: AppRoutePath.joinTelegramChannelMission,
         builder: (context, state) => JoinTelegramChannelMissionPage(
-          amount: state.extra as double,
+          mission: state.extra as MissionModel,
         ),
       ),
       GoRoute(
         name: AppRouteName.joinDiscussionGroupMission,
         path: AppRoutePath.joinDiscussionGroupMission,
         builder: (context, state) => JoinDiscussionGroupMissionPage(
-          amount: state.extra as double,
+          mission: state.extra as MissionModel,
         ),
       ),
       GoRoute(
         name: AppRouteName.retweetTwitterMission,
         path: AppRoutePath.retweetTwitterMission,
         builder: (context, state) => RetweetTwitterMissionPage(
-          amount: state.extra as double,
+          mission: state.extra as MissionModel,
         ),
       ),
       GoRoute(
         name: AppRouteName.followTwitterMission,
         path: AppRoutePath.followTwitterMission,
         builder: (context, state) => FollowTwitterMissionPage(
-          amount: state.extra as double,
+          mission: state.extra as MissionModel,
         ),
       ),
       GoRoute(
         name: AppRouteName.likeTwitterMission,
         path: AppRoutePath.likeTwitterMission,
         builder: (context, state) => LikeTwitterMissionPage(
-          amount: state.extra as double,
+          mission: state.extra as MissionModel,
         ),
       ),
       GoRoute(
         name: AppRouteName.studentInfoMissions,
         path: AppRoutePath.studentInfoMissions,
         builder: (context, state) => StudentInfoMissionsPage(
-          amount: state.extra as double,
+          mission: state.extra as MissionModel,
         ),
       ),
       GoRoute(
         name: AppRouteName.likeCoinmarketcapMission,
         path: AppRoutePath.likeCoinmarketcapMission,
         builder: (context, state) => LikeCoinmarketcapMissionPage(
-          amount: state.extra as double,
+          mission: state.extra as MissionModel,
         ),
       ),
       GoRoute(
         name: AppRouteName.joinDariwallTelegramChannelMission,
         path: AppRoutePath.joinDariwallTelegramChannelMission,
         builder: (context, state) => JoinDariwallTelegramChannelMissionPage(
-          amount: state.extra as double,
+          mission: state.extra as MissionModel,
         ),
       ),
 

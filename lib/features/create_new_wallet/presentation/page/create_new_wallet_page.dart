@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:dariwall/core/constant/app_color.dart';
 import 'package:dariwall/core/constant/app_dimens.dart';
@@ -42,6 +41,7 @@ class _CreateNewWalletPageState extends State<CreateNewWalletPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -55,9 +55,11 @@ class _CreateNewWalletPageState extends State<CreateNewWalletPage> {
                 AppHeader(headerText: AppString.createNewWallet),
                 AppDimens.vSpaceVeryLarge,
                 // image
-                SvgPicture.asset(
+                Image.asset(
+                  height: size.height * 0.3,
+                  width: size.height * 0.25,
                   AppImages.createNewWallet,
-                  fit: BoxFit.scaleDown,
+                  fit: BoxFit.cover,
                 ),
                 AppDimens.vSpaceMedium,
                 // phone number field
@@ -127,10 +129,12 @@ class _CreateNewWalletPageState extends State<CreateNewWalletPage> {
                         if (_formKey.currentState!.validate() && _isAcceptTerms) {
                           await provider.createWallet(
                             _nameController.text,
-                            _referralCodeController.text,
+                            _referralCodeController.text.isEmpty
+                                ? null
+                                : _referralCodeController.text,
                           );
                           if (provider.status == CreateWalletStatus.success) {
-                            context.pushReplacementNamed(AppRouteName.recoveryphrase);
+                            context.goNamed(AppRouteName.recoveryphrase);
                           }
                         }
                       },

@@ -10,7 +10,7 @@ import 'package:dariwall/core/constant/app_images.dart';
 import 'package:dariwall/core/constant/app_string.dart';
 import 'package:dariwall/core/route/app_route_name.dart';
 import 'package:dariwall/core/utils/utils_cached_image.dart';
-import 'package:dariwall/core/widgets/app_alert_dialog.dart';
+import 'package:dariwall/core/widgets/app_dialog.dart';
 import 'package:dariwall/features/login/presentation/provider/login_provider.dart';
 import 'package:dariwall/features/user_account/presentation/provider/get_user_account_info_provider.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +35,7 @@ class _UserAccountPageState extends State<UserAccountPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
-    final userImage = Provider.of<GetUserAccountInfoProvider>(context).userAccountInfo?.userImage;
+    final userImage = Provider.of<GetUserAccountInfoProvider>(context).userAccountInfo?.accountImage;
 
     return SingleChildScrollView(
       child: AppShadowBackground(
@@ -140,7 +140,7 @@ class _UserAccountPageState extends State<UserAccountPage> {
                       showDialog(
                         context: context,
                         builder: (context) {
-                          return AppAlertDialog(
+                          return AppDialog(
                             confirmAction: () async {
                               await loginProvider.logout();
                               if (loginProvider.status == LoginStatus.loggedOut) {

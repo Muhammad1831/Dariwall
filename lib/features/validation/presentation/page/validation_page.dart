@@ -141,10 +141,12 @@ class _ValidationPageState extends State<ValidationPage> {
                         Consumer<LoginProvider>(
                           builder: (context, provider, child) {
                             return GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 if (provider.remainingSeconds == 0) {
-                                  provider.loginWithEmail(email: widget.email);
-                                  provider.startCountdown();
+                                  await provider.loginWithEmail(email: widget.email);
+                                  if (provider.status == LoginStatus.success) {
+                                    provider.startCountdown();
+                                  }
                                 }
                               },
                               child: Text(
@@ -162,7 +164,6 @@ class _ValidationPageState extends State<ValidationPage> {
                     ),
                     Spacer(),
                     // continu button
-
                     Consumer<LoginProvider>(
                       builder: (context, provider, child) {
                         return AppButton(
