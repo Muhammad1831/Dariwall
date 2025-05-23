@@ -12,8 +12,24 @@ import 'package:dariwall/core/constant/app_string.dart';
 import 'package:dariwall/core/widgets/app_header.dart';
 import 'package:provider/provider.dart';
 
-class ReceivePage extends StatelessWidget {
+class ReceivePage extends StatefulWidget {
   const ReceivePage({super.key});
+
+  @override
+  State<ReceivePage> createState() => _ReceivePageState();
+}
+
+class _ReceivePageState extends State<ReceivePage> {
+  String? solanaWalletAddress;
+
+  @override
+  void initState() {
+    super.initState();
+    if (context.read<GetUserAccountInfoProvider>().userAccountInfo != null) {
+      solanaWalletAddress =
+          context.read<GetUserAccountInfoProvider>().userAccountInfo!.solanaWalletAddress;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +52,18 @@ class ReceivePage extends StatelessWidget {
                 fit: BoxFit.contain,
               ),
               AppDimens.vSpaceMedium,
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 1,
-                  itemBuilder: (context, index) {
-                    return ReceiveItem();
-                  },
+              if (solanaWalletAddress != null)
+                ReceiveItem(
+                  solanaWalletAddress: solanaWalletAddress!,
                 ),
-              )
+              // Expanded(
+              //   child: ListView.builder(
+              //     itemCount: 1,
+              //     itemBuilder: (context, index) {
+              //       return ReceiveItem();
+              //     },
+              //   ),
+              // )
             ],
           ),
         ),
@@ -55,13 +75,14 @@ class ReceivePage extends StatelessWidget {
 class ReceiveItem extends StatelessWidget {
   const ReceiveItem({
     super.key,
+    required this.solanaWalletAddress,
   });
+
+  final String solanaWalletAddress;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    String solanaWalletAddress =
-        context.read<GetUserAccountInfoProvider>().userAccountInfo!.solanaWalletAddress!;
     return Padding(
       padding: EdgeInsets.only(bottom: AppDimens.paddingSmall),
       child: DecoratedBox(

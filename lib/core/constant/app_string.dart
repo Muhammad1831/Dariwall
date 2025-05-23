@@ -275,13 +275,18 @@ abstract class AppString {
       'قبل از شروع، تمام مراحل را با دقت مطالعه کنید و سپس اقدامات را به درستی انجام دهید.';
   static const String studentInfoAtuntion = 'احراز هویت دانشجویی';
   static const String followOstadInTwitter = 'دنبال کردن OSTAD در توییتر';
+  static const String followParabolicInTwitter = 'دنبال کردن Parabolic در توییتر';
   static const String likeTwitterPost = 'لایک کردن پست در توئیتر';
   static const String retweetTwitterPost = 'ریتوئیت کردن پست در توئیتر';
+  static const String retweetParabolicTwitterPost = 'ریتوئیت کردن پست در Parabolic';
   static const String commentOnTwitterPost = 'کامنت گذاری در پست توئیتر';
   static const String steps = 'مراحل';
   static const String followOstadInTwitterDescription = 'OSTAD رو در توییتر دنبال کنید:';
+  static const String followParabolicInTwitterDescription = 'توییتر Parabolic رو دنبال کنید.';
   static const String likeCAPost = 'پست مربوط به آدرس CA رو لایک کنید:';
   static const String retweetCAPost = 'پست مربوط به آدرس CA رو ریتوئیت کنید:';
+  static const String retweetParabolicInTwitterDescription =
+      'ریتوئیت آخرین پست یادت نره! اینطوری می‌تونی به رشد جامعه پارابولیک کمک کنی.';
   static const String commentOnCAPost = 'در زیر پست مربوط به آدرس CA، کامنت بگذارید:';
   static const String clickOnFollowButton =
       'بعد از ورود به صفحه توییتر، روی دکمه "Follow" (دنبال کردن) کلیک کنید.';
@@ -290,10 +295,15 @@ abstract class AppString {
   static const String uploadImageForCompleteProcess =
       'حالا برای تکمیل فرآیند، لطفاً عکس مربوط به انجام این ماموریت را بارگذاری  کنید.';
   static const String joinOstadInTelegram = 'عضو شدن در کانال تلگرامی OSTAD';
+  static const String joinParabolicInTelegram = 'عضو شدن در کانال تلگرامی Parabolic';
   static const String joinOstadInDiscussionGroup = 'عضو شدن در گروه تلگرامی OSTAD';
   static const String joinDariwallTelegramChannel = 'عضو شدن در کانال تلگرامی داریوال';
   static const String joinOstadInTelegramDescription =
       'اگر می‌خواهید از جدیدترین اخبار، تحلیل‌ها و فرصت‌های ویژه OSTAD با خبر باشید، همین حالا به کانال ما در تلگرام بپیوندید!';
+  static const String joinParabolicInTelegramDescription = '''به کانال تلگرامی پارابولیک بپیوندید!
+اینجا جاییه که می‌تونید با این توکن آشنا بشید و از آخرین اخبار پارابولیک باخبر بمونید!
+
+با عضویت در پارابولیک، همیشه یک قدم جلوتر از دیگران باشید!''';
   static const String justClickAndJoin = 'فقط کافی است روی لینک زیر کلیک کنید و عضو شوید:';
   static const String noNeedToSendImageOrManualVerification =
       'نیازی به ارسال تصویر یا تأیید دستی نیست! ما از طریق روش‌های مختلف، عضویت شما را بررسی می‌کنیم. پس نگران نباشید و همین حالا به جمع ما بپیوندید!';
@@ -320,6 +330,7 @@ abstract class AppString {
   static const String likeCoinmarketcapDescription =
       '1. وارد لینک زیر شوید و رای خود را مشابه تصویر زیر ثبت کنید:';
   static const String likeOstadInCoinMarketCap = 'لایک کردن OSTAD در CoinMarketCap';
+  static const String likeParabolicInCoinMarketCap = 'لایک کردن Parax در CoinMarketCap';
   static const String vote = 'رای دادن';
   static const String check = 'بررسی';
   static const String choose = 'انتخاب کنید';

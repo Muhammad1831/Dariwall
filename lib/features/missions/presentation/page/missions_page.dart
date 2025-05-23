@@ -13,7 +13,7 @@ import 'package:dariwall/core/widgets/app_loading.dart';
 import 'package:dariwall/core/widgets/app_refresh_header.dart';
 import 'package:dariwall/features/missions/data/model/mission_model.dart';
 import 'package:dariwall/features/missions/domain/entity/mission_entity.dart';
-import 'package:dariwall/features/missions/presentation/provider/get_missions_provider.dart';
+import 'package:dariwall/features/missions/presentation/provider/ostad_provider/get_missions_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -27,6 +27,12 @@ Map<int, String> pageCorrespondingMissionCode = {
   7: AppRouteName.joinDiscussionGroupMission,
   8: AppRouteName.likeCoinmarketcapMission,
   11: AppRouteName.joinDariwallTelegramChannelMission,
+  12: AppRouteName.followParaxInTwitter,
+  13: AppRouteName.likeParaxTwitterPost,
+  14: AppRouteName.retweetParaxTwitterPost,
+  15: AppRouteName.commentOnParaxTwitterPost,
+  16: AppRouteName.checkJoinParaxTelegramChannel,
+  17: AppRouteName.likeParaxInCoinmarketcap,
 };
 
 class MissionsPage extends StatefulWidget {

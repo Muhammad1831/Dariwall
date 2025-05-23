@@ -1,4 +1,9 @@
 import 'package:dariwall/features/missions/data/model/mission_model.dart';
+import 'package:dariwall/features/missions/presentation/page/parax_mission/check_join_parax_telegram_channel_page.dart';
+import 'package:dariwall/features/missions/presentation/page/parax_mission/follow_parax_in_twitter_page.dart';
+import 'package:dariwall/features/missions/presentation/page/parax_mission/like_parax_in_coinmarketcap_page.dart';
+import 'package:dariwall/features/missions/presentation/page/parax_mission/like_parax_twitter_post_page.dart';
+import 'package:dariwall/features/missions/presentation/page/parax_mission/retweet_parax_twitter_post_page.dart';
 import 'package:dariwall/features/transactions/domain/entity/base_transactions_entity.dart';
 import 'package:dariwall/features/transactions/presentation/page/details_transaction_page.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +17,13 @@ import 'package:dariwall/features/connet_wallet_to_email/presentation/page/conne
 import 'package:dariwall/features/connet_wallet_to_email/presentation/page/connect_wallet_to_email_page.dart';
 import 'package:dariwall/features/gift_code_page/presentation/pages/gift_code_page.dart';
 import 'package:dariwall/features/home/domain/entity/balances_entity.dart';
-import 'package:dariwall/features/missions/presentation/page/comment_on_twitter_mission_page.dart';
-import 'package:dariwall/features/missions/presentation/page/join_dariwall_telegram_channel_mission_page.dart';
-import 'package:dariwall/features/missions/presentation/page/join_discussion_group_mission_page.dart';
-import 'package:dariwall/features/missions/presentation/page/join_telegram_channel_mission_page.dart';
-import 'package:dariwall/features/missions/presentation/page/like_twitter_mission_page.dart';
-import 'package:dariwall/features/missions/presentation/page/retweet_twitter_mission_page.dart';
-import 'package:dariwall/features/missions/presentation/page/student_info_missions_page.dart';
+import 'package:dariwall/features/missions/presentation/page/ostad_mission/comment_on_twitter_mission_page.dart';
+import 'package:dariwall/features/missions/presentation/page/ostad_mission/join_dariwall_telegram_channel_mission_page.dart';
+import 'package:dariwall/features/missions/presentation/page/ostad_mission/join_discussion_group_mission_page.dart';
+import 'package:dariwall/features/missions/presentation/page/ostad_mission/join_telegram_channel_mission_page.dart';
+import 'package:dariwall/features/missions/presentation/page/ostad_mission/like_twitter_mission_page.dart';
+import 'package:dariwall/features/missions/presentation/page/ostad_mission/retweet_twitter_mission_page.dart';
+import 'package:dariwall/features/missions/presentation/page/ostad_mission/student_info_missions_page.dart';
 import 'package:dariwall/features/send/presentation/page/choose_token_page.dart';
 import 'package:dariwall/features/send/presentation/page/summary_page.dart';
 import 'package:dariwall/features/solana_address_wallet/presentation/page/solana_address_wallet_page.dart';
@@ -38,8 +43,8 @@ import 'package:dariwall/features/recovery_phrase/presentation/page/recovery_phr
 import 'package:dariwall/features/send/presentation/page/send_page.dart';
 import 'package:dariwall/features/splash/presentation/page/splash_page.dart';
 import 'package:dariwall/features/swap/presentation/page/swap_page.dart';
-import 'package:dariwall/features/missions/presentation/page/follow_twitter_mission_page.dart';
-import 'package:dariwall/features/missions/presentation/page/like_coinmarketcap_mission_page.dart';
+import 'package:dariwall/features/missions/presentation/page/ostad_mission/follow_twitter_mission_page.dart';
+import 'package:dariwall/features/missions/presentation/page/ostad_mission/like_coinmarketcap_mission_page.dart';
 import 'package:dariwall/features/user_account/presentation/page/user_account_page.dart';
 import 'package:dariwall/features/transactions/presentation/page/transactions_page.dart';
 import 'package:dariwall/features/scaffold_with_nav_bar.dart';
@@ -271,6 +276,49 @@ class AppRouteing {
         name: AppRouteName.joinDariwallTelegramChannelMission,
         path: AppRoutePath.joinDariwallTelegramChannelMission,
         builder: (context, state) => JoinDariwallTelegramChannelMissionPage(
+          mission: state.extra as MissionModel,
+        ),
+      ),
+      // parax mission
+      GoRoute(
+        name: AppRouteName.likeParaxInCoinmarketcap,
+        path: AppRoutePath.likeParaxInCoinmarketcap,
+        builder: (context, state) => LikeParaxInCoinmarketcapPage(
+          mission: state.extra as MissionModel,
+        ),
+      ),
+      GoRoute(
+        name: AppRouteName.likeParaxTwitterPost,
+        path: AppRoutePath.likeParaxTwitterPost,
+        builder: (context, state) => LikeParaxTwitterPostPage(
+          mission: state.extra as MissionModel,
+        ),
+      ),
+      GoRoute(
+        name: AppRouteName.followParaxInTwitter,
+        path: AppRoutePath.followParaxInTwitter,
+        builder: (context, state) => FollowParaxInTwitterPage(
+          mission: state.extra as MissionModel,
+        ),
+      ),
+      GoRoute(
+        name: AppRouteName.retweetParaxTwitterPost,
+        path: AppRoutePath.retweetParaxTwitterPost,
+        builder: (context, state) => RetweetParaxTwitterPostPage(
+          mission: state.extra as MissionModel,
+        ),
+      ),
+      GoRoute(
+        name: AppRouteName.checkJoinParaxTelegramChannel,
+        path: AppRoutePath.checkJoinParaxTelegramChannel,
+        builder: (context, state) => CheckJoinParaxTelegramChannelPage(
+          mission: state.extra as MissionModel,
+        ),
+      ),
+      GoRoute(
+        name: AppRouteName.commentOnParaxTwitterPost,
+        path: AppRoutePath.commentOnParaxTwitterPost,
+        builder: (context, state) => CommentOnTwitterMissionPage(
           mission: state.extra as MissionModel,
         ),
       ),

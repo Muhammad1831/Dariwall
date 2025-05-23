@@ -32,6 +32,12 @@ abstract class AppRoutePath {
   static const String joinDiscussionGroupMission = '/join-discussion-group-mission';
   static const String joinDariwallTelegramChannelMission =
       '/join-dariwall-telegram-channel-mission';
+  static const String followParaxInTwitter = '/follow-parax-in-twitter';
+  static const String likeParaxTwitterPost = '/like-parax-twitter-post';
+  static const String retweetParaxTwitterPost = '/retweet-parax-twitter-post';
+  static const String commentOnParaxTwitterPost = '/comment-on-parax-twitter-post';
+  static const String checkJoinParaxTelegramChannel = '/check-join-parax-telegram-channel';
+  static const String likeParaxInCoinmarketcap = '/like-parax-in-coinmarketcap';
   static const String aboutUs = '/about-us';
   static const String giftCode = '/gift-code';
   static const String connectWalletEmailOtp = '/connect-wallet-email-otp';

@@ -1,4 +1,15 @@
 import 'package:dariwall/core/constant/app_api.dart';
+import 'package:dariwall/features/missions/data/datasource/parax_missions_data_source.dart';
+import 'package:dariwall/features/missions/data/repository/parax_missions_repository_imp.dart';
+import 'package:dariwall/features/missions/domain/repository/parax_missions_repository.dart';
+import 'package:dariwall/features/missions/domain/usecase/parax_usecase/check_join_parax_telegram_channel_usecase.dart';
+import 'package:dariwall/features/missions/domain/usecase/parax_usecase/follow_parax_in_twitter_mission_usecase.dart';
+import 'package:dariwall/features/missions/domain/usecase/parax_usecase/like_parax_in_coinmarketcap_mission_usecase.dart';
+import 'package:dariwall/features/missions/domain/usecase/parax_usecase/retweet_parax_twitter_post_mission_usecase.dart';
+import 'package:dariwall/features/missions/presentation/provider/parax_provider/check_join_parax_telegram_channel_provider.dart';
+import 'package:dariwall/features/missions/presentation/provider/parax_provider/follow_parax_in_twitter_mission_provider.dart';
+import 'package:dariwall/features/missions/presentation/provider/parax_provider/like_parax_in_coinmarketcap_mission_provider.dart';
+import 'package:dariwall/features/missions/presentation/provider/parax_provider/retweet_parax_twitter_post_mission_provider.dart';
 import 'package:dariwall/features/user_account_info_edit/data/datasource/set_email_data_source.dart';
 import 'package:dariwall/features/user_account_info_edit/data/repository/set_email_repository_imp.dart';
 import 'package:dariwall/features/user_account_info_edit/domain/repository/set_email_repository.dart';
@@ -49,31 +60,31 @@ import 'package:dariwall/features/create_new_wallet/data/repository/create_walle
 import 'package:dariwall/features/create_new_wallet/domain/usecase/create_wallet_usecase.dart';
 import 'package:dariwall/features/create_new_wallet/presentation/provider/create_wallet_provider.dart';
 import 'package:dariwall/features/login/domain/usecase/check_login_usecase.dart';
-import 'package:dariwall/features/missions/data/datasource/missions_data_source.dart';
+import 'package:dariwall/features/missions/data/datasource/ostad_missions_data_source.dart';
 import 'package:dariwall/features/missions/data/repository/missions_repository_imp.dart';
 import 'package:dariwall/features/missions/domain/repository/missions_repository.dart';
-import 'package:dariwall/features/missions/domain/usecase/comment_on_twitter_mission_usecase.dart';
-import 'package:dariwall/features/missions/domain/usecase/follow_twitter_mission_usecase.dart';
-import 'package:dariwall/features/missions/domain/usecase/get_missions_usecase.dart';
-import 'package:dariwall/features/missions/domain/usecase/get_province_usecase.dart';
-import 'package:dariwall/features/missions/domain/usecase/join_dariwall_telegram_channel_mission_usecase.dart';
-import 'package:dariwall/features/missions/domain/usecase/join_discussion_group_mission_usecase.dart';
-import 'package:dariwall/features/missions/domain/usecase/join_telegram_channel_mission_usecase.dart';
-import 'package:dariwall/features/missions/domain/usecase/like_coinmarketcap_mission_usecase.dart';
-import 'package:dariwall/features/missions/domain/usecase/like_twitter_mission_usecase.dart';
-import 'package:dariwall/features/missions/domain/usecase/retweet_twitter_mission_usecase.dart';
-import 'package:dariwall/features/missions/domain/usecase/student_info_mission_usecase.dart';
-import 'package:dariwall/features/missions/presentation/provider/comment_on_twitter_mission_provider.dart';
-import 'package:dariwall/features/missions/presentation/provider/follow_twitter_mission_provider.dart';
-import 'package:dariwall/features/missions/presentation/provider/get_missions_provider.dart';
-import 'package:dariwall/features/missions/presentation/provider/get_provinece_provider.dart';
-import 'package:dariwall/features/missions/presentation/provider/join_dariwall_telegram_channel_mission_provider.dart';
-import 'package:dariwall/features/missions/presentation/provider/join_discussion_group_mission_provider.dart';
-import 'package:dariwall/features/missions/presentation/provider/join_telegram_channel_mission_provider.dart';
-import 'package:dariwall/features/missions/presentation/provider/like_coinmarketcap_mission_provider.dart';
-import 'package:dariwall/features/missions/presentation/provider/like_twitter_mission_provider.dart';
-import 'package:dariwall/features/missions/presentation/provider/retweet_twitter_mission_provider.dart';
-import 'package:dariwall/features/missions/presentation/provider/student_info_mission_provider.dart';
+import 'package:dariwall/features/missions/domain/usecase/ostad_usecase/comment_on_twitter_mission_usecase.dart';
+import 'package:dariwall/features/missions/domain/usecase/ostad_usecase/follow_twitter_mission_usecase.dart';
+import 'package:dariwall/features/missions/domain/usecase/ostad_usecase/get_missions_usecase.dart';
+import 'package:dariwall/features/missions/domain/usecase/ostad_usecase/get_province_usecase.dart';
+import 'package:dariwall/features/missions/domain/usecase/ostad_usecase/join_dariwall_telegram_channel_mission_usecase.dart';
+import 'package:dariwall/features/missions/domain/usecase/ostad_usecase/join_discussion_group_mission_usecase.dart';
+import 'package:dariwall/features/missions/domain/usecase/ostad_usecase/join_telegram_channel_mission_usecase.dart';
+import 'package:dariwall/features/missions/domain/usecase/ostad_usecase/like_coinmarketcap_mission_usecase.dart';
+import 'package:dariwall/features/missions/domain/usecase/ostad_usecase/like_twitter_mission_usecase.dart';
+import 'package:dariwall/features/missions/domain/usecase/ostad_usecase/retweet_twitter_mission_usecase.dart';
+import 'package:dariwall/features/missions/domain/usecase/ostad_usecase/student_info_mission_usecase.dart';
+import 'package:dariwall/features/missions/presentation/provider/ostad_provider/comment_on_twitter_mission_provider.dart';
+import 'package:dariwall/features/missions/presentation/provider/ostad_provider/follow_twitter_mission_provider.dart';
+import 'package:dariwall/features/missions/presentation/provider/ostad_provider/get_missions_provider.dart';
+import 'package:dariwall/features/missions/presentation/provider/ostad_provider/get_provinece_provider.dart';
+import 'package:dariwall/features/missions/presentation/provider/ostad_provider/join_dariwall_telegram_channel_mission_provider.dart';
+import 'package:dariwall/features/missions/presentation/provider/ostad_provider/join_discussion_group_mission_provider.dart';
+import 'package:dariwall/features/missions/presentation/provider/ostad_provider/join_telegram_channel_mission_provider.dart';
+import 'package:dariwall/features/missions/presentation/provider/ostad_provider/like_coinmarketcap_mission_provider.dart';
+import 'package:dariwall/features/missions/presentation/provider/ostad_provider/like_twitter_mission_provider.dart';
+import 'package:dariwall/features/missions/presentation/provider/ostad_provider/retweet_twitter_mission_provider.dart';
+import 'package:dariwall/features/missions/presentation/provider/ostad_provider/student_info_mission_provider.dart';
 import 'package:dariwall/features/transactions/data/datasource/transactions_data_source.dart';
 import 'package:dariwall/features/transactions/data/repository/transactions_repository_imp.dart';
 import 'package:dariwall/features/transactions/domain/repository/transactions_repository.dart';
@@ -175,7 +186,7 @@ class LocatorService {
     getIt.registerLazySingleton<CreateWalletProvider>(
         () => CreateWalletProvider(createWalletUsecase: getIt<CreateWalletUsecase>()));
 
-    // missions
+    // ostad missions
     getIt.registerLazySingleton<MissionsDataSource>(
         () => MissionsDataSource(apiClientService: getIt<ApiClientService>()));
     getIt.registerLazySingleton<MissionsRepository>(
@@ -239,6 +250,42 @@ class LocatorService {
         () => GetMissionsUsecase(missionsRepository: getIt<MissionsRepository>()));
     getIt.registerLazySingleton<GetMissionsProvider>(
         () => GetMissionsProvider(getMissionsUsecase: getIt<GetMissionsUsecase>()));
+
+    // parax missions
+    getIt.registerLazySingleton<ParaxMissionsDataSource>(
+        () => ParaxMissionsDataSource(getIt<ApiClientService>()));
+    getIt.registerLazySingleton<ParaxMissionRepository>(() =>
+        ParaxMissionsRepositoryImp(paraxMissionsDataSource: getIt<ParaxMissionsDataSource>()));
+    // follow twitter parax
+    getIt.registerLazySingleton<FollowParaxInTwitterMissionUsecase>(() =>
+        FollowParaxInTwitterMissionUsecase(
+            paraxMissionRepository: getIt<ParaxMissionRepository>()));
+    getIt.registerFactory<FollowParaxInTwitterMissionProvider>(() =>
+        FollowParaxInTwitterMissionProvider(
+            followParaxInTwitterMissionUsecase: getIt<FollowParaxInTwitterMissionUsecase>()));
+    // retweet parax post
+    getIt.registerLazySingleton<RetweetParaxTwitterPostMissionUsecase>(() =>
+        RetweetParaxTwitterPostMissionUsecase(
+            paraxMissionRepository: getIt<ParaxMissionRepository>()));
+    getIt.registerFactory<RetweetParaxTwitterPostMissionProvider>(() =>
+        RetweetParaxTwitterPostMissionProvider(
+            retweetParaxTwitterPostMissionUsecase: getIt<RetweetParaxTwitterPostMissionUsecase>()));
+    // like parax in coinmarketcap
+    getIt.registerLazySingleton<LikeParaxInCoinmarketcapMissionUsecase>(() =>
+        LikeParaxInCoinmarketcapMissionUsecase(
+            paraxMissionRepository: getIt<ParaxMissionRepository>()));
+    getIt.registerFactory<LikeParaxInCoinmarketcapMissionProvider>(() =>
+        LikeParaxInCoinmarketcapMissionProvider(
+            likeParaxInCoinmarketcapMissionUsecase:
+                getIt<LikeParaxInCoinmarketcapMissionUsecase>()));
+    // check join in telegram channel
+    getIt.registerLazySingleton<CheckJoinParaxTelegramChannelUsecase>(() =>
+        CheckJoinParaxTelegramChannelUsecase(
+            paraxMissionRepository: getIt<ParaxMissionRepository>()));
+    getIt.registerFactory<CheckJoinParaxTelegramChannelProvider>(() =>
+        CheckJoinParaxTelegramChannelProvider(
+            checkJoinParaxTelegramChannelUsecase:
+                getIt<CheckJoinParaxTelegramChannelUsecase>()));
 
     // home
     getIt.registerLazySingleton<MyBalancesDatasource>(

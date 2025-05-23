@@ -30,8 +30,13 @@ abstract class AppRouteName {
   static const String commentOnTwitterMission = 'commentOnTwitterMission';
   static const String joinTelegramChannelMission = 'joinTelegramChannelMission';
   static const String joinDiscussionGroupMission = 'joinDiscussionGroupMission';
-  static const String joinDariwallTelegramChannelMission =
-      'joinDariwallTelegramChannelMission';
+  static const String joinDariwallTelegramChannelMission = 'joinDariwallTelegramChannelMission';
+  static const String followParaxInTwitter = 'followParaxInTwitter';
+  static const String likeParaxTwitterPost = 'likeParaxTwitterPost';
+  static const String retweetParaxTwitterPost = 'retweetParaxTwitterPost';
+  static const String commentOnParaxTwitterPost = 'commentOnParaxTwitterPost';
+  static const String checkJoinParaxTelegramChannel = 'checkJoinParaxTelegramChannel';
+  static const String likeParaxInCoinmarketcap = 'likeParaxInCoinmarketcap';
   static const String aboutUs = 'aboutUs';
   static const String giftCode = 'giftCode';
   static const String connectWalletEmailOtp = 'connectWalletEmailOtp';

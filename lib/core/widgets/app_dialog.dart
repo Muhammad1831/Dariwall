@@ -27,7 +27,7 @@ class AppDialog extends StatelessWidget {
   final Color? iconColor;
   final IconData? icon;
   final VoidCallback confirmAction;
-  final bool? isLoading;
+  final bool isLoading;
   final VoidCallback? cancelAction;
   final String? confirmActionTitle;
   final String? cancelActionTitle;

@@ -8,7 +8,7 @@ import 'package:dariwall/core/constant/app_icons.dart';
 import 'package:dariwall/core/constant/app_string.dart';
 import 'package:provider/provider.dart';
 import 'package:dariwall/core/di/locator_service.dart';
-import 'package:dariwall/features/missions/presentation/provider/get_missions_provider.dart';
+import 'package:dariwall/features/missions/presentation/provider/ostad_provider/get_missions_provider.dart';
 
 enum NavBarItem {
   home,

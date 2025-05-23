@@ -1,6 +1,6 @@
 import 'package:dariwall/core/models/either.dart';
 import 'package:dariwall/core/services/error_handler_service.dart';
-import 'package:dariwall/features/missions/data/datasource/missions_data_source.dart';
+import 'package:dariwall/features/missions/data/datasource/ostad_missions_data_source.dart';
 import 'package:dariwall/features/missions/data/model/mission_model.dart';
 import 'package:dariwall/features/missions/data/model/province_model.dart';
 import 'package:dariwall/features/missions/data/model/student_info_mission_model.dart';

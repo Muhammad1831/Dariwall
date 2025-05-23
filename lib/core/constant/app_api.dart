@@ -13,7 +13,7 @@ class AppApi {
   // create wallet
   static const String createWallet = 'accounts/register/';
 
-  // missions
+  // ostad missions
   static const String studentInfo = 'missions/do-missions/01/';
   static const String followTwitter = 'missions/do-missions/02/';
   static const String likeTwitter = 'missions/do-missions/03/';
@@ -26,6 +26,14 @@ class AppApi {
   static const String joinDariwallTelegramChannel = 'missions/do-missions/11/';
   static const String provinces = 'generics/provinces/';
   static const String missions = 'missions/my-missions/';
+
+  // parax mission
+  static const String followParaxInTwitter = 'missions/do-missions/12/';
+  static const String likeParaxTwitterPost = 'missions/do-missions/13/';
+  static const String retweetParaxTwitterPost = 'missions/do-missions/14/';
+  static const String commentOnParaxTwitterPost = 'missions/do-missions/15/';
+  static const String checkJoinParaxTelegramChannel = 'missions/do-missions/16/';
+  static const String likeParaxInCoinmarketcap = 'missions/do-missions/17/';
 
   // balances
   static const String balances = 'accounts/panel/my-balances/';
