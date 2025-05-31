@@ -10,9 +10,12 @@ class WithdrawRepositoryImp implements WithdrawRepository {
 
   @override
   Future<Either<AppException, void>> withdraw(
-      {required double amount, required String currencyCode}) async {
+      {required double amount,
+      required String currencyCode,
+      required String? destinationAddress}) async {
     try {
-      await withdrawDataSource.withdraw(amount: amount, currencyCode: currencyCode);
+      await withdrawDataSource.withdraw(
+          amount: amount, currencyCode: currencyCode, destinationAddress: destinationAddress);
       return Right(null);
     } on AppException catch (e) {
       return Left(e);

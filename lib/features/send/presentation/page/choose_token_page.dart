@@ -1,3 +1,4 @@
+import 'package:dariwall/core/enum/type_of_send_enum.dart';
 import 'package:dariwall/core/widgets/app_shadow_background.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -19,8 +20,10 @@ import 'package:provider/provider.dart';
 class ChooseTokenPage extends StatelessWidget {
   ChooseTokenPage({
     super.key,
+    required this.typeOfSend,
   });
   final TextEditingController search = TextEditingController();
+  final TypeOfSendEnum typeOfSend;
 
   @override
   Widget build(BuildContext context) {
@@ -48,15 +51,15 @@ class ChooseTokenPage extends StatelessWidget {
                     selector: (context, provider) => provider.status,
                     builder: (context, myBalancesStatus, child) {
                       final myBalances = context.read<MyBalancesProvider>().myBalances;
-          
+
                       if (myBalancesStatus == MyBalancesStatus.loading) {
                         return AppLoading();
                       }
-          
-                      final nonZeroBalances = myBalances?.balances
-                          ?.where((balance) => balance.amount > 0)
-                          .toList() ?? [];
-          
+
+                      final nonZeroBalances =
+                          myBalances?.balances?.where((balance) => balance.amount > 0).toList() ??
+                              [];
+
                       if (nonZeroBalances.isEmpty) {
                         return Center(
                           child: Image.asset(
@@ -65,14 +68,15 @@ class ChooseTokenPage extends StatelessWidget {
                           ),
                         );
                       }
-          
+
                       return ListView.builder(
                         itemCount: nonZeroBalances.length,
                         itemBuilder: (context, index) {
-                          final solanaWalletAddress = Provider.of<GetUserAccountInfoProvider>(context)
-                              .userAccountInfo
-                              ?.solanaWalletAddress;
-          
+                          final solanaWalletAddress =
+                              Provider.of<GetUserAccountInfoProvider>(context)
+                                  .userAccountInfo
+                                  ?.solanaWalletAddress;
+
                           return Padding(
                             padding: EdgeInsets.only(bottom: AppDimens.small),
                             child: AppTokenItem(
@@ -83,15 +87,17 @@ class ChooseTokenPage extends StatelessWidget {
                                     message: AppMessage.solanaWalletAddressIsNotSet,
                                   );
                                 } else {
-                                  context.pushNamed(AppRouteName.send,
-                                      extra: nonZeroBalances[index]);
+                                  context.pushNamed(AppRouteName.sendTo, extra: {
+                                    'balance': nonZeroBalances[index],
+                                    'typeOfSend': typeOfSend,
+                                  });
                                 }
                               },
                               tokenIcon: nonZeroBalances[index].currencyInfo.currencyIcon ??
                                   AppIcons.solana,
                               tokenName: nonZeroBalances[index].currencyInfo.currencyFaName,
                               tokenTotalNumber:
-                                  '${nonZeroBalances[index].amount.toStringAsFixed(0).threeDigitsThree()} ${nonZeroBalances[index].currencyInfo.currencyEnName}',
+                                  '${nonZeroBalances[index].amount.toString().threeDigitsThree()} ${nonZeroBalances[index].currencyInfo.currencyEnName}',
                               tokenTotalPrice:
                                   '${nonZeroBalances[index].valueIrt.toStringAsFixed(0).threeDigitsThree()} ${AppString.toman}',
                             ),

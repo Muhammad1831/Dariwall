@@ -9,19 +9,20 @@ class AccountInfoModel extends AccountInfoEntity with EquatableMixin {
     required super.email,
     required super.name,
     required super.accountImage,
-    required super.telegramConnectionLink,
+    // required super.telegramConnectionLink,
     // required super.dateJoined,
     // required super.lastLogin,
   });
 
-  factory AccountInfoModel.fromJson(Map<String, dynamic> json) {
+  factory AccountInfoModel.fromJson(dynamic json) {
     return AccountInfoModel(
       referralCode: json[AppKeys.keyReferralCode],
       solanaWalletAddress: json[AppKeys.keySolanaWalletAddress],
       email: json[AppKeys.keyEmail],
       name: json[AppKeys.keyName],
       accountImage: json[AppKeys.keyAccountImage],
-      telegramConnectionLink: json[AppKeys.keyTelegramConnectionLink],
+      // telegramConnectionLink:
+      //     TelegramConnectionLink.fromJson(json[AppKeys.keyTelegramConnectionLink]),
       //TODO: add dateJoined and lastLogin
       // dateJoined: DateTime.parse(json[AppKeys.keyDateJoined]),
       // lastLogin: DateTime.parse(json[AppKeys.keyLastLogin]),
@@ -35,7 +36,7 @@ class AccountInfoModel extends AccountInfoEntity with EquatableMixin {
       email: email,
       name: name,
       accountImage: accountImage,
-      telegramConnectionLink: telegramConnectionLink,
+      // telegramConnectionLink: telegramConnectionLink,
     );
   }
 
@@ -46,7 +47,7 @@ class AccountInfoModel extends AccountInfoEntity with EquatableMixin {
       AppKeys.keyEmail: email,
       AppKeys.keyName: name,
       AppKeys.keyAccountImage: accountImage,
-      AppKeys.keyTelegramConnectionLink: telegramConnectionLink,
+      // AppKeys.keyTelegramConnectionLink: telegramConnectionLink,
       // AppKeys.keyDateJoined: dateJoined.toIso8601String(),
       // AppKeys.keyLastLogin: lastLogin.toIso8601String(),
     };
@@ -67,7 +68,7 @@ class AccountInfoModel extends AccountInfoEntity with EquatableMixin {
       email: email ?? this.email,
       name: name ?? this.name,
       accountImage: accountImage ?? accountImage,
-      telegramConnectionLink: telegramConnectionLink ?? telegramConnectionLink,
+      // telegramConnectionLink: telegramConnectionLink ?? telegramConnectionLink,
       // dateJoined: dateJoined ?? this.dateJoined,
       // lastLogin: lastLogin ?? this.lastLogin,D
     );

@@ -29,8 +29,6 @@ class UserAccountInfoEditPage extends StatefulWidget {
 }
 
 class _UserAccountInfoEditPageState extends State<UserAccountInfoEditPage> {
-  final TextEditingController userNameController = TextEditingController();
-
   String? email;
   String? userName;
 
@@ -40,17 +38,10 @@ class _UserAccountInfoEditPageState extends State<UserAccountInfoEditPage> {
     final provider = Provider.of<GetUserAccountInfoProvider>(context, listen: false);
     if (provider.userAccountInfo?.name != null) {
       userName = provider.userAccountInfo!.name;
-      userNameController.text = provider.userAccountInfo!.name!;
     }
     if (provider.userAccountInfo?.email != null) {
       email = provider.userAccountInfo!.email;
     }
-  }
-
-  @override
-  void dispose() {
-    userNameController.dispose();
-    super.dispose();
   }
 
   void updateEmail(String email) {
@@ -145,25 +136,19 @@ class _UserAccountInfoEditPageState extends State<UserAccountInfoEditPage> {
                     },
                   ),
                   AppDimens.vSpaceVeryLarge,
-                  Selector<ChangeUserAccountNameProvider, UserAccountNameStatus>(
-                    selector: (context, changeUserAccountNameProvider) =>
-                        changeUserAccountNameProvider.status,
-                    builder: (context, state, child) {
-                      return AppTextFormField.withTitle(
-                        title: AppString.userName,
-                        controller: userNameController,
-                        hintText: AppString.userName,
-                        contentPaddingVertical: AppDimens.paddingLarge,
-                        onFieldSubmitted: (value) async {
-                          if (value != userName) {
-                            await context
-                                .read<ChangeUserAccountNameProvider>()
-                                .changeUserName(value);
-                            if (state == UserAccountNameStatus.success) {
-                              userName = value;
-                            }
-                          }
-                        },
+                  // user name
+                  UserAccountInfoItem(
+                    title: AppString.userName,
+                    hintText: AppString.userName,
+                    data: Provider.of<GetUserAccountInfoProvider>(context).userAccountInfo!.name,
+                    onTap: () async {
+                      await showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) => ChangeNotifierProvider.value(
+                          value: getIt<ChangeUserAccountNameProvider>(),
+                          child: SetUserName(),
+                        ),
                       );
                     },
                   ),
@@ -328,6 +313,72 @@ class _VerifyEmailDialogState extends State<VerifyEmailDialog> {
             suffixIcon: GestureDetector(
               onTap: () {
                 confirmCodeController.clear();
+              },
+              child: Padding(
+                padding: EdgeInsets.only(left: AppDimens.paddingMedium),
+                child: Icon(
+                  Icons.close,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class SetUserName extends StatefulWidget {
+  const SetUserName({super.key});
+
+  @override
+  State<SetUserName> createState() => _SetUserNameState();
+}
+
+class _SetUserNameState extends State<SetUserName> {
+  final TextEditingController userNameController = TextEditingController();
+
+  @override
+  void dispose() {
+    userNameController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Selector<ChangeUserAccountNameProvider, UserAccountNameStatus>(
+      selector: (context, changeUserAccountNameProvider) => changeUserAccountNameProvider.status,
+      builder: (context, status, child) {
+        return AppDialog(
+          isLoading: status == UserAccountNameStatus.loading,
+          confirmAction: () async {
+            if (userNameController.text.isNotEmpty) {
+              await context
+                  .read<ChangeUserAccountNameProvider>()
+                  .changeUserName(userNameController.text);
+              if (status == UserAccountNameStatus.success) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.of(context).pop();
+                });
+              }
+            }
+          },
+          cancelAction: () {
+            userNameController.clear();
+            context.pop();
+          },
+          title: AppString.editUserName,
+          alignment: CrossAxisAlignment.start,
+          iconColor: AppColor.warningColor,
+          confirmActionTitle: AppString.editUserName,
+          child: AppTextFormField(
+            controller: userNameController,
+            hintText: AppString.userName,
+            keyboardType: TextInputType.text,
+            validationType: ValidationType.notEmpty,
+            suffixIcon: GestureDetector(
+              onTap: () {
+                userNameController.clear();
               },
               child: Padding(
                 padding: EdgeInsets.only(left: AppDimens.paddingMedium),

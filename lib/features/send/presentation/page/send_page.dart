@@ -1,14 +1,15 @@
+import 'package:dariwall/core/enum/type_of_send_enum.dart';
 import 'package:dariwall/core/widgets/app_shadow_background.dart';
+import 'package:dariwall/features/send/data/model/transfer_param_model.dart';
+import 'package:dariwall/features/send/presentation/provider/transfer_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:dariwall/core/constant/app_dimens.dart';
-import 'package:dariwall/core/constant/app_message.dart';
 import 'package:dariwall/core/constant/app_string.dart';
 import 'package:dariwall/core/di/locator_service.dart';
 import 'package:dariwall/core/extensions/to_short_wallet_address_extensions.dart';
 import 'package:dariwall/core/route/app_route_name.dart';
-import 'package:dariwall/core/services/snack_bar_service.dart';
 import 'package:dariwall/core/widgets/app_button.dart';
 import 'package:dariwall/core/widgets/app_header.dart';
 import 'package:dariwall/core/widgets/app_text_field.dart';
@@ -20,8 +21,10 @@ import 'package:dariwall/global_provider/providers/currency_prices_provider.dart
 import 'package:provider/provider.dart';
 
 class SendPage extends StatefulWidget {
-  const SendPage({super.key, required this.balance});
+  const SendPage({super.key, required this.balance, this.walletAddress, required this.typeOfSend});
   final BalancesEntity balance;
+  final String? walletAddress;
+  final TypeOfSendEnum typeOfSend;
 
   @override
   State<SendPage> createState() => _SendPageState();
@@ -32,9 +35,8 @@ class _SendPageState extends State<SendPage> {
 
   @override
   void initState() {
+    getIt<CurrencyPricesProvider>().getCurrencyPrice(widget.balance.currencyInfo.currencyCode);
     super.initState();
-    final provider = Provider.of<CurrencyPricesProvider>(context, listen: false);
-    provider.getCurrencyPrice(widget.balance.currencyInfo.currencyCode);
   }
 
   @override
@@ -46,18 +48,20 @@ class _SendPageState extends State<SendPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final currencyProvider = Provider.of<CurrencyPricesProvider>(context);
 
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (context) => SendProvider(
-            currencyPricesProvider: currencyProvider,
+            currencyPricesProvider: getIt<CurrencyPricesProvider>(),
             balance: widget.balance,
           ),
         ),
         ChangeNotifierProvider(
           create: (context) => getIt<WithdrawProvider>(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => getIt<TransferProvider>(),
         ),
       ],
       child: Consumer<SendProvider>(
@@ -71,7 +75,8 @@ class _SendPageState extends State<SendPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppHeader(
-                        headerText: '${AppString.send} ${widget.balance.currencyInfo.currencyEnName}',
+                        headerText:
+                            '${AppString.send} ${widget.balance.currencyInfo.currencyEnName}',
                       ),
                       AppDimens.vSpaceLarge,
                       Row(
@@ -84,11 +89,13 @@ class _SendPageState extends State<SendPage> {
                             ),
                           ),
                           Text(
-                            Provider.of<GetUserAccountInfoProvider>(context)
-                                    .userAccountInfo
-                                    ?.solanaWalletAddress
-                                    ?.toShortWalletAddress() ??
-                                '',
+                            widget.walletAddress != null
+                                ? widget.walletAddress!.toShortWalletAddress()
+                                : Provider.of<GetUserAccountInfoProvider>(context)
+                                        .userAccountInfo
+                                        ?.solanaWalletAddress
+                                        ?.toShortWalletAddress() ??
+                                    '',
                             style: theme.textTheme.titleSmall!.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
@@ -201,35 +208,66 @@ class _SendPageState extends State<SendPage> {
                         ],
                       ),
                       AppDimens.vSpaceMedium,
-                      Selector<WithdrawProvider, WithdrawStatus>(
-                        selector: (context, provider) => provider.status,
-                        builder: (context, status, child) {
-                          final tokenAmount = double.tryParse(tokenAmountController.text) ?? 0;
-                
-                          if (status == WithdrawStatus.success) {
-                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                              context.goNamed(AppRouteName.home);
-                            });
-                          }
-                          return AppButton(
-                            isLoading: status == WithdrawStatus.loading,
-                            text: AppString.continueText,
-                            onTap: () {
-                              if (tokenAmount > 0) {
-                                context.read<WithdrawProvider>().withdraw(
-                                      tokenAmount,
-                                      widget.balance.currencyInfo.currencyCode,
-                                    );
-                              } else {
-                                SnackBarService.show(
-                                  status: SnackBarStatus.error,
-                                  message: AppMessage.amountMustBeGreaterThanZero,
+                      widget.typeOfSend == TypeOfSendEnum.sendOnNetwork
+                          ? Selector<WithdrawProvider, WithdrawStatus>(
+                              selector: (context, provider) => provider.status,
+                              builder: (context, status, child) {
+                                final tokenAmount =
+                                    double.tryParse(tokenAmountController.text) ?? 0;
+
+                                if (status == WithdrawStatus.success) {
+                                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                                    context.goNamed(AppRouteName.home);
+                                  });
+                                }
+                                return AppButton(
+                                  isLoading: status == WithdrawStatus.loading,
+                                  text: AppString.continueText,
+                                  onTap: () {
+                                    if (provider.checkHaveEnoughBalance(tokenAmount)) {
+                                      context.read<WithdrawProvider>().withdraw(
+                                            provider.isTokenMode
+                                                ? tokenAmount
+                                                : (tokenAmount / (provider.tokenPrice ?? 1)),
+                                            widget.balance.currencyInfo.currencyCode,
+                                            widget.walletAddress,
+                                          );
+                                    }
+                                  },
                                 );
-                              }
-                            },
-                          );
-                        },
-                      )
+                              },
+                            )
+                          : Selector<TransferProvider, TransferStatus>(
+                              selector: (context, provider) => provider.status,
+                              builder: (context, status, child) {
+                                final tokenAmount =
+                                    double.tryParse(tokenAmountController.text) ?? 0;
+
+                                if (status == TransferStatus.success) {
+                                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                                    context.goNamed(AppRouteName.home);
+                                  });
+                                }
+                                return AppButton(
+                                  isLoading: status == TransferStatus.loading,
+                                  text: AppString.continueText,
+                                  onTap: () {
+                                    if (provider.checkHaveEnoughBalance(tokenAmount)) {
+                                      context.read<TransferProvider>().transfer(
+                                            param: TransferParamModel(
+                                              amount: provider.isTokenMode
+                                                  ? tokenAmount
+                                                  : (tokenAmount / (provider.tokenPrice ?? 1)),
+                                              currencyCode:
+                                                  widget.balance.currencyInfo.currencyCode,
+                                              recipientAddress: widget.walletAddress,
+                                            ),
+                                          );
+                                    }
+                                  },
+                                );
+                              },
+                            )
                     ],
                   ),
                 ),

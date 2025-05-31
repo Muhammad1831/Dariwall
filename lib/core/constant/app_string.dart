@@ -18,6 +18,8 @@ abstract class AppString {
   static const String status = 'وضعیت';
   static const String network = 'شبکه';
   static const String fee = 'کارمزد';
+  static const String enterDestnationWalletAddress = 'آدرس کیف پول مقصد رو وارد کنید...';
+  static const String next = 'بعدی';
 
   // gift code page
   static const String giftCodeVerification = 'صحت سنجی';
@@ -85,6 +87,19 @@ abstract class AppString {
   // connect wallet to email
   static const String sendCode = 'ارسال کد';
 
+  // swap
+  static const String pay = 'پرداخت';
+  static const String swapFee = 'کارمزد تبادل';
+  static const String zero = '0';
+
+  // transfer
+  static const String chooseTypeOFSend = 'انتخاب نوع ارسال';
+  static const String onTheNetwork = 'روی شبکه';
+  static const String internalFree = 'داخلی(رایگان)';
+  static const String sendToAnotherWalletOrExchange = 'ارسال رمز ارز به سایر کیف پول یا صرافی ها';
+  static const String transferToDariwallWallerForOtherUser =
+      'ارسال رمز ارز به کیف پول داریوال بقیه کاربران';
+
   // home
   static const String receive = 'دریافت';
   static const String transfer = 'انتقال';
@@ -104,7 +119,7 @@ abstract class AppString {
   static const String areYouSureLogout = 'آیا مطمئنید می‌خواهید از حساب کاربری خود خارج شوید؟';
   static const String areYouSureLogoutContent =
       'با تایید این عمل از حساب کاربری خود خارج می‌شوید و باید برای ورود دوباره، رمز یا اطلاعات خود را وارد کنید. خارج می‌شوید؟';
-
+  static const String editUserName = 'ویرایش نام کاربری';
   // login
   static const String enterToWallet = 'ورود به کیف پول';
   static const String enterWithRecoveryPharse = 'ورود با استفاده از کدهای بازیابی';
@@ -334,6 +349,8 @@ abstract class AppString {
   static const String vote = 'رای دادن';
   static const String check = 'بررسی';
   static const String choose = 'انتخاب کنید';
+  static const String paymentCurrency = 'ارز پرداختی';
+  static const String reciveCurrency = 'ارز دریافتی';
   static const String usdt = 'USDT';
   static const String pending = 'در انتظار';
   static const String confirmed = 'تایید شده';

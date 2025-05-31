@@ -1,12 +1,14 @@
-
+import 'package:dariwall/core/extensions/decimal_format_extension.dart';
+import 'package:dariwall/core/extensions/to_short_wallet_address_extensions.dart';
+import 'package:dariwall/core/route/app_route_name.dart';
+import 'package:dariwall/features/transactions/domain/entity/transfer_transactions_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:dariwall/core/constant/app_color.dart';
 import 'package:dariwall/core/constant/app_dimens.dart';
 import 'package:dariwall/core/constant/app_icons.dart';
 import 'package:dariwall/core/constant/app_string.dart';
 import 'package:dariwall/core/utils/utils_cached_image.dart';
-import 'package:dariwall/features/transactions/domain/entity/deposit_transactions_entity.dart';
+import 'package:go_router/go_router.dart';
 
 class AppTransferTransactionItem extends StatelessWidget {
   const AppTransferTransactionItem({
@@ -14,7 +16,7 @@ class AppTransferTransactionItem extends StatelessWidget {
     required this.myTransactions,
   });
 
-  final DepositTransactionsEntity myTransactions;
+  final TransferTransactionsEntity myTransactions;
 
   @override
   Widget build(BuildContext context) {
@@ -22,90 +24,87 @@ class AppTransferTransactionItem extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.only(bottom: AppDimens.paddingSmall),
-      child: Container(
-        padding: EdgeInsets.all(AppDimens.paddingMedium),
-        decoration: BoxDecoration(
-          color: theme.cardTheme.color,
-          borderRadius: BorderRadius.circular(AppDimens.borderRadiusSmall),
-        ),
-        child: Row(
-          children: [
-            Stack(
+      child: Material(
+        color: theme.cardTheme.color,
+        borderRadius: BorderRadius.circular(AppDimens.borderRadiusLarge),
+        child: InkWell(
+          onTap: () {
+            context.pushNamed(
+              AppRouteName.detailsTransaction,
+              extra: myTransactions,
+            );
+          },
+          borderRadius: BorderRadius.circular(AppDimens.borderRadiusLarge),
+          child: Padding(
+            padding: EdgeInsets.all(AppDimens.paddingMedium),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                myTransactions.currencyInfo.currencyIcon != null
-                    ? AppCachedImage(
-                        imageUrl: myTransactions.currencyInfo.currencyIcon!,
-                        height: AppDimens.iconExtraLarge,
-                        width: AppDimens.iconExtraLarge,
-                        fit: BoxFit.contain,
-                      )
-                    : Image.asset(
-                        AppIcons.tomanIcon,
-                        height: AppDimens.iconExtraLarge,
-                        width: AppDimens.iconExtraLarge,
+                Stack(
+                  children: [
+                    myTransactions.currencyInfo.currencyIcon != null
+                        ? AppCachedImage(
+                            imageUrl: myTransactions.currencyInfo.currencyIcon!,
+                            height: AppDimens.iconExtraLarge,
+                            width: AppDimens.iconExtraLarge,
+                            fit: BoxFit.contain,
+                          )
+                        : Image.asset(
+                            AppIcons.tomanIcon,
+                            height: AppDimens.iconExtraLarge,
+                            width: AppDimens.iconExtraLarge,
+                            fit: BoxFit.contain,
+                          ),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      child: SvgPicture.asset(
+                        AppIcons.receiveTransaction,
+                        height: AppDimens.iconMedium,
+                        width: AppDimens.iconMedium,
                         fit: BoxFit.contain,
                       ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  child: SvgPicture.asset(
-                    AppIcons.receiveTransaction,
-                    height: AppDimens.iconMedium,
-                    width: AppDimens.iconMedium,
-                    fit: BoxFit.contain,
-                  ),
-                )
-              ],
-            ),
-            AppDimens.hSpaceVerySmall,
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                spacing: AppDimens.verySmall,
-                children: [
-                  Text(
-                    AppString.receive,
-                    style: theme.textTheme.titleSmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      'از کیف پول: FdpI...g9wQ',
-                      style: theme.textTheme.titleSmall!.copyWith(
-                        color: theme.colorScheme.onSurface,
+                    )
+                  ],
+                ),
+                AppDimens.hSpaceVerySmall,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: AppDimens.verySmall,
+                    children: [
+                      Text(
+                        AppString.transfer,
+                        style: theme.textTheme.titleSmall!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          '${AppString.toWallet} ${myTransactions.recipientAddress.toShortWalletAddress()}',
+                          style: theme.textTheme.titleSmall!.copyWith(
+                            color: theme.colorScheme.onSurface,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              spacing: AppDimens.verySmall,
-              children: [
+                ),
                 FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
-                    '${myTransactions.amount} ${myTransactions.currencyInfo.currencyEnName}',
+                    '${myTransactions.amount.toString().formatDecimal()} ${myTransactions.currencyInfo.currencyEnName}',
                     style: theme.textTheme.titleSmall!.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: AppColor.successColor,
+                      color: theme.colorScheme.error,
                     ),
                   ),
                 ),
-                Text(
-                  '-0.012 SOL',
-                  style: theme.textTheme.titleSmall!.copyWith(
-                    color: theme.colorScheme.error,
-                  ),
-                )
               ],
             ),
-          ],
+          ),
         ),
       ),
     );

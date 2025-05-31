@@ -7,12 +7,17 @@ class WithdrawDataSource {
 
   WithdrawDataSource({required this.apiClientService});
 
-  Future<void> withdraw({required double amount, required String currencyCode}) async {
+  Future<void> withdraw({
+    required double amount,
+    required String currencyCode,
+    required String? destinationAddress,
+  }) async {
     await apiClientService.post(
-      AppApi.withdraw,
+      AppApi.send,
       data: {
         AppKeys.keyAmount: amount,
         AppKeys.keyCurrencyCode: currencyCode,
+        AppKeys.destinationAddress: destinationAddress,
       },
     );
   }

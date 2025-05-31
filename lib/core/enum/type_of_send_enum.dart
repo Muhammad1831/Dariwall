@@ -1,0 +1,1 @@
+enum TypeOfSendEnum { sendOnNetwork, sendInternal }

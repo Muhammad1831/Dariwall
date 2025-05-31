@@ -16,6 +16,7 @@ abstract class AppRouteName {
   static const String buy = 'buy';
   static const String swap = 'swap';
   static const String send = 'send';
+  static const String sendTo = 'sendTo';
   static const String chooseToken = 'chooseToken';
   static const String receive = 'receive';
   static const String inviteFriends = 'inviteFriends';

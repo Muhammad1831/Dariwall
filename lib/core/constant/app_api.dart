@@ -57,10 +57,20 @@ class AppApi {
   static const String myTransactions = 'transactions/my-transactions/v2/';
 
   // withdraw
-  static const String withdraw = 'transactions/do-transaction/withdraw/';
+  static const String send = 'transactions/do-transaction/send/';
+
+  // transfer
+  static const String transfer = 'transactions/do-transaction/transfer/';
+
+  // swap
+  static const String swap = 'transactions/do-transaction/swap/';
 
   // calculate fee
   static const String calculateFee = 'transactions/do-transaction/calculate-fee/';
+
+  // calculate source target value
+  static const String calculateSourceTargetValue =
+      'transactions/do-transaction/calculate-source-target-value/';
 
   // currency price
   static const String currencyPrice = 'currencies/prices/';

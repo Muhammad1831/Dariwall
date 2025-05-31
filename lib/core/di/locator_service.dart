@@ -10,6 +10,16 @@ import 'package:dariwall/features/missions/presentation/provider/parax_provider/
 import 'package:dariwall/features/missions/presentation/provider/parax_provider/follow_parax_in_twitter_mission_provider.dart';
 import 'package:dariwall/features/missions/presentation/provider/parax_provider/like_parax_in_coinmarketcap_mission_provider.dart';
 import 'package:dariwall/features/missions/presentation/provider/parax_provider/retweet_parax_twitter_post_mission_provider.dart';
+import 'package:dariwall/features/send/data/datasource/transfer_data_source.dart';
+import 'package:dariwall/features/send/data/repository/transfer_repository_imp.dart';
+import 'package:dariwall/features/send/domain/repository/transfer_repository.dart';
+import 'package:dariwall/features/send/domain/usecase/transfer_usecase.dart';
+import 'package:dariwall/features/send/presentation/provider/transfer_provider.dart';
+import 'package:dariwall/features/swap/data/datasource/swap_data_source.dart';
+import 'package:dariwall/features/swap/data/repository/swap_repository_imp.dart';
+import 'package:dariwall/features/swap/domain/repository/swap_repository.dart';
+import 'package:dariwall/features/swap/domain/usecase/swap_usecase.dart';
+import 'package:dariwall/features/swap/presentation/provider/swap_provider.dart';
 import 'package:dariwall/features/user_account_info_edit/data/datasource/set_email_data_source.dart';
 import 'package:dariwall/features/user_account_info_edit/data/repository/set_email_repository_imp.dart';
 import 'package:dariwall/features/user_account_info_edit/domain/repository/set_email_repository.dart';
@@ -17,6 +27,16 @@ import 'package:dariwall/features/user_account_info_edit/domain/usecase/set_emai
 import 'package:dariwall/features/user_account_info_edit/domain/usecase/verify_email_usecase.dart';
 import 'package:dariwall/features/user_account_info_edit/presentation/provider/set_email_provider.dart';
 import 'package:dariwall/features/user_account_info_edit/presentation/provider/verify_email_provider.dart';
+import 'package:dariwall/global_provider/data/datasource/calculate_fee_data_source.dart';
+import 'package:dariwall/global_provider/data/datasource/calculate_source_target_value_data_source.dart';
+import 'package:dariwall/global_provider/data/repository/calculate_fee_repository_imp.dart';
+import 'package:dariwall/global_provider/data/repository/calculate_source_target_value_repository_imp.dart';
+import 'package:dariwall/global_provider/domain/repository/calculate_fee_repository.dart';
+import 'package:dariwall/global_provider/domain/repository/calculate_source_target_value_repository.dart';
+import 'package:dariwall/global_provider/domain/usecase/calculate_fee_usecase.dart';
+import 'package:dariwall/global_provider/domain/usecase/calculate_source_target_value_usecase.dart';
+import 'package:dariwall/global_provider/providers/calculate_fee_provider.dart';
+import 'package:dariwall/global_provider/providers/calculate_source_target_value_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dariwall/features/connet_wallet_to_email/data/datasource/connect_wallet_email_datasource.dart';
@@ -284,8 +304,39 @@ class LocatorService {
             paraxMissionRepository: getIt<ParaxMissionRepository>()));
     getIt.registerFactory<CheckJoinParaxTelegramChannelProvider>(() =>
         CheckJoinParaxTelegramChannelProvider(
-            checkJoinParaxTelegramChannelUsecase:
-                getIt<CheckJoinParaxTelegramChannelUsecase>()));
+            checkJoinParaxTelegramChannelUsecase: getIt<CheckJoinParaxTelegramChannelUsecase>()));
+
+    // calculate fee
+    getIt.registerLazySingleton<CalculateFeeDataSource>(
+        () => CalculateFeeDataSource(apiClientService: getIt<ApiClientService>()));
+    getIt.registerLazySingleton<CalculateFeeRepository>(
+        () => CalculateFeeRepositoryImp(calculateFeeDataSource: getIt<CalculateFeeDataSource>()));
+    getIt.registerLazySingleton<CalculateFeeUsecase>(
+        () => CalculateFeeUsecase(calculateFeeRepository: getIt<CalculateFeeRepository>()));
+    getIt.registerFactory<CalculateFeeProvider>(
+        () => CalculateFeeProvider(calculateFeeUsecase: getIt<CalculateFeeUsecase>()));
+
+    // calculate source target value
+    getIt.registerLazySingleton<CalculateSourceTargetValueDataSource>(
+        () => CalculateSourceTargetValueDataSource(apiClientService: getIt<ApiClientService>()));
+    getIt.registerLazySingleton<CalculateSourceTargetValueRepository>(() =>
+        CalculateSourceTargetValueRepositoryImp(
+            calculateSourceTargetValueDataSource: getIt<CalculateSourceTargetValueDataSource>()));
+    getIt.registerLazySingleton<CalculateSourceTargetValueUsecase>(() =>
+        CalculateSourceTargetValueUsecase(
+            calculateSourceTargetValueRepository: getIt<CalculateSourceTargetValueRepository>()));
+    getIt.registerFactory<CalculateSourceTargetValueProvider>(() =>
+        CalculateSourceTargetValueProvider(
+            calculateSourceTargetValueUsecase: getIt<CalculateSourceTargetValueUsecase>()));
+
+    // swap
+    getIt.registerLazySingleton<SwapDataSource>(
+        () => SwapDataSource(apiClientService: getIt<ApiClientService>()));
+    getIt.registerLazySingleton<SwapRepository>(
+        () => SwapRepositoryImp(swapDataSource: getIt<SwapDataSource>()));
+    getIt.registerLazySingleton<SwapUsecase>(
+        () => SwapUsecase(swapRepository: getIt<SwapRepository>()));
+    getIt.registerFactory<SwapProvider>(() => SwapProvider(swapUsecase: getIt<SwapUsecase>()));
 
     // home
     getIt.registerLazySingleton<MyBalancesDatasource>(
@@ -344,7 +395,7 @@ class LocatorService {
         UserAccountInfoEditProvider(changeUserAccountUsecase: getIt<ChangeUserAccountUsecase>()));
 
     // change user name
-    getIt.registerFactory<ChangeUserAccountNameProvider>(() =>
+    getIt.registerLazySingleton<ChangeUserAccountNameProvider>(() =>
         ChangeUserAccountNameProvider(changeUserAccountUsecase: getIt<ChangeUserAccountUsecase>()));
 
     // gift code
@@ -417,6 +468,20 @@ class LocatorService {
       () => WithdrawProvider(withdrawUsecase: getIt<WithdrawUsecase>()),
     );
 
+    // transfer
+    getIt.registerLazySingleton<TransferDataSource>(
+      () => TransferDataSource(apiClientService: getIt<ApiClientService>()),
+    );
+    getIt.registerLazySingleton<TransferRepository>(
+      () => TransferRepositoryImp(transferDataSource: getIt<TransferDataSource>()),
+    );
+    getIt.registerLazySingleton<TransferUsecase>(
+      () => TransferUsecase(transferRepository: getIt<TransferRepository>()),
+    );
+    getIt.registerFactory<TransferProvider>(
+      () => TransferProvider(transferUsecase: getIt<TransferUsecase>()),
+    );
+
     // set email
     getIt.registerLazySingleton<SetEmailDataSource>(
       () => SetEmailDataSource(apiClientService: getIt<ApiClientService>()),
@@ -443,9 +508,10 @@ class LocatorService {
     getIt<TransactionsProvider>().reset();
     getIt<CurrencyPricesProvider>().reset();
     getIt<GetUserAccountInfoProvider>().reset();
-    // getIt<Dio>().close(force: true);
     getIt<UtilsSharedPreferences>().clear();
+    getIt<Dio>().close();
     await getIt.reset();
+
     init();
   }
 }

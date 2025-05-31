@@ -17,7 +17,6 @@ class SwapTransactionsModel extends SwapTransactionsEntity {
     required super.targetAmount,
     required super.finalTargetAmount,
     required super.account,
-    required super.destinationAddress,
   });
 
   factory SwapTransactionsModel.fromJson(Map<String, dynamic> json) {
@@ -35,7 +34,6 @@ class SwapTransactionsModel extends SwapTransactionsEntity {
       targetAmount: (json[AppKeys.keyTargetAmount] as num).toDouble(),
       finalTargetAmount: (json[AppKeys.keyFinalTargetAmount] as num).toDouble(),
       account: json[AppKeys.keyAccount],
-      destinationAddress: json[AppKeys.keyDestinationAddress],
     );
   }
 

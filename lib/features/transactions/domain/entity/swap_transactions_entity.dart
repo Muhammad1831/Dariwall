@@ -8,7 +8,6 @@ class SwapTransactionsEntity extends BaseTransactionEntity {
   final double targetAmount;
   final double finalTargetAmount;
   final int account;
-  final String destinationAddress;
 
   SwapTransactionsEntity({
     required super.transactionType,
@@ -24,6 +23,5 @@ class SwapTransactionsEntity extends BaseTransactionEntity {
     required this.targetAmount,
     required this.finalTargetAmount,
     required this.account,
-    required this.destinationAddress,
   });
 }

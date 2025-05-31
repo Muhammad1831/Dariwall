@@ -1,4 +1,6 @@
 import 'package:dariwall/core/widgets/app_shadow_background.dart';
+import 'package:dariwall/features/transactions/domain/entity/swap_transactions_entity.dart';
+import 'package:dariwall/features/transactions/domain/entity/transfer_transactions_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:dariwall/core/constant/app_dimens.dart';
 import 'package:dariwall/core/constant/app_images.dart';
@@ -152,7 +154,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
                                     return AppSwapTransactionItem(
                                       myTransactions: provider
                                           .mytransactions[transactionsInSameDateIndex]
-                                          .transactions[index] as DepositTransactionsEntity,
+                                          .transactions[index] as SwapTransactionsEntity,
                                     );
                                   }
                                   // transfer
@@ -162,7 +164,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
                                     return AppTransferTransactionItem(
                                       myTransactions: provider
                                           .mytransactions[transactionsInSameDateIndex]
-                                          .transactions[index] as DepositTransactionsEntity,
+                                          .transactions[index] as TransferTransactionsEntity,
                                     );
                                   }
                                   return null;

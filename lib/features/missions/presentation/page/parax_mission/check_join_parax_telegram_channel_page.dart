@@ -97,6 +97,7 @@ class CheckJoinParaxTelegramChannelPage extends StatelessWidget {
                     ],
                   ),
                   AppDimens.vSpaceSmall,
+                  Spacer(),
                   Selector<CheckJoinParaxTelegramChannelProvider,
                       CheckJoinParaxTelegramChannelStatus>(
                     selector: (context, checkJoinParaxTelegramChannelProvider) =>

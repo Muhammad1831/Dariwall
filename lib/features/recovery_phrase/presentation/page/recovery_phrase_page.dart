@@ -186,7 +186,7 @@ class _RecoveryPhrasePageState extends State<RecoveryPhrasePage> {
                   text: AppString.connectWalletToEmail,
                   onTap: () {
                     if (isWrotePasswords) {
-                      context.pushNamed(AppRouteName.connectWalletToEmail);
+                      context.goNamed(AppRouteName.connectWalletToEmail);
                     }
                   },
                   bgColor: Colors.transparent,

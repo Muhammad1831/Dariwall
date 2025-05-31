@@ -1,3 +1,4 @@
+import 'package:dariwall/core/enum/type_of_send_enum.dart';
 import 'package:dariwall/core/widgets/app_shadow_background.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -173,7 +174,14 @@ class _HomePageState extends State<HomePage> {
                                   title: AppString.swap,
                                 ),
                                 ActionItem(
-                                  onTap: () => context.pushNamed(AppRouteName.chooseToken),
+                                  onTap: () => showModalBottomSheet(
+                                    context: context,
+                                    useRootNavigator: true,
+                                    isScrollControlled: true,
+                                    builder: (context) {
+                                      return ChooseTypeOfSendModalBottomSheet();
+                                    },
+                                  ),
                                   icon: AppIcons.send,
                                   title: AppString.send,
                                 ),
@@ -218,6 +226,145 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class ChooseTypeOfSendModalBottomSheet extends StatelessWidget {
+  const ChooseTypeOfSendModalBottomSheet({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: theme.scaffoldBackgroundColor,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(AppDimens.borderRadiusLarge)),
+      ),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+          AppDimens.paddingLarge,
+          AppDimens.paddingLarge,
+          AppDimens.paddingLarge,
+          AppDimens.paddingExtraLarge,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  AppString.chooseTypeOFSend,
+                  style: theme.textTheme.displaySmall!.copyWith(fontWeight: FontWeight.bold),
+                ),
+                IconButton(
+                  onPressed: () {
+                    context.pop();
+                  },
+                  icon: Icon(Icons.close),
+                ),
+              ],
+            ),
+            AppDimens.vSpaceMedium,
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  context.pop();
+                  context.pushNamed(
+                    AppRouteName.chooseToken,
+                    extra: TypeOfSendEnum.sendOnNetwork,
+                  );
+                },
+                borderRadius: BorderRadius.circular(AppDimens.borderRadiusMedium),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(AppDimens.borderRadiusMedium),
+                    border: Border.all(color: theme.disabledColor),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(AppDimens.paddingMedium),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              AppIcons.walletArrowUp,
+                              fit: BoxFit.contain,
+                            ),
+                            AppDimens.hSpaceSmall,
+                            Text(
+                              AppString.onTheNetwork,
+                              style:
+                                  theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        AppDimens.vSpaceSmall,
+                        Text(
+                          AppString.sendToAnotherWalletOrExchange,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            AppDimens.vSpaceMedium,
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  context.pop();
+                  context.pushNamed(
+                    AppRouteName.chooseToken,
+                    extra: TypeOfSendEnum.sendInternal,
+                  );
+                },
+                borderRadius: BorderRadius.circular(AppDimens.borderRadiusMedium),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(AppDimens.borderRadiusMedium),
+                    border: Border.all(color: theme.disabledColor),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(AppDimens.paddingMedium),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              AppIcons.community,
+                              fit: BoxFit.contain,
+                            ),
+                            AppDimens.hSpaceSmall,
+                            Text(
+                              AppString.internalFree,
+                              style:
+                                  theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        AppDimens.vSpaceSmall,
+                        Text(
+                          AppString.transferToDariwallWallerForOtherUser,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

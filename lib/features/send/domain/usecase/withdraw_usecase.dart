@@ -8,7 +8,10 @@ class WithdrawUsecase {
   WithdrawUsecase({required this.withdrawRepository});
 
   Future<Either<AppException, void>> call(
-      {required double amount, required String currencyCode}) async {
-    return await withdrawRepository.withdraw(amount: amount, currencyCode: currencyCode);
+      {required double amount,
+      required String currencyCode,
+      required String? destinationAddress}) async {
+    return await withdrawRepository.withdraw(
+        amount: amount, currencyCode: currencyCode, destinationAddress: destinationAddress);
   }
 }

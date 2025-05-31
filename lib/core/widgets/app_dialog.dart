@@ -10,7 +10,7 @@ class AppDialog extends StatelessWidget {
   const AppDialog({
     super.key,
     required this.title,
-    required this.content,
+    this.content,
     required this.confirmAction,
     this.isLoading = false,
     this.iconColor,
@@ -23,7 +23,7 @@ class AppDialog extends StatelessWidget {
   });
 
   final String title;
-  final String content;
+  final String? content;
   final Color? iconColor;
   final IconData? icon;
   final VoidCallback confirmAction;
@@ -65,13 +65,16 @@ class AppDialog extends StatelessWidget {
                 ),
               ],
             ),
-            AppDimens.vSpaceMedium,
             // content
-            Text(
-              content,
-              style: theme.dialogTheme.contentTextStyle,
-              textAlign: TextAlign.center,
-            ),
+            if (content != null)
+              Padding(
+                padding: EdgeInsets.only(top: AppDimens.paddingLarge),
+                child: Text(
+                  content!,
+                  style: theme.dialogTheme.contentTextStyle,
+                  textAlign: TextAlign.center,
+                ),
+              ),
             // child
             if (child != null)
               Padding(

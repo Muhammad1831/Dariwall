@@ -1,9 +1,11 @@
+import 'package:dariwall/core/enum/type_of_send_enum.dart';
 import 'package:dariwall/features/missions/data/model/mission_model.dart';
 import 'package:dariwall/features/missions/presentation/page/parax_mission/check_join_parax_telegram_channel_page.dart';
 import 'package:dariwall/features/missions/presentation/page/parax_mission/follow_parax_in_twitter_page.dart';
 import 'package:dariwall/features/missions/presentation/page/parax_mission/like_parax_in_coinmarketcap_page.dart';
 import 'package:dariwall/features/missions/presentation/page/parax_mission/like_parax_twitter_post_page.dart';
 import 'package:dariwall/features/missions/presentation/page/parax_mission/retweet_parax_twitter_post_page.dart';
+import 'package:dariwall/features/send/presentation/page/send_to_page.dart';
 import 'package:dariwall/features/transactions/domain/entity/base_transactions_entity.dart';
 import 'package:dariwall/features/transactions/presentation/page/details_transaction_page.dart';
 import 'package:flutter/material.dart';
@@ -336,14 +338,37 @@ class AppRouteing {
       GoRoute(
         name: AppRouteName.send,
         path: AppRoutePath.send,
-        builder: (context, state) => SendPage(
-          balance: state.extra as BalancesEntity,
-        ),
+        builder: (context, state) {
+          final extraData = state.extra as Map<String, dynamic>;
+          final BalancesEntity balance = extraData['balance'];
+          final TypeOfSendEnum typeOfSend = extraData['typeOfSend'];
+          final String? walletAddress = extraData['walletAddress'];
+          return SendPage(
+            balance: balance,
+            typeOfSend: typeOfSend,
+            walletAddress: walletAddress,
+          );
+        },
+      ),
+      GoRoute(
+        name: AppRouteName.sendTo,
+        path: AppRoutePath.sendTo,
+        builder: (context, state) {
+          final extraData = state.extra as Map<String, dynamic>;
+          final BalancesEntity balance = extraData['balance'];
+          final TypeOfSendEnum typeOfSend = extraData['typeOfSend'];
+          return SendToPage(
+            balance: balance,
+            typeOfSend: typeOfSend,
+          );
+        },
       ),
       GoRoute(
         name: AppRouteName.chooseToken,
         path: AppRoutePath.chooseToken,
-        builder: (context, state) => ChooseTokenPage(),
+        builder: (context, state) {
+          return ChooseTokenPage(typeOfSend: state.extra as TypeOfSendEnum);
+        },
       ),
       GoRoute(
         name: AppRouteName.summary,

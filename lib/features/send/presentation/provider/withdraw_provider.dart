@@ -21,11 +21,12 @@ class WithdrawProvider extends ChangeNotifier {
   WithdrawStatus _status = WithdrawStatus.initial;
   WithdrawStatus get status => _status;
 
-  void withdraw(double amount, String currencyCode) async {
+  Future<void> withdraw(double amount, String currencyCode, String? destinationAddress) async {
     _status = WithdrawStatus.loading;
     notifyListeners();
 
-    final result = await withdrawUsecase.call(amount: amount, currencyCode: currencyCode);
+    final result = await withdrawUsecase.call(
+        amount: amount, currencyCode: currencyCode, destinationAddress: destinationAddress);
     result.fold(
       (l) {
         SnackBarService.show(
@@ -35,7 +36,7 @@ class WithdrawProvider extends ChangeNotifier {
         _status = WithdrawStatus.error;
         notifyListeners();
       },
-      (r) async{
+      (r) async {
         SnackBarService.show(
           status: SnackBarStatus.success,
           message: AppMessage.sendSuccess,

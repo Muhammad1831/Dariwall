@@ -1,3 +1,4 @@
+import 'package:dariwall/core/extensions/decimal_format_extension.dart';
 import 'package:dariwall/core/route/app_route_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -109,7 +110,7 @@ class AppWithdrawTransactionItem extends StatelessWidget {
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        ' ${myTransactions.amount}-',
+                        ' ${myTransactions.amount.toString().formatDecimal()}-',
                         style: theme.textTheme.titleSmall!.copyWith(
                           fontWeight: FontWeight.bold,
                           color: AppColor.errorColor,

@@ -6,7 +6,7 @@ abstract class AppKeys {
   static const String keyAccess = 'access';
   static const String keyRefresh = 'refresh';
   static const String keyRetry = 'retry';
-  
+
   static const String keyFirstName = 'firstName';
   static const String keyLastName = 'lastName';
   static const String keyPhoneNumber = 'phoneNumber';
@@ -42,6 +42,7 @@ abstract class AppKeys {
   static const String keyDescription = 'description';
   static const String keyCurrencyInfo = 'currencyInfo';
   static const String keyAmount = 'amount';
+  static const String keyAmountUSDT = 'amountUSDT';
   static const String keyMission = 'mission';
   static const String keyCurrencyCode = 'currencyCode';
   static const String keyCurrencyEnName = 'currencyEnName';
@@ -71,20 +72,30 @@ abstract class AppKeys {
   static const String keyCreatedDay = 'createdDay';
   static const String keyUpdatedAt = 'updatedAt';
   static const String keyFee = 'fee';
+  static const String keyFeeUSDT = 'feeUSDT';
   static const String keySourceCurrencyInfo = 'sourceCurrencyInfo';
   static const String keyTargetCurrencyInfo = 'targetCurrencyInfo';
   static const String keySourceAmount = 'sourceAmount';
+  static const String keySourceCurrencyCode = 'sourceCurrencyCode';
+  static const String keyTargetCurrencyCode = 'targetCurrencyCode';
   static const String keySource = 'source';
   static const String keyTargetAmount = 'targetAmount';
   static const String keyFinalTargetAmount = 'finalTargetAmount';
   static const String keyAccount = 'account';
-  static const String keySender = 'sender';
-  static const String keyRecipient = 'recipient';
+  static const String keySenderAddress = 'senderAddress';
+  static const String keyRecipientAddress = 'recipientAddress';
   static const String keyFinalAmount = 'finalAmount';
+  static const String keyFinalAmountUSDT = 'finalAmountUSDT';
   static const String keyTransactions = 'transactions';
   static const String keyTransactionDate = 'transactionDate';
   static const String keyTransactionDay = 'transactionDay';
   static const String keyPrice = 'price';
   static const String keyDestinationAddress = 'destinationAddress';
   static const String keySourceAddress = 'sourceAddress';
+  static const String keyTargetAmountUSDT = 'targetAmountUSDT';
+
+  static const String link = 'link';
+  static const String joined = 'joined';
+
+  static const String destinationAddress = 'destinationAddress';
 }

@@ -57,6 +57,8 @@ abstract class AppMessage {
   static const String solanaWalletAddressIsNotSet = 'آدرس کیف پول سولانا تنظیم نشده است';
   static const String sendSuccess = 'ارسال با موفقیت انجام شد';
   static const String amountMustBeGreaterThanZero = 'مبلغ باید بیشتر از صفر باشد';
+  static const String amountIsNotEnough = 'موجودی شما کافی نیست';
+  static const String transferSuccess = 'انتقال داخلی با موفقیت انجام شد';
 
   // refresh
   static const String pullToRefresh = 'برای بروزرسانی بکشید';
@@ -66,4 +68,7 @@ abstract class AppMessage {
 
   // image picker
   static const String pickImageError = 'خطا در انتخاب تصویر';
+
+  // swap
+  static const String swapDoneSuccessfuly = 'تبادل با موفقیت انجام شد';
 }

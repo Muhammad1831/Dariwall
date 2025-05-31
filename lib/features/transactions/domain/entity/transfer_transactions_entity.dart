@@ -2,8 +2,8 @@ import 'package:dariwall/core/global_entity/currency_info_entity.dart';
 import 'package:dariwall/features/transactions/domain/entity/base_transactions_entity.dart';
 
 class TransferTransactionsEntity extends BaseTransactionEntity {
-  final int sender;
-  final int recipient;
+  final String senderAddress;
+  final String recipientAddress;
   final CurrencyInfoEntity currencyInfo;
   final double amount;
   final double finalAmount;
@@ -16,8 +16,8 @@ class TransferTransactionsEntity extends BaseTransactionEntity {
     required super.updatedAt,
     required super.fee,
     super.description,
-    required this.sender,
-    required this.recipient,
+    required this.senderAddress,
+    required this.recipientAddress,
     required this.currencyInfo,
     required this.amount,
     required this.finalAmount,

@@ -4,6 +4,7 @@ import 'package:dariwall/core/constant/app_icons.dart';
 import 'package:dariwall/core/constant/app_string.dart';
 import 'package:dariwall/core/enum/transactions_status_enum.dart';
 import 'package:dariwall/core/enum/transactions_type_enum.dart';
+import 'package:dariwall/core/extensions/decimal_format_extension.dart';
 import 'package:dariwall/core/extensions/index_plus_one_extension.dart';
 import 'package:dariwall/core/extensions/jalali_date_extension.dart';
 import 'package:dariwall/core/extensions/to_short_wallet_address_extensions.dart';
@@ -36,28 +37,31 @@ class DetailsTransactionPage extends StatelessWidget {
     return '';
   }
 
-  String getImageUrl() {
+  List<String> getImageUrl() {
     if (transaction is DepositTransactionsEntity) {
-      return (transaction as DepositTransactionsEntity).currencyInfo.currencyIcon!;
+      return [(transaction as DepositTransactionsEntity).currencyInfo.currencyIcon!];
     }
     if (transaction is SwapTransactionsEntity) {
-      return (transaction as SwapTransactionsEntity).sourceCurrencyInfo.currencyIcon!;
+      return [
+        (transaction as SwapTransactionsEntity).sourceCurrencyInfo.currencyIcon!,
+        (transaction as SwapTransactionsEntity).targetCurrencyInfo.currencyIcon!
+      ];
     }
     if (transaction is TransferTransactionsEntity) {
-      return (transaction as TransferTransactionsEntity).currencyInfo.currencyIcon!;
+      return [(transaction as TransferTransactionsEntity).currencyInfo.currencyIcon!];
     }
     if (transaction is WithdrawalsTransactionsEntity) {
-      return (transaction as WithdrawalsTransactionsEntity).currencyInfo.currencyIcon!;
+      return [(transaction as WithdrawalsTransactionsEntity).currencyInfo.currencyIcon!];
     }
-    return AppIcons.tomanIcon;
+    return [AppIcons.tomanIcon];
   }
 
-  String getTransactionTypeImage() {
+  String? getTransactionTypeImage() {
     if (transaction is DepositTransactionsEntity) {
       return AppIcons.receiveTransaction;
     }
     if (transaction is SwapTransactionsEntity) {
-      return (transaction as SwapTransactionsEntity).targetCurrencyInfo.currencyIcon!;
+      return null;
     }
     if (transaction is TransferTransactionsEntity) {
       return AppIcons.sendTransaction;
@@ -70,16 +74,16 @@ class DetailsTransactionPage extends StatelessWidget {
 
   String getTransactionAmount() {
     if (transaction is DepositTransactionsEntity) {
-      return '${(transaction as DepositTransactionsEntity).amount} ${(transaction as DepositTransactionsEntity).currencyInfo.currencyEnName}';
+      return '${(transaction as DepositTransactionsEntity).amount.toString().formatDecimal()} ${(transaction as DepositTransactionsEntity).currencyInfo.currencyEnName}';
     }
     if (transaction is SwapTransactionsEntity) {
-      return '${(transaction as SwapTransactionsEntity).sourceAmount} ${(transaction as SwapTransactionsEntity).sourceCurrencyInfo.currencyEnName}';
+      return '${(transaction as SwapTransactionsEntity).sourceAmount.toString().formatDecimal()} ${(transaction as SwapTransactionsEntity).sourceCurrencyInfo.currencyEnName}';
     }
     if (transaction is TransferTransactionsEntity) {
-      return '${(transaction as TransferTransactionsEntity).amount} ${(transaction as TransferTransactionsEntity).currencyInfo.currencyEnName}';
+      return '${(transaction as TransferTransactionsEntity).amount.toString().formatDecimal()} ${(transaction as TransferTransactionsEntity).currencyInfo.currencyEnName}';
     }
     if (transaction is WithdrawalsTransactionsEntity) {
-      return '${(transaction as WithdrawalsTransactionsEntity).amount} ${(transaction as WithdrawalsTransactionsEntity).currencyInfo.currencyEnName}';
+      return '${(transaction as WithdrawalsTransactionsEntity).amount.toString().formatDecimal()} ${(transaction as WithdrawalsTransactionsEntity).currencyInfo.currencyEnName}';
     }
     return '';
   }
@@ -129,26 +133,56 @@ class DetailsTransactionPage extends StatelessWidget {
               children: [
                 AppHeader(headerText: getHeaderText()),
                 AppDimens.vSpaceExtraLarge,
-                Stack(
-                  children: [
-                    AppCachedImage(
-                      imageUrl: getImageUrl(),
-                      height: size.width * 0.25,
-                      width: size.width * 0.25,
-                      fit: BoxFit.contain,
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: SvgPicture.asset(
-                        getTransactionTypeImage(),
-                        height: AppDimens.iconVeryLarge,
-                        width: AppDimens.iconVeryLarge,
-                        fit: BoxFit.contain,
+                getTransactionTypeImage() != null
+                    ? Stack(
+                        children: [
+                          AppCachedImage(
+                            imageUrl: getImageUrl().first,
+                            height: size.width * 0.25,
+                            width: size.width * 0.25,
+                            fit: BoxFit.contain,
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: SvgPicture.asset(
+                              getTransactionTypeImage()!,
+                              height: AppDimens.iconVeryLarge,
+                              width: AppDimens.iconVeryLarge,
+                              fit: BoxFit.contain,
+                            ),
+                          )
+                        ],
+                      )
+                    : SizedBox(
+                        height: size.width * 0.25,
+                        width: size.width * 0.25,
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            Positioned(
+                              bottom: 15,
+                              right: 15,
+                              child: AppCachedImage(
+                                imageUrl: getImageUrl().first,
+                                height: size.width * 0.20,
+                                width: size.width * 0.20,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                            Positioned(
+                              bottom: -15,
+                              right: -15,
+                              child: AppCachedImage(
+                                imageUrl: getImageUrl().last,
+                                width: size.width * 0.20,
+                                height: size.width * 0.20,
+                                fit: BoxFit.contain,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    )
-                  ],
-                ),
                 AppDimens.vSpaceLarge,
                 Text(
                   getTransactionAmount(),
@@ -221,7 +255,7 @@ class DetailsTransactionPage extends StatelessWidget {
                 // fee of transaction
                 DetailsTransactionItem(
                   title: AppString.fee,
-                  value: transaction.fee.toString(),
+                  value: transaction.fee.toString().formatDecimal(),
                   borderRadiusBottom: AppDimens.borderRadiusLarge,
                 ),
               ],

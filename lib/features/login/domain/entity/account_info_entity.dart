@@ -1,3 +1,5 @@
+import 'package:dariwall/core/constant/app_keys.dart';
+
 class AccountInfoEntity {
   const AccountInfoEntity({
     this.referralCode,
@@ -7,7 +9,7 @@ class AccountInfoEntity {
     this.accountImage,
     this.dateJoined,
     this.lastLogin,
-    this.telegramConnectionLink,
+    // this.telegramConnectionLink,
   });
 
   final String? referralCode;
@@ -17,5 +19,19 @@ class AccountInfoEntity {
   final String? accountImage;
   final String? dateJoined;
   final String? lastLogin;
-  final String? telegramConnectionLink;
+  // final TelegramConnectionLink? telegramConnectionLink;
+}
+
+class TelegramConnectionLink {
+  final String link;
+  final bool joined;
+
+  TelegramConnectionLink({required this.link, required this.joined});
+
+  factory TelegramConnectionLink.fromJson(dynamic json) {
+    return TelegramConnectionLink(
+      link: json[AppKeys.link],
+      joined: json[AppKeys.joined],
+    );
+  }
 }

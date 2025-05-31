@@ -8,14 +8,14 @@ class ConnectWalletEmailDatasource {
   ConnectWalletEmailDatasource({required this.apiClientService});
   Future<void> sendEmailOtp({required String email}) async {
     await apiClientService.post(
-      AppApi.loginViaEmail,
+      AppApi.setEmail,
       data: {AppKeys.keyEmail: email},
     );
   }
 
   Future<void> verifyEmailCode({required String email, required String code}) async {
     await apiClientService.post(
-      AppApi.verifyEmailCode,
+      AppApi.verifyEmail,
       data: {
         AppKeys.keyEmail: email,
         AppKeys.keyCode: code,

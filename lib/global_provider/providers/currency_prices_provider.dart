@@ -47,9 +47,10 @@ class CurrencyPricesProvider extends ChangeNotifier {
     final response = await currencyPricesUsecase.call(currencyCode);
 
     response.fold((left) {
-      return _state = CurrencyPricesState.error;
+      _state = CurrencyPricesState.error;
     }, (r) {
-      return _currencyPrice = r.first;
+      _state = CurrencyPricesState.success;
+      _currencyPrice = r.first;
     });
 
     notifyListeners();

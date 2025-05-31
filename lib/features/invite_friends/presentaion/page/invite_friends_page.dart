@@ -94,7 +94,7 @@ class InviteFriendsPage extends StatelessWidget {
                                     children: [
                                       Text(AppString.inviteGift),
                                       Text(
-                                        '${inviteFriends?.totalReward.toString() ?? '0'} \$',
+                                        '${inviteFriends?.nextInviteRewardUSDT ?? '0'} USDT',
                                         style: theme.textTheme.bodyMedium!.copyWith(
                                           color: AppColor.warningColor,
                                           fontWeight: FontWeight.bold,
