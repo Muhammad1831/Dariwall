@@ -454,11 +454,11 @@ class ActionItem extends StatelessWidget {
         gradient: AppColor.strokeGradient,
         child: DecoratedBox(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: AppColor.glassBoxColors,
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-            ),
+            // gradient: LinearGradient(
+            //   colors: AppColor.glassBoxColors,
+            //   begin: Alignment.bottomCenter,
+            //   end: Alignment.topCenter,
+            // ),
             borderRadius: BorderRadius.circular(AppDimens.borderRadiusLarge),
           ),
           child: Padding(

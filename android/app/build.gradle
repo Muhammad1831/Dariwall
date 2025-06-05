@@ -38,15 +38,15 @@ android {
         }
     }
 
-    // flavorDimensions "devdariwall"
-    // productFlavors {
-    //     devdariwall {
-    //         dimension "devdariwall"
-    //         versionName "1.0.0"          
-    //         applicationIdSuffix ".devdariwall"
-    //         versionCode 1
-    //     }
-    // }
+    flavorDimensions "devdariwall"
+    productFlavors {
+        devdariwall {
+            dimension "devdariwall"
+            versionName "1.0.0"          
+            applicationIdSuffix ".devdariwall"
+            versionCode 1
+        }
+    }
 }
 
 flutter {

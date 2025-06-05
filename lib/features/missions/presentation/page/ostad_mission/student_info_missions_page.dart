@@ -84,7 +84,6 @@ class _StudentInfoMissionsPageState extends State<StudentInfoMissionsPage> {
                     controller: _fullName,
                     title: AppString.name,
                     hintText: AppString.enterYourName,
-                    textInputAction: TextInputAction.next,
                     validationType: ValidationType.notEmpty,
                   ),
                   AppDimens.vSpaceMedium,
@@ -94,7 +93,6 @@ class _StudentInfoMissionsPageState extends State<StudentInfoMissionsPage> {
                     title: AppString.studentNumber,
                     hintText: AppString.enterStudentNumber,
                     validationType: ValidationType.notEmpty,
-                    textInputAction: TextInputAction.next,
                   ),
                   AppDimens.vSpaceMedium,
                   // phone number textformfield
@@ -103,7 +101,6 @@ class _StudentInfoMissionsPageState extends State<StudentInfoMissionsPage> {
                     title: AppString.phoneNumberHaveTelegram,
                     hintText: AppString.enterPhoneNumberHaveTelegram,
                     validationType: ValidationType.phoneNumber,
-                    textInputAction: TextInputAction.next,
                   ),
                   AppDimens.vSpaceMedium,
                   // university name textformfield

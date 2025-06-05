@@ -1,4 +1,5 @@
 import 'package:dariwall/features/missions/data/model/mission_model.dart';
+import 'package:dariwall/features/missions/presentation/provider/parax_provider/like_parax_twitter_post_mission_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +16,6 @@ import 'package:dariwall/core/utils/utils_launch_url.dart';
 import 'package:dariwall/core/widgets/app_button.dart';
 import 'package:dariwall/core/widgets/app_header.dart';
 import 'package:dariwall/core/widgets/app_warning_tip.dart';
-import 'package:dariwall/features/missions/presentation/provider/ostad_provider/like_twitter_mission_provider.dart';
 import 'package:dariwall/features/missions/presentation/widgets/icon_between_text.dart';
 import 'package:dariwall/features/missions/presentation/widgets/steps_title.dart';
 import 'package:dariwall/features/missions/presentation/widgets/upload_image.dart';
@@ -34,7 +34,7 @@ class LikeParaxTwitterPostPage extends StatelessWidget {
           create: (context) => getIt<UtilsImagePickerProvider>(),
         ),
         ChangeNotifierProvider(
-          create: (context) => getIt<LikeTwitterMissionProvider>(),
+          create: (context) => getIt<LikeParaxTwitterMissionProvider>(),
         )
       ],
       child: SafeArea(
@@ -122,29 +122,34 @@ class LikeParaxTwitterPostPage extends StatelessWidget {
                   ),
                   AppDimens.vSpaceSmall,
                   // send button
-                  Selector2<LikeTwitterMissionProvider, UtilsImagePickerProvider,
-                      (LikeTwitterMissionStatus, MultipartFile?)>(
-                    selector: (context, likeTwitterMissionProvider, utilsImagePickerProvider) =>
-                        (likeTwitterMissionProvider.status, utilsImagePickerProvider.imageFile),
+                  Selector2<LikeParaxTwitterMissionProvider, UtilsImagePickerProvider,
+                      (LikeParaxTwitterPostMissionStatus, MultipartFile?)>(
+                    selector:
+                        (context, likeParaxTwitterMissionProvider, utilsImagePickerProvider) => (
+                      likeParaxTwitterMissionProvider.status,
+                      utilsImagePickerProvider.imageFile
+                    ),
                     builder: (context, value, child) {
-                      final likeTwitterMissionProvider = context.read<LikeTwitterMissionProvider>();
+                      final likeParaxTwitterMissionProvider =
+                          context.read<LikeParaxTwitterMissionProvider>();
                       final imageProvider = context.read<UtilsImagePickerProvider>();
 
-                      if (LikeTwitterMissionStatus.success == likeTwitterMissionProvider.status) {
+                      if (LikeParaxTwitterPostMissionStatus.success ==
+                          likeParaxTwitterMissionProvider.status) {
                         WidgetsBinding.instance.addPostFrameCallback(
                           (_) => context.pop(),
                         );
                       }
                       return AppButton(
-                        isLoading:
-                            likeTwitterMissionProvider.status == LikeTwitterMissionStatus.loading,
+                        isLoading: likeParaxTwitterMissionProvider.status ==
+                            LikeParaxTwitterPostMissionStatus.loading,
                         text: AppString.send,
                         bgColor: imageProvider.imageFile != null
                             ? theme.colorScheme.primary
                             : theme.disabledColor,
                         onTap: () {
                           if (imageProvider.imageFile != null) {
-                            likeTwitterMissionProvider.likeTwitterMission(
+                            likeParaxTwitterMissionProvider.likeParaxTwitterPost(
                                 imageFile: imageProvider.imageFile!);
                           }
                         },

@@ -59,7 +59,7 @@ class UploadImage extends StatelessWidget {
                           fit: BoxFit.scaleDown,
                         ),
                   AppDimens.vSpaceLarge,
-                  provider.image == null
+                  provider.image == null && provider.imageWeb == null
                       ? Text(
                           AppString.noDocumentUploaded,
                           style: theme.textTheme.titleMedium,
@@ -80,7 +80,7 @@ class UploadImage extends StatelessWidget {
                           ],
                         ),
                   AppDimens.vSpaceMedium,
-                  provider.image == null
+                  provider.image == null && provider.imageWeb == null
                       ? Text(
                           AppString.uploadImage,
                           style: theme.textTheme.bodySmall!.copyWith(

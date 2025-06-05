@@ -31,6 +31,7 @@ class ChangeUserAccountNameProvider extends ChangeNotifier {
       (l) {
         _status = UserAccountNameStatus.error;
         SnackBarService.show(status: SnackBarStatus.error, message: l.message);
+        notifyListeners();
       },
       (r) async {
         _status = UserAccountNameStatus.success;
@@ -39,8 +40,8 @@ class ChangeUserAccountNameProvider extends ChangeNotifier {
           message: AppMessage.userNameChangedSuccessfully,
         );
         await getIt<GetUserAccountInfoProvider>().getUserAccountInfo();
+        notifyListeners();
       },
     );
-    notifyListeners();
   }
 }

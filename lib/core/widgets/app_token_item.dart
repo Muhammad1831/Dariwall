@@ -1,3 +1,4 @@
+import 'package:dariwall/core/widgets/app_gradient_border_box.dart';
 import 'package:flutter/material.dart';
 import 'package:dariwall/core/constant/app_color.dart';
 import 'package:dariwall/core/constant/app_dimens.dart';
@@ -26,85 +27,90 @@ class AppTokenItem extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Material(
-      color: theme.cardColor,
+      color: Colors.transparent,
       borderRadius: BorderRadius.circular(AppDimens.borderRadiusLarge),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(AppDimens.borderRadiusLarge),
-        child: Container(
-          padding: EdgeInsets.all(AppDimens.paddingMedium),
-          decoration: BoxDecoration(
-            // gradient: LinearGradient(
-            //   colors: AppColor.glassBoxColors,
-            //   begin: Alignment.centerLeft,
-            //   end: Alignment.centerRight,
-            // ),
-            borderRadius: BorderRadius.circular(AppDimens.borderRadiusLarge),
-            border: Border.all(
-              color: AppColor.strokeColor,
+        child: AppGradientBorderBox(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(AppDimens.borderRadiusLarge),
+          gradient: AppColor.strokeGradient,
+          child: Container(
+            padding: EdgeInsets.all(AppDimens.paddingMedium),
+            decoration: BoxDecoration(
+              // gradient: LinearGradient(
+              //   colors: AppColor.glassBoxColors,
+              //   begin: Alignment.centerLeft,
+              //   end: Alignment.centerRight,
+              // ),
+              borderRadius: BorderRadius.circular(AppDimens.borderRadiusLarge),
+              border: Border.all(
+                color: AppColor.strokeColor,
+              ),
             ),
-          ),
-          child: Row(
-            children: [
-              SizedBox(
-                height: AppDimens.iconExtraLarge,
-                width: AppDimens.iconExtraLarge,
-                child: Padding(
-                  padding: EdgeInsets.all(AppDimens.paddingVerySmall),
-                  child: AppCachedImage(
-                    imageUrl: tokenIcon,
-                    fit: BoxFit.scaleDown,
+            child: Row(
+              children: [
+                SizedBox(
+                  height: AppDimens.iconExtraLarge,
+                  width: AppDimens.iconExtraLarge,
+                  child: Padding(
+                    padding: EdgeInsets.all(AppDimens.paddingVerySmall),
+                    child: AppCachedImage(
+                      imageUrl: tokenIcon,
+                      fit: BoxFit.scaleDown,
+                    ),
                   ),
                 ),
-              ),
-              AppDimens.hSpaceVerySmall,
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                AppDimens.hSpaceVerySmall,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: AppDimens.verySmall,
+                    children: [
+                      Text(
+                        tokenName,
+                        style: theme.textTheme.titleSmall!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          tokenTotalNumber,
+                          style: theme.textTheme.titleSmall!.copyWith(
+                            color: theme.colorScheme.onSurface,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
                   spacing: AppDimens.verySmall,
                   children: [
-                    Text(
-                      tokenName,
-                      style: theme.textTheme.titleSmall!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        tokenTotalNumber,
+                        tokenTotalPrice,
                         style: theme.textTheme.titleSmall!.copyWith(
-                          color: theme.colorScheme.onSurface,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
+                    Text(
+                      tokenProfit ?? '',
+                      style: theme.textTheme.titleSmall!.copyWith(
+                        color: theme.colorScheme.error,
+                      ),
+                    )
                   ],
                 ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                spacing: AppDimens.verySmall,
-                children: [
-                  FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      tokenTotalPrice,
-                      style: theme.textTheme.titleSmall!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    tokenProfit ?? '',
-                    style: theme.textTheme.titleSmall!.copyWith(
-                      color: theme.colorScheme.error,
-                    ),
-                  )
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

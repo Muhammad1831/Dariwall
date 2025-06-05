@@ -13,10 +13,10 @@ enum LikeParaxTwitterPostMissionStatus {
   error,
 }
 
-class LikeTwitterMissionProvider extends ChangeNotifier {
+class LikeParaxTwitterMissionProvider extends ChangeNotifier {
   final LikeParaxTwitterPostMissionUsecase likeParaxTwitterPostMissionUsecase;
 
-  LikeTwitterMissionProvider({required this.likeParaxTwitterPostMissionUsecase});
+  LikeParaxTwitterMissionProvider({required this.likeParaxTwitterPostMissionUsecase});
 
   LikeParaxTwitterPostMissionStatus _status = LikeParaxTwitterPostMissionStatus.initial;
 

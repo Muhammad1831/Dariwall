@@ -23,12 +23,8 @@ class ApiClientService {
   final Dio _dio;
   final int _timeout = 15;
   final Dio _refreshDio = Dio();
-  // final int _maxRetries = 3;
-  // final Duration _retryDelay = const Duration(seconds: 2);
 
   final UtilsSharedPreferences _preferences;
-  bool _isRefreshing = false;
-  final List<Completer<void>> _refreshCompleters = [];
 
   // کوکی برای جلوگیری از مسابقه شرطی
   final _refreshLock = Lock();
@@ -61,22 +57,33 @@ class ApiClientService {
             if (_isTokenExpired(token)) {
               debugPrint('Token expired, attempting refresh...');
               await _refreshLock.synchronized(() async {
-                if (_isTokenExpired(_preferences.getAccessToken())) {
-                  final newToken = await _refreshToken();
-                  if (newToken == null) {
+                try {
+                  await _refreshToken();
+                } on DioException catch (refreshError) {
+                  debugPrint('Refresh failed: $refreshError');
+                  if (refreshError.response!.statusCode == 401) {
                     await _logout();
-                    return handler.next(options);
                   }
-                }
+                  return handler.reject(refreshError);
+                } // if (newToken == null) {
+                // await _logout();
+                // if (!handler.isCompleted) {
+                //   return handler.reject(DioException(requestOptions: options));
+                // }
+                // }
               });
             }
 
             options.headers[AppKeys.keyAuthorization] =
                 '${AppKeys.keyBearer} ${_preferences.getAccessToken()}';
-            return handler.next(options);
+            if (!handler.isCompleted) {
+              return handler.next(options);
+            }
           } catch (e) {
             debugPrint('Request interceptor error: $e');
-            return handler.next(options);
+            if (!handler.isCompleted) {
+              return handler.next(options);
+            }
           }
         },
         onError: (error, handler) async {
@@ -86,55 +93,43 @@ class ApiClientService {
           if (error.response?.statusCode == 401 &&
               error.requestOptions.path != AppApi.refreshPair) {
             await _refreshLock.synchronized(() async {
-              if (!_isRefreshing) {
-                _isRefreshing = true;
+              try {
+                final newToken = await _refreshToken();
+
+                // if (newToken != null) {
+                final opts = error.requestOptions;
+                opts.headers[AppKeys.keyAuthorization] = '${AppKeys.keyBearer} $newToken';
+
                 try {
-                  final newToken = await _refreshToken();
-
-                  if (newToken != null) {
-                    final opts = error.requestOptions;
-                    opts.headers[AppKeys.keyAuthorization] = '${AppKeys.keyBearer} $newToken';
-
-                    try {
-                      final response = await _dio.fetch(opts..cancelToken = null);
-                      return handler.resolve(response);
-                    } on DioException catch (retryError) {
-                      debugPrint('Retry failed: ${retryError.message}');
-                      return handler.next(retryError);
-                    }
-                  } else {
-                    await _logout();
-                    return handler.next(error);
-                  }
-                } catch (refreshError) {
-                  debugPrint('Refresh failed: $refreshError');
-                  await _logout();
-                  return handler.next(error);
-                } finally {
-                  _isRefreshing = false;
-                }
-              } else {
-                // اگر در حال تازه‌سازی هستیم، صبر می‌کنیم
-                final completer = Completer<void>();
-                _refreshCompleters.add(completer);
-                await completer.future;
-
-                // پس از تازه‌سازی، درخواست را دوباره امتحان می‌کنیم
-                try {
-                  final opts = error.requestOptions;
-                  opts.headers[AppKeys.keyAuthorization] =
-                      '${AppKeys.keyBearer} ${_preferences.getAccessToken()}';
-                  final response = await _dio.fetch(opts..cancelToken = null);
+                  final response = await _dio.fetch(opts);
                   return handler.resolve(response);
-                } catch (e) {
-                  return handler.next(error);
+                } on DioException catch (retryError) {
+                  debugPrint('Retry failed: ${retryError.message}');
+                  handler.reject(retryError);
+                  return;
                 }
+                // } else {
+                //   await _logout();
+                //   return handler.reject(error);
+                //   // return handler.next(error);
+                // }
+              } on DioException catch (refreshError) {
+                debugPrint('Refresh failed: $refreshError');
+                if (refreshError.response!.statusCode == 401) {
+                  await _logout();
+                }
+                return handler.reject(error);
+                // return handler.next(error);
+              } catch (e) {
+                return handler.reject(error);
               }
             });
           }
 
           // برای سایر خطاها
-          return handler.next(error);
+          if (!handler.isCompleted) {
+            return handler.next(error);
+          }
         },
       ),
     );
@@ -149,14 +144,18 @@ class ApiClientService {
     }
   }
 
-  Future<String?> _refreshToken() async {
+  Future<String> _refreshToken() async {
+    // int retryCount = 0;
+    // DioException? lastError;
+
+    // while (retryCount < _maxRefreshRetries) {
     try {
       final refreshToken = _preferences.getRefreshToken();
 
-      if (refreshToken == null || refreshToken.isEmpty || _isTokenExpired(refreshToken)) {
-        debugPrint('Refresh token is invalid or expired');
-        return null;
-      }
+      // if (refreshToken == null || refreshToken.isEmpty || _isTokenExpired(refreshToken)) {
+      //   debugPrint('Refresh token is invalid or expired');
+      //   return null;
+      // }
 
       final response = await _refreshDio.post(
         '${AppApi.baseUrl}${AppApi.refreshPair}',
@@ -171,43 +170,60 @@ class ApiClientService {
         ),
       );
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final accessToken = response.data[AppSharedPreferencesKey.keyAccess] as String?;
-        final newRefreshToken = response.data[AppSharedPreferencesKey.keyRefresh] as String?;
+      // if (response.statusCode == 200 || response.statusCode == 201) {
+      final accessToken = response.data[AppSharedPreferencesKey.keyAccess];
+      final newRefreshToken = response.data[AppSharedPreferencesKey.keyRefresh];
 
-        if (accessToken == null || newRefreshToken == null) {
-          debugPrint('Invalid token response format');
-          return null;
-        }
+      await _preferences.setAccessToken(accessToken);
+      await _preferences.setRefreshToken(newRefreshToken);
 
-        await _preferences.setAccessToken(accessToken);
-        await _preferences.setRefreshToken(newRefreshToken);
+      return accessToken;
+      // }
 
-        // اطلاع‌رسانی به تمام درخواست‌های در انتظار
-        for (final completer in _refreshCompleters) {
-          completer.complete();
-        }
-        _refreshCompleters.clear();
+      // debugPrint('Refresh failed with status: ${response.statusCode}');
+      // } on DioException catch (e) {
+      // retryCount++;
+      // lastError = e;
+      // debugPrint('Refresh token attempt $retryCount failed: ${e.message}');
 
-        return accessToken;
-      }
+      // If it's a 401, no point in retrying
+      // if (e.response?.statusCode == 401) {
+      //   rethrow;
+      // }
 
-      debugPrint('Refresh failed with status: ${response.statusCode}');
-      return null;
-    } on DioException catch (e) {
-      debugPrint('Refresh token error: ${e.message}');
-      if (e.response?.statusCode == 401) {
-        await _logout();
-      }
-      return null;
+      // Exponential backoff
+      // await Future.delayed(Duration(seconds: retryCount * 5));
     } catch (e) {
-      debugPrint('Unexpected refresh error: $e');
-      return null;
+      rethrow;
+      // retryCount++;
+      // debugPrint('Unexpected refresh error attempt $retryCount: $e');
+      // await Future.delayed(Duration(seconds: retryCount * 5));
     }
+    // }
+
+    // If we got here, all retries failed
+    // if (lastError?.response?.statusCode == 401) {
+    //   return null;
+    // }
+
+    // return null;
+    // on DioException catch (e) {
+    //   debugPrint('Refresh token error: ${e.message}');
+    //   if (e.response?.statusCode == 401) {
+    //     await _logout();
+    //   }
+    //   return null;
+    // } catch (e) {
+    //   debugPrint('Unexpected refresh error: $e');
+    //   return null;
+    // }
   }
 
   Future<void> _logout() async {
     LocatorService.reset();
+
+    // 2. لغو تمام درخواست‌های جاری بدون بستن Dio
+    _dio.interceptors.clear();
     navigatorKey.currentContext?.goNamed(AppRouteName.welcome);
   }
 

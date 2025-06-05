@@ -19,8 +19,8 @@ abstract class AppColor {
   static const Color onSecondary = Color(0xFFB0BEC5);
   static const Color onError = Color(0xFFB0BEC5);
 
-  static const Color successColor = Color(0xFF20E66F);
-  static const Color errorColor = Color(0xFFF93827);
+  static Color successColor = Color(0xFF20E66F).withValues(alpha: 0.8);
+  static Color errorColor = Color(0xFFF93827).withValues(alpha: 0.8);
   static const Color disabledColor = Color(0xFF595959);
   static const Color warningColor = Color(0xFFFFB74D);
   static const Color infoColor = Color(0xFF64B5F6);

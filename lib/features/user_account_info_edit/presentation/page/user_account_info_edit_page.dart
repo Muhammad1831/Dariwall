@@ -349,6 +349,11 @@ class _SetUserNameState extends State<SetUserName> {
     return Selector<ChangeUserAccountNameProvider, UserAccountNameStatus>(
       selector: (context, changeUserAccountNameProvider) => changeUserAccountNameProvider.status,
       builder: (context, status, child) {
+        if (status == UserAccountNameStatus.success) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Navigator.of(context).pop();
+          });
+        }
         return AppDialog(
           isLoading: status == UserAccountNameStatus.loading,
           confirmAction: () async {
@@ -356,11 +361,6 @@ class _SetUserNameState extends State<SetUserName> {
               await context
                   .read<ChangeUserAccountNameProvider>()
                   .changeUserName(userNameController.text);
-              if (status == UserAccountNameStatus.success) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  Navigator.of(context).pop();
-                });
-              }
             }
           },
           cancelAction: () {

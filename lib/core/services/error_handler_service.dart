@@ -106,6 +106,13 @@ class ErrorHandlerService {
         );
 
       case 403:
+        if (data is Map) {
+          if (data.containsKey('detail')) {
+            return AppException(
+              message: data['detail'].toString(),
+            );
+          }
+        }
         return const AppException(
           message: AppMessage.unknownError,
         );

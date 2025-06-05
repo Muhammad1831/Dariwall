@@ -5,10 +5,12 @@ import 'package:dariwall/features/missions/domain/repository/parax_missions_repo
 import 'package:dariwall/features/missions/domain/usecase/parax_usecase/check_join_parax_telegram_channel_usecase.dart';
 import 'package:dariwall/features/missions/domain/usecase/parax_usecase/follow_parax_in_twitter_mission_usecase.dart';
 import 'package:dariwall/features/missions/domain/usecase/parax_usecase/like_parax_in_coinmarketcap_mission_usecase.dart';
+import 'package:dariwall/features/missions/domain/usecase/parax_usecase/like_parax_twitter_post_mission_usecase.dart';
 import 'package:dariwall/features/missions/domain/usecase/parax_usecase/retweet_parax_twitter_post_mission_usecase.dart';
 import 'package:dariwall/features/missions/presentation/provider/parax_provider/check_join_parax_telegram_channel_provider.dart';
 import 'package:dariwall/features/missions/presentation/provider/parax_provider/follow_parax_in_twitter_mission_provider.dart';
 import 'package:dariwall/features/missions/presentation/provider/parax_provider/like_parax_in_coinmarketcap_mission_provider.dart';
+import 'package:dariwall/features/missions/presentation/provider/parax_provider/like_parax_twitter_post_mission_provider.dart';
 import 'package:dariwall/features/missions/presentation/provider/parax_provider/retweet_parax_twitter_post_mission_provider.dart';
 import 'package:dariwall/features/send/data/datasource/transfer_data_source.dart';
 import 'package:dariwall/features/send/data/repository/transfer_repository_imp.dart';
@@ -305,6 +307,12 @@ class LocatorService {
     getIt.registerFactory<CheckJoinParaxTelegramChannelProvider>(() =>
         CheckJoinParaxTelegramChannelProvider(
             checkJoinParaxTelegramChannelUsecase: getIt<CheckJoinParaxTelegramChannelUsecase>()));
+    // like twitter
+    getIt.registerLazySingleton<LikeParaxTwitterPostMissionUsecase>(() =>
+        LikeParaxTwitterPostMissionUsecase(
+            paraxMissionRepository: getIt<ParaxMissionRepository>()));
+    getIt.registerFactory<LikeParaxTwitterMissionProvider>(() => LikeParaxTwitterMissionProvider(
+        likeParaxTwitterPostMissionUsecase: getIt<LikeParaxTwitterPostMissionUsecase>()));
 
     // calculate fee
     getIt.registerLazySingleton<CalculateFeeDataSource>(
@@ -395,7 +403,7 @@ class LocatorService {
         UserAccountInfoEditProvider(changeUserAccountUsecase: getIt<ChangeUserAccountUsecase>()));
 
     // change user name
-    getIt.registerLazySingleton<ChangeUserAccountNameProvider>(() =>
+    getIt.registerFactory<ChangeUserAccountNameProvider>(() =>
         ChangeUserAccountNameProvider(changeUserAccountUsecase: getIt<ChangeUserAccountUsecase>()));
 
     // gift code
@@ -509,7 +517,7 @@ class LocatorService {
     getIt<CurrencyPricesProvider>().reset();
     getIt<GetUserAccountInfoProvider>().reset();
     getIt<UtilsSharedPreferences>().clear();
-    getIt<Dio>().close();
+    // getIt<Dio>().close();
     await getIt.reset();
 
     init();
