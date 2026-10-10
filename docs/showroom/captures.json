@@ -1,0 +1,86 @@
+{
+  "source": "Muhammad1831/Dariwall",
+  "sourceCommit": "fa5b625014f28ea7c208de8611f274e8718771bc",
+  "mode": "Modified original Flutter UI; DARIWALL_SHOWROOM=true; synthetic offline fixtures; no backend, no financial writes",
+  "capturedAt": "2026-10-10T08:52:52.790Z",
+  "images": [
+    {
+      "file": "home.png",
+      "width": 390,
+      "height": 843,
+      "sha256": "6451d8a02d73923462510ff2954abc2d813a155379464690dd963ef23af02bcf"
+    },
+    {
+      "file": "welcome.png",
+      "width": 390,
+      "height": 843,
+      "sha256": "54302e8115c9190f0f1e08fc96fe1e8d9e836e050236c445953addb0227acfc0"
+    },
+    {
+      "file": "create-wallet-form.png",
+      "width": 390,
+      "height": 843,
+      "sha256": "6acec2f55b0cc29f0248ba593bd43fa50370c946b6ba855bf15a9bf282762d25"
+    },
+    {
+      "file": "login-options.png",
+      "width": 390,
+      "height": 843,
+      "sha256": "c02b2277bf93f60605ca6d01cff144e6622fac1c13ee1bcd3c5bd92333a6c2ed"
+    },
+    {
+      "file": "email-login.png",
+      "width": 390,
+      "height": 843,
+      "sha256": "71376b7a30441443c00f5295b29c7e3d8c5d73f7e2e87471536ea25f193392b2"
+    },
+    {
+      "file": "swap-form.png",
+      "width": 390,
+      "height": 843,
+      "sha256": "5718f1dd79a212f3cc1758eb0570b9ff59d55d55d07a629bb31a42d04ad56b50"
+    },
+    {
+      "file": "receive.png",
+      "width": 390,
+      "height": 843,
+      "sha256": "ffa5f45700a09cb8a87f90cba9eb03d94bb2641e15e6639b06a3400bd09c18fd"
+    },
+    {
+      "file": "send-tokens.png",
+      "width": 390,
+      "height": 843,
+      "sha256": "bd0efd3c871d9c5894c037b47d9c5b8adef5274471fcc081b9609674ecda38d0"
+    },
+    {
+      "file": "send-form.png",
+      "width": 390,
+      "height": 843,
+      "sha256": "4bec3cc5b4b269e3a13a7e0e984ab783de33e7492a5f956b507b825bf2ab5513"
+    },
+    {
+      "file": "transactions.png",
+      "width": 390,
+      "height": 843,
+      "sha256": "000d14d7a574bd7e2501e7d9c69a20a2400f3ff2e3f614ba674784de72676880"
+    },
+    {
+      "file": "missions.png",
+      "width": 390,
+      "height": 843,
+      "sha256": "b7ffd1fb673a73fff70e3faa262b4f84f3e7315f40b7a378c6229595a1572003"
+    },
+    {
+      "file": "account.png",
+      "width": 390,
+      "height": 843,
+      "sha256": "e484394edbd8be037b14bb7533fea05534f89eb618efb57774d479b3eb8ffa73"
+    },
+    {
+      "file": "invitations.png",
+      "width": 390,
+      "height": 843,
+      "sha256": "a6b862701f150e72dc1461647b690802431fa92228bf41aacd492410c2cde9b6"
+    }
+  ]
+}

@@ -8,23 +8,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:dariwall/main.dart';
+import 'package:dariwall/features/welcome/presentation/page/welcome_page.dart';
+import 'package:dariwall/core/constant/app_string.dart';
+import 'package:dariwall/core/style/app_theme_style.dart';
+import 'package:flutter/services.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('real mobile welcome screen offers the two wallet entry flows', (WidgetTester tester) async {
+    tester.view.devicePixelRatio = 1;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final font = FontLoader('IRANSansWeb')..addFont(rootBundle.load('assets/fonts/IRANSANSWEB.ttf'));
+    await font.load();
+    await tester.pumpWidget(MaterialApp(theme: darkTheme, home: const Directionality(
+      textDirection: TextDirection.rtl, child: WelcomePage())));
+    await tester.pumpAndSettle();
+    expect(find.text(AppString.createNewWallet), findsOneWidget);
+    expect(find.text(AppString.haveWallet), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 }

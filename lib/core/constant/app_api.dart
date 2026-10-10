@@ -2,7 +2,11 @@ class AppApi {
   AppApi._();
 
   // static const String baseUrl = 'https://dariwall.com/api/';
-  static const String baseUrl = 'https://demo.dariwall.com/api/';
+  static const bool showroom = bool.fromEnvironment('DARIWALL_SHOWROOM');
+  static const String baseUrl = showroom
+      ? 'https://showroom.invalid/api/'
+      : String.fromEnvironment('DARIWALL_API_BASE_URL',
+          defaultValue: 'https://demo.dariwall.com/api/');
 
   // login
   static const String obtainPair = 'accounts/login/token/obtain-pair/';

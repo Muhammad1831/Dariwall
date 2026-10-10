@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dariwall/core/showroom/showroom_adapter.dart';
 
 import 'package:dariwall/core/di/locator_service.dart';
 import 'package:dio/dio.dart';
@@ -30,11 +31,16 @@ class ApiClientService {
   final _refreshLock = Lock();
 
   ApiClientService(this._dio, this._preferences) {
+    if (AppApi.showroom) {
+      _dio.httpClientAdapter = ShowroomAdapter();
+      _refreshDio.httpClientAdapter = ShowroomAdapter();
+    }
     _initDio();
   }
 
   bool _isTokenExpired(String? token) {
     if (token == null || token.isEmpty) return true;
+    if (AppApi.showroom) return false;
     try {
       return JwtDecoder.isExpired(token);
     } catch (e) {

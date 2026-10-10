@@ -1,4 +1,5 @@
 import 'package:dariwall/features/desktop_block_screen.dart';
+import 'package:dariwall/core/constant/app_api.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -99,7 +100,20 @@ class MyApp extends StatelessWidget {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     SnackBarService.init(context);
                   });
-                  return child ?? const SizedBox();
+                  final page = child ?? const SizedBox();
+                  if (!AppApi.showroom) return page;
+                  return Column(children: [
+                    Container(
+                      width: double.infinity,
+                      color: const Color(0xFF302644),
+                      padding: const EdgeInsets.all(6),
+                      child: const Text('نمایش آزمایشی · دادهٔ ساختگی · بدون اتصال مالی',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10, color: Colors.white, decoration: TextDecoration.none),
+                      ),
+                    ),
+                    Expanded(child: page),
+                  ]);
                 },
               ),
             ],

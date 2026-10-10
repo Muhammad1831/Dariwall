@@ -33,6 +33,13 @@ class AppCachedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (imageUrl.startsWith('assets/')) {
+      return ClipRRect(
+        borderRadius: borderRadius ?? BorderRadius.zero,
+        child: Image.asset(imageUrl, width: width, height: height, fit: fit,
+          errorBuilder: (context, error, stack) => _buildErrorWidget()),
+      );
+    }
     return ClipRRect(
       borderRadius: borderRadius ?? BorderRadius.zero,
       child: CachedNetworkImage(

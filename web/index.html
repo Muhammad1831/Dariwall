@@ -15,7 +15,7 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="Wallpaper app for your phone">
+  <meta name="description" content="DariWall mobile wallet interface">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- Cache Control -->
@@ -39,7 +39,7 @@
   <script>
     // تشخیص دستگاه موبایل
     function isMobile() {
-      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      return window.matchMedia('(max-width: 599px)').matches;
     }
     
     // اگر دستگاه دسکتاپ بود به صفحه خطا هدایت شود
